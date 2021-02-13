@@ -29,7 +29,7 @@ flutter_icons:
 # flutter pub run flutter_native_splash:create
 flutter_native_splash:
   color: "#2F2A25"
-  image: assets/icons/icon.png
+  image: assets/icons/icon-splash.png
 
 # flutter pub run flutter_launcher_name:main
 flutter_launcher_name:
