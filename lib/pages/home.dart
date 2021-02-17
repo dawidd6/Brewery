@@ -47,10 +47,16 @@ class BreweryHomePageState extends State<BreweryHomePage> {
               future: futureFormula,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return ListView.builder(
+                  return ListView.separated(
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Divider(),
+                    itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(snapshot.data[index].name),
+                        title: Text(
+                          snapshot.data[index].name,
+                          style: Theme.of(context).textTheme.headline1,
+                        ),
                       );
                     },
                   );
