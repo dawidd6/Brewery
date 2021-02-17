@@ -1,3 +1,5 @@
+import 'package:brewery/models/formula.dart';
+import 'package:brewery/services/api.dart';
 import 'package:flutter/material.dart';
 
 class BreweryHomePage extends StatefulWidget {
@@ -12,6 +14,18 @@ class BreweryHomePage extends StatefulWidget {
 class BreweryHomePageState extends State<BreweryHomePage> {
   PageController pageController = PageController();
   int currentPageIndex = 0;
+  Future<List<Formula>> futureFormula;
+  API api = API();
+
+  void fetchFormula() {
+    futureFormula = api.fetchFormula();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchFormula();
+  }
 
   @override
   void dispose() {
@@ -28,11 +42,28 @@ class BreweryHomePageState extends State<BreweryHomePage> {
       body: PageView(
         controller: pageController,
         children: [
-          ListView.builder(
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(""),
-              );
+          RefreshIndicator(
+            child: FutureBuilder<List<Formula>>(
+              future: futureFormula,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(snapshot.data[index].name),
+                      );
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  // TODO
+                  return Text("${snapshot.error}");
+                }
+                return CircularProgressIndicator();
+              },
+            ),
+            onRefresh: () {
+              fetchFormula();
+              return futureFormula;
             },
           ),
           ListView.builder(

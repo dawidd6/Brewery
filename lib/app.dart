@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
-import 'home_page.dart';
+import 'pages/home.dart';
 
 class BreweryApp extends StatelessWidget {
   final String title = "Brewery";
