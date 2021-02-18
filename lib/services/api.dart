@@ -23,4 +23,18 @@ class API {
       throw Exception('Failed to load formula');
     }
   }
+
+  Future<List<Cask>> fetchCask() async {
+    final response = await http.get(baseURL + caskEndpoint);
+
+    if (response.statusCode == 200) {
+      List<dynamic> json = jsonDecode(response.body);
+      return List.generate(
+        json.length,
+        (index) => Cask.fromJson(json[index]),
+      );
+    } else {
+      throw Exception('Failed to load cask');
+    }
+  }
 }
