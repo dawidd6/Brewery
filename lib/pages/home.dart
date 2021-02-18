@@ -41,6 +41,11 @@ class BreweryHomePageState extends State<BreweryHomePage> {
       ),
       body: PageView(
         controller: pageController,
+        onPageChanged: (index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
         children: [
           RefreshIndicator(
             child: FutureBuilder<List<Formula>>(
