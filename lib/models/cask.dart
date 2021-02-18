@@ -1,7 +1,7 @@
 class Cask {
   final String name;
 
-  Formula({this.name});
+  Cask({this.name});
 
   factory Cask.fromJson(Map<String, dynamic> json) {
     return Cask(
