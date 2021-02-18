@@ -1,4 +1,5 @@
 import 'package:brewery/models/formula.dart';
+import 'package:brewery/models/cask.dart';
 import 'package:brewery/services/api.dart';
 import 'package:flutter/material.dart';
 
@@ -12,19 +13,25 @@ class BreweryHomePage extends StatefulWidget {
 }
 
 class BreweryHomePageState extends State<BreweryHomePage> {
-  PageController pageController = PageController();
   int currentPageIndex = 0;
-  Future<List<Formula>> futureFormula;
+  PageController pageController = PageController();
   API api = API();
+  Future<List<Formula>> futureFormula;
+  Future<List<Cask>> futureCask;
 
   void fetchFormula() {
     futureFormula = api.fetchFormula();
+  }
+
+  void fetchCask() {
+    futureCask = api.fetchCask();
   }
 
   @override
   void initState() {
     super.initState();
     fetchFormula();
+    fetchCask();
   }
 
   @override
