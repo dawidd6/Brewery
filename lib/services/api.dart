@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:brewery/models/formula.dart';
+import 'package:brewery/models/cask.dart';
 import 'package:http/http.dart' as http;
 
 class API {
