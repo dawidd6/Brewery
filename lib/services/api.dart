@@ -1,16 +1,16 @@
 import 'dart:convert';
 
-import 'package:brewery/models/formula.dart';
 import 'package:brewery/models/cask.dart';
+import 'package:brewery/models/formula.dart';
 import 'package:http/http.dart' as http;
 
 class API {
-  final String baseURL = "https://formulae.brew.sh/api";
-  final String formulaEndpoint = "/formula.json";
-  final String formulaLinuxEndpoint = "/formula-linux.json";
-  final String caskEndpoint = "/cask.json";
+  static final String baseURL = "https://formulae.brew.sh/api";
+  static final String formulaEndpoint = "/formula.json";
+  static final String formulaLinuxEndpoint = "/formula-linux.json";
+  static final String caskEndpoint = "/cask.json";
 
-  Future<List<Formula>> fetchFormula() async {
+  static Future<List<Formula>> fetchFormula() async {
     final response = await http.get(baseURL + formulaEndpoint);
     //final responseLinux = await http.get(baseURL + formulaLinuxEndpoint);
 
@@ -25,7 +25,7 @@ class API {
     }
   }
 
-  Future<List<Cask>> fetchCask() async {
+  static Future<List<Cask>> fetchCask() async {
     final response = await http.get(baseURL + caskEndpoint);
 
     if (response.statusCode == 200) {
