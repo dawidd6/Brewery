@@ -14,6 +14,7 @@ jobs:
         with:
           channel: beta
       - run: flutter pub get
+      - run: flutter config --enable-web
       - run: flutter build web
       - uses: crazy-max/ghaction-github-pages@v2
         with:
