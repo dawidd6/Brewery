@@ -1,18 +1,18 @@
-import 'package:brewery/pages/casks.dart';
+import 'package:brewery/widgets/casks_list.dart';
 import 'package:flutter/material.dart';
 
-import 'formulae.dart';
+import '../widgets/formulae_list.dart';
 
-class BreweryHomePage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   final String title;
 
-  BreweryHomePage({Key key, @required this.title}) : super(key: key);
+  HomePage({Key key, @required this.title}) : super(key: key);
 
   @override
-  BreweryHomePageState createState() => BreweryHomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class BreweryHomePageState extends State<BreweryHomePage> {
+class HomePageState extends State<HomePage> {
   int currentPageIndex;
   PageController pageController;
 
@@ -57,8 +57,8 @@ class BreweryHomePageState extends State<BreweryHomePage> {
           controller: pageController,
           onPageChanged: onPageChanged,
           children: [
-            BreweryFormulaePage(),
-            BreweryCasksPage(),
+            FormulaePage(),
+            CasksPage(),
           ],
         ),
       ),

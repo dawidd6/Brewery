@@ -1,10 +1,10 @@
 import 'package:brewery/models/formula.dart';
 import 'package:flutter/material.dart';
 
-class BreweryFormulaPage extends StatelessWidget {
+class FormulaPage extends StatelessWidget {
   final Formula formula;
 
-  BreweryFormulaPage({Key key, @required this.formula}) : super(key: key);
+  FormulaPage({Key key, @required this.formula}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

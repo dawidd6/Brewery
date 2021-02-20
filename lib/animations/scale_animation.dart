@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-class InfiniteScaleAnimation extends StatefulWidget {
+class ScaleAnimation extends StatefulWidget {
   final Widget child;
   final Duration interval;
   final Duration duration;
+  final bool loop;
 
-  InfiniteScaleAnimation({this.child, this.duration, this.interval});
+  ScaleAnimation({this.child, this.duration, this.interval, this.loop});
 
   @override
-  State<StatefulWidget> createState() => InfiniteScaleAnimationState();
+  State<StatefulWidget> createState() => ScaleAnimationState();
 }
 
-class InfiniteScaleAnimationState extends State<InfiniteScaleAnimation>
+class ScaleAnimationState extends State<ScaleAnimation>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation animation;
@@ -31,21 +32,23 @@ class InfiniteScaleAnimationState extends State<InfiniteScaleAnimation>
               .chain(CurveTween(curve: Curves.easeInOut)),
           weight: 50.0),
     ]).animate(controller);
-    controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        Future.delayed(widget.interval, () {
-          controller.reset();
-          controller.forward();
-        });
-      }
-    });
+    if (widget.loop) {
+      controller.addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          Future.delayed(widget.interval, () {
+            controller.reset();
+            controller.forward();
+          });
+        }
+      });
+    }
     controller.forward();
   }
 
   @override
   void dispose() {
-    super.dispose();
     controller.dispose();
+    super.dispose();
   }
 
   @override

@@ -1,9 +1,9 @@
 import 'package:brewery/styles/theme.dart';
 import 'package:flutter/material.dart';
 
-import 'pages/home.dart';
+import 'pages/home_page.dart';
 
-class BreweryApp extends StatelessWidget {
+class App extends StatelessWidget {
   final String title = "Brewery";
 
   @override
@@ -11,7 +11,7 @@ class BreweryApp extends StatelessWidget {
     return MaterialApp(
       title: title,
       theme: BreweryTheme.data,
-      home: BreweryHomePage(title: title),
+      home: HomePage(title: title),
     );
   }
 }
