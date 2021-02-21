@@ -1,7 +1,6 @@
+import 'package:brewery/pages/home_page.dart';
 import 'package:brewery/styles/theme.dart';
 import 'package:flutter/material.dart';
-
-import 'pages/home_page.dart';
 
 class App extends StatelessWidget {
   final String title = "Brewery";
