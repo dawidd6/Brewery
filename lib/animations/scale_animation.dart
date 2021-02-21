@@ -39,7 +39,7 @@ class ScaleAnimationState extends State<ScaleAnimation>
             try {
               controller.reset();
               controller.forward();
-            } on TickerCanceled {
+            } catch (_) {
               return;
             }
           });
