@@ -5,6 +5,8 @@ import 'package:brewery/services/api.dart';
 import 'package:flutter/material.dart';
 
 class FormulaePage extends StatefulWidget {
+  static final String name = "Formulae";
+
   FormulaePage({Key key}) : super(key: key);
 
   @override
@@ -76,20 +78,6 @@ class FormulaePageState extends State<FormulaePage>
           error.toString(),
           style: Theme.of(context).textTheme.bodyText1,
         ),
-        Divider(
-          height: 20,
-        ),
-        ElevatedButton(
-          child: Text(
-            "RELOAD",
-            style: Theme.of(context).textTheme.bodyText2,
-          ),
-          onPressed: () {
-            setState(() {
-              futureFormulae = API.fetchFormulae();
-            });
-          },
-        )
       ],
     );
   }

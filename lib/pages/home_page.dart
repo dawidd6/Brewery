@@ -14,12 +14,14 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int currentPageIndex;
   PageController pageController;
+  Duration pageChangeDuration;
 
   @override
   void initState() {
     super.initState();
     currentPageIndex = 0;
     pageController = PageController();
+    pageChangeDuration = Duration(milliseconds: 200);
   }
 
   @override
@@ -35,12 +37,10 @@ class HomePageState extends State<HomePage> {
   }
 
   void onTap(int index) {
-    setState(() {
-      currentPageIndex = index;
-    });
+    onPageChanged(index);
     pageController.animateToPage(
       index,
-      duration: Duration(milliseconds: 200),
+      duration: pageChangeDuration,
       curve: Curves.easeOut,
     );
   }
@@ -51,15 +51,13 @@ class HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: PageView(
-          controller: pageController,
-          onPageChanged: onPageChanged,
-          children: [
-            FormulaePage(),
-            CasksPage(),
-          ],
-        ),
+      body: PageView(
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        children: [
+          FormulaePage(),
+          CasksPage(),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentPageIndex,
@@ -67,11 +65,11 @@ class HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: "Formulae",
+            label: FormulaePage.name,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: "Casks",
+            label: CasksPage.name,
           ),
         ],
       ),

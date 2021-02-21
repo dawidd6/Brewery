@@ -5,6 +5,8 @@ import 'package:brewery/services/api.dart';
 import 'package:flutter/material.dart';
 
 class CasksPage extends StatefulWidget {
+  static final String name = "Casks";
+
   CasksPage({Key key}) : super(key: key);
 
   @override
@@ -76,20 +78,6 @@ class CasksPageState extends State<CasksPage>
           error.toString(),
           style: Theme.of(context).textTheme.bodyText1,
         ),
-        Divider(
-          height: 20,
-        ),
-        ElevatedButton(
-          child: Text(
-            "RELOAD",
-            style: Theme.of(context).textTheme.bodyText2,
-          ),
-          onPressed: () {
-            setState(() {
-              futureCasks = API.fetchCasks();
-            });
-          },
-        )
       ],
     );
   }
