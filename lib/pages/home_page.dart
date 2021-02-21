@@ -1,7 +1,6 @@
-import 'package:brewery/widgets/casks_list.dart';
+import 'package:brewery/pages/casks_page.dart';
+import 'package:brewery/pages/formulae_page.dart';
 import 'package:flutter/material.dart';
-
-import '../widgets/formulae_list.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
