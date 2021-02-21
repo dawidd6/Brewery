@@ -52,14 +52,15 @@ class HomePageState extends State<HomePage> {
         title: Text(widget.title),
         actions: [
           PopupMenuButton(
+            onSelected: (value) {
+              setState((){});
+            },
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: TextButton(
-                  child: Text(
-                    "Refresh",
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                  onPressed: () {},
+                value: 0
+                child: Text(
+                  "Refresh",
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
             ],
