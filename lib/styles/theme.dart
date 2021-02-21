@@ -3,11 +3,26 @@ import 'package:flutter/material.dart';
 
 class BreweryTheme {
   static final ThemeData data = ThemeData(
-    primarySwatch: BreweryColors.brownMaterial,
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    primaryColor: BreweryColors.brown,
+    appBarTheme: AppBarTheme(
+        color: BreweryColors.brown,
+        textTheme: TextTheme(
+          headline6: TextStyle(
+            color: BreweryColors.goldLight,
+            fontSize: 20.0,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        actionsIconTheme: IconThemeData(
+          color: BreweryColors.goldLight,
+        )),
     scaffoldBackgroundColor: BreweryColors.brown,
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
+    popupMenuTheme: PopupMenuThemeData(
+      color: BreweryColors.brown,
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
         primary: BreweryColors.brownDark,
       ),
     ),
@@ -49,11 +64,11 @@ class BreweryTheme {
         fontSize: 16.0,
         fontWeight: FontWeight.w400,
       ),
-      // Reload button text
+      // Popup menu items text
       bodyText2: TextStyle(
         color: BreweryColors.goldLight,
         fontSize: 15.0,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
       ),
     ),
   );

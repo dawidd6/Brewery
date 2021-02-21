@@ -1,5 +1,5 @@
-import 'package:brewery/animations/scale_animation.dart';
 import 'package:brewery/models/formula.dart';
+import 'package:brewery/pages/common_page.dart';
 import 'package:brewery/pages/formula_page.dart';
 import 'package:brewery/services/api.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class FormulaePage extends StatefulWidget {
 }
 
 class FormulaePageState extends State<FormulaePage>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, CommonPageMixin {
   Future<List<Formula>> futureFormulae;
 
   @override
@@ -35,18 +35,9 @@ class FormulaePageState extends State<FormulaePage>
           ),
         );
       },
-      title: Text(
-        formula.name,
-        style: Theme.of(context).textTheme.headline1,
-      ),
-      subtitle: Text(
-        formula.description,
-        style: Theme.of(context).textTheme.headline2,
-      ),
-      trailing: Text(
-        formula.version,
-        style: Theme.of(context).textTheme.headline3,
-      ),
+      title: buildTileTitle(context, formula.name),
+      subtitle: buildTileSubtitle(context, formula.version),
+      trailing: buildTileTrailing(context, formula.version),
     );
   }
 
@@ -70,31 +61,10 @@ class FormulaePageState extends State<FormulaePage>
     );
   }
 
-  Widget buildError(Object error) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          error.toString(),
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-      ],
-    );
-  }
-
-  Widget buildLoading() {
-    return ScaleAnimation(
-      child: Icon(Icons.refresh),
-      duration: Duration(milliseconds: 500),
-      interval: Duration(milliseconds: 1000),
-      loop: true,
-    );
-  }
-
   Widget buildFuture(BuildContext context, AsyncSnapshot snapshot) {
     if (snapshot.connectionState != ConnectionState.done) return buildLoading();
     if (snapshot.hasData) return buildRefresh(snapshot.data);
-    if (snapshot.hasError) return buildError(snapshot.error);
+    if (snapshot.hasError) return buildError(context, snapshot.error);
     return buildLoading();
   }
 

@@ -50,6 +50,21 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: TextButton(
+                  child: Text(
+                    "Refresh",
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  onPressed: () {},
+                ),
+              ),
+            ],
+          )
+        ],
       ),
       body: PageView(
         controller: pageController,

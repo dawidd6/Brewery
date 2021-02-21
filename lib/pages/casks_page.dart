@@ -1,6 +1,6 @@
-import 'package:brewery/animations/scale_animation.dart';
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/pages/cask_page.dart';
+import 'package:brewery/pages/common_page.dart';
 import 'package:brewery/services/api.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +14,7 @@ class CasksPage extends StatefulWidget {
 }
 
 class CasksPageState extends State<CasksPage>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, CommonPageMixin {
   Future<List<Cask>> futureCasks;
 
   @override
@@ -35,18 +35,9 @@ class CasksPageState extends State<CasksPage>
           ),
         );
       },
-      title: Text(
-        cask.token,
-        style: Theme.of(context).textTheme.headline1,
-      ),
-      subtitle: Text(
-        cask.description,
-        style: Theme.of(context).textTheme.headline2,
-      ),
-      trailing: Text(
-        cask.version,
-        style: Theme.of(context).textTheme.headline3,
-      ),
+      title: buildTileTitle(context, cask.token),
+      subtitle: buildTileSubtitle(context, cask.description),
+      trailing: buildTileTrailing(context, cask.version),
     );
   }
 
@@ -70,31 +61,10 @@ class CasksPageState extends State<CasksPage>
     );
   }
 
-  Widget buildError(Object error) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          error.toString(),
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-      ],
-    );
-  }
-
-  Widget buildLoading() {
-    return ScaleAnimation(
-      child: Icon(Icons.refresh),
-      duration: Duration(milliseconds: 500),
-      interval: Duration(milliseconds: 1000),
-      loop: true,
-    );
-  }
-
   Widget buildFuture(BuildContext context, AsyncSnapshot snapshot) {
     if (snapshot.connectionState != ConnectionState.done) return buildLoading();
     if (snapshot.hasData) return buildRefresh(snapshot.data);
-    if (snapshot.hasError) return buildError(snapshot.error);
+    if (snapshot.hasError) return buildError(context, snapshot.error);
     return buildLoading();
   }
 
