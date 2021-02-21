@@ -36,8 +36,12 @@ class ScaleAnimationState extends State<ScaleAnimation>
       controller.addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           Future.delayed(widget.interval, () {
-            controller.reset();
-            controller.forward();
+            try {
+              controller.reset();
+              controller.forward();
+            } on TickerCanceled {
+              return;
+            }
           });
         }
       });
