@@ -12,14 +12,14 @@ mixin CommonPageMixin {
   Widget buildTileSubtitle(BuildContext context, String subtitle) {
     return Text(
       subtitle,
-      style: Theme.of(context).textTheme.headline1,
+      style: Theme.of(context).textTheme.headline2,
     );
   }
 
   Widget buildTileTrailing(BuildContext context, String trailing) {
     return Text(
       trailing,
-      style: Theme.of(context).textTheme.headline1,
+      style: Theme.of(context).textTheme.headline3,
     );
   }
 
