@@ -1,6 +1,5 @@
 import 'package:brewery/animations/scale_animation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 mixin CommonPageMixin {
   Widget buildTileTitle(BuildContext context, String title) {
@@ -38,11 +37,7 @@ mixin CommonPageMixin {
 
   Widget buildLoading() {
     return ScaleAnimation(
-      child: SvgPicture.asset(
-        "assets/icons/icon.svg",
-        width: 64,
-        height: 64,
-      ),
+      child: Icon(Icons.refresh),
       duration: Duration(milliseconds: 500),
       interval: Duration(milliseconds: 1000),
       loop: true,
