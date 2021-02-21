@@ -57,7 +57,7 @@ class HomePageState extends State<HomePage> {
             },
             itemBuilder: (context) => [
               PopupMenuItem(
-                value: 0
+                value: 0,
                 child: Text(
                   "Refresh",
                   style: Theme.of(context).textTheme.bodyText2,
