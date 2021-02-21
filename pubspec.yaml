@@ -13,7 +13,6 @@ dependencies:
     sdk: flutter
   http: "^0.12.2"
   path_provider: "^1.6.27"
-  flutter_svg: "^0.19.1"
 
 dev_dependencies:
   flutter_test:
@@ -39,6 +38,3 @@ flutter_launcher_name:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/icons/icon.svg
-
