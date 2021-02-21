@@ -1,6 +1,5 @@
+import 'package:brewery/styles/colors.dart';
 import 'package:flutter/material.dart';
-
-import 'colors.dart';
 
 class BreweryTheme {
   static final ThemeData data = ThemeData(
