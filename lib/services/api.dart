@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/models/formula.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
 
 class API {
   static final String baseURL = "https://formulae.brew.sh/api";
