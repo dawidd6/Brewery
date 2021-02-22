@@ -10,20 +10,30 @@ class API {
   static final String formulaeLinuxEndpoint = "/formula-linux.json";
   static final String casksEndpoint = "/cask.json";
 
-  static Future<List<Formula>> fetchFormulae() async {
-    await Future.delayed(Duration(seconds: 3));
-    return Future.error("Failed to load formulae");
+  static List<Formula> parseFormulae(String body) {
+    List<dynamic> json = jsonDecode(body);
 
+    return List.generate(
+      json.length,
+      (index) => Formula.fromJson(json[index]),
+    );
+  }
+
+  static List<Cask> parseCasks(String body) {
+    List<dynamic> json = jsonDecode(body);
+
+    return List.generate(
+      json.length,
+      (index) => Cask.fromJson(json[index]),
+    );
+  }
+
+  static Future<List<Formula>> fetchFormulae() async {
     final response = await http.get(baseURL + formulaeEndpoint);
     //final responseLinux = await http.get(baseURL + formulaLinuxEndpoint);
 
     if (response.statusCode == 200) {
-      List<dynamic> json = jsonDecode(response.body);
-
-      return List.generate(
-        json.length,
-        (index) => Formula.fromJson(json[index]),
-      );
+      return compute(parseFormulae, response.body);
     }
 
     return Future.error("Failed to load formulae");
@@ -33,12 +43,7 @@ class API {
     final response = await http.get(baseURL + casksEndpoint);
 
     if (response.statusCode == 200) {
-      List<dynamic> json = jsonDecode(response.body);
-
-      return List.generate(
-        json.length,
-        (index) => Cask.fromJson(json[index]),
-      );
+      return compute(parseCasks, response.body);
     }
 
     return Future.error("Failed to load casks");
