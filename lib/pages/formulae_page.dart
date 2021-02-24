@@ -20,7 +20,12 @@ class FormulaePageState extends State<FormulaePage>
   @override
   void initState() {
     super.initState();
+    refresh();
+  }
+
+  Future refresh() {
     futureFormulae = API.fetchFormulae();
+    return futureFormulae;
   }
 
   Widget buildTile(Formula formula) {
@@ -29,9 +34,7 @@ class FormulaePageState extends State<FormulaePage>
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) {
-              return FormulaPage(formula: formula);
-            },
+            builder: (context) => FormulaPage(formula: formula),
           ),
         );
       },
@@ -45,18 +48,13 @@ class FormulaePageState extends State<FormulaePage>
     return ListView.separated(
       separatorBuilder: (context, index) => Divider(),
       itemCount: formulae.length,
-      itemBuilder: (context, index) {
-        return buildTile(formulae[index]);
-      },
+      itemBuilder: (context, index) => buildTile(formulae[index]),
     );
   }
 
   Widget buildRefresh(List<Formula> formulae) {
     return RefreshIndicator(
-      onRefresh: () {
-        futureFormulae = API.fetchFormulae();
-        return futureFormulae;
-      },
+      onRefresh: refresh,
       child: buildList(formulae),
     );
   }
