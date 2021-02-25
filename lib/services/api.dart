@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/models/formula.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 class API {
   static final String baseURL = "https://formulae.brew.sh/api";
@@ -30,6 +30,8 @@ class API {
   }
 
   static Future<List<Formula>> fetchFormulae() async {
+    print("Fetching formulae");
+
     final response = await http.get(baseURL + formulaeEndpoint);
     //final responseLinux = await http.get(baseURL + formulaLinuxEndpoint);
 
@@ -41,6 +43,8 @@ class API {
   }
 
   static Future<List<Cask>> fetchCasks() async {
+    print("Fetching casks");
+
     final response = await http.get(baseURL + casksEndpoint);
 
     if (response.statusCode == 200) {
