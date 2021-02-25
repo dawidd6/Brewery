@@ -1,4 +1,4 @@
-import 'package:brewery/animations/scale_animation.dart';
+import 'package:brewery/animations/scale.dart';
 import 'package:flutter/material.dart';
 
 mixin CommonPageMixin {

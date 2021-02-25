@@ -1,5 +1,5 @@
-import 'package:brewery/pages/casks_page.dart';
-import 'package:brewery/pages/formulae_page.dart';
+import 'package:brewery/pages/casks.dart';
+import 'package:brewery/pages/formulae.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -53,7 +53,7 @@ class HomePageState extends State<HomePage> {
         actions: [
           PopupMenuButton(
             onSelected: (value) {
-              setState((){});
+              setState(() {});
             },
             itemBuilder: (context) => [
               PopupMenuItem(

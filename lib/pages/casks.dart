@@ -1,6 +1,6 @@
 import 'package:brewery/models/cask.dart';
-import 'package:brewery/pages/cask_page.dart';
-import 'package:brewery/pages/common_page.dart';
+import 'package:brewery/pages/cask.dart';
+import 'package:brewery/pages/common.dart';
 import 'package:brewery/services/api.dart';
 import 'package:flutter/material.dart';
 
