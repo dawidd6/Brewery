@@ -31,6 +31,7 @@ flutter_icons:
 flutter_native_splash:
   color: "#2F2A25"
   image: assets/icons/icon-splash.png
+  fullscreen: true
 
 # flutter pub run flutter_launcher_name:main
 flutter_launcher_name:
