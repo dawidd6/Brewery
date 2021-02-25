@@ -39,7 +39,7 @@ class API {
       return compute(parseFormulae, response.body);
     }
 
-    return Future.error("Failed to load formulae");
+    throw Exception("Failed to load formulae");
   }
 
   static Future<List<Cask>> fetchCasks() async {
@@ -51,6 +51,6 @@ class API {
       return compute(parseCasks, response.body);
     }
 
-    return Future.error("Failed to load casks");
+    throw Exception("Failed to load casks");
   }
 }
