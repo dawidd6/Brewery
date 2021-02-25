@@ -32,6 +32,8 @@ class API {
   static Future<List<Formula>> fetchFormulae() async {
     print("Fetching formulae");
 
+    throw Exception("test");
+
     final response = await http.get(baseURL + formulaeEndpoint);
     //final responseLinux = await http.get(baseURL + formulaLinuxEndpoint);
 
