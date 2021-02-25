@@ -107,6 +107,7 @@ class FormulaePageState extends State<FormulaePage>
           onChanged: (input) {
             setState(() {
               filter = input;
+              futureList = futureList;
             });
           },
         ),
