@@ -28,4 +28,7 @@ class CasksPageState extends FormulaePageState {
 
   @override
   String title(dynamic obj) => (obj as Cask).token;
+
+  @override
+  bool desired(dynamic obj) => (obj as Cask).token.startsWith(filter ?? "");
 }

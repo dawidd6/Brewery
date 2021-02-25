@@ -16,6 +16,7 @@ class FormulaePage extends StatefulWidget {
 class FormulaePageState extends State<FormulaePage>
     with AutomaticKeepAliveClientMixin {
   Future<List<dynamic>> futureList;
+  String filter;
 
   @override
   void initState() {
@@ -32,6 +33,8 @@ class FormulaePageState extends State<FormulaePage>
   String subtitle(dynamic obj) => (obj as Formula).description;
 
   String trailing(dynamic obj) => (obj as Formula).version;
+
+  bool desired(dynamic obj) => (obj as Formula).name.startsWith(filter ?? "");
 
   void navigate(dynamic obj) => Navigator.push(
         context,
@@ -80,17 +83,37 @@ class FormulaePageState extends State<FormulaePage>
   }
 
   Widget buildList(List<dynamic> list) {
-    return ListView.separated(
-      separatorBuilder: (context, index) => Divider(),
-      itemCount: list.length,
-      itemBuilder: (context, index) => buildTile(list[index]),
+    return RefreshIndicator(
+      onRefresh: refresh,
+      child: ListView.separated(
+        separatorBuilder: (context, index) => Divider(),
+        itemCount: list.length,
+        itemBuilder: (context, index) => buildTile(list[index]),
+      ),
     );
   }
 
   Widget buildRefresh(List<dynamic> list) {
-    return RefreshIndicator(
-      onRefresh: refresh,
-      child: buildList(list),
+    return Column(
+      children: [
+        TextField(
+          decoration: InputDecoration(
+            labelText: "Search",
+            contentPadding: EdgeInsets.all(2.0),
+            icon: Icon(
+              Icons.search,
+            ),
+          ),
+          onChanged: (input) {
+            setState(() {
+              filter = input;
+            });
+          },
+        ),
+        Expanded(
+          child: buildList(list),
+        ),
+      ],
     );
   }
 

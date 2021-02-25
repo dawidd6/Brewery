@@ -27,8 +27,13 @@ class BreweryTheme {
       ),
     ),
     iconTheme: IconThemeData(
-      color: BreweryColors.brownDark,
+      color: BreweryColors.goldDark,
       size: 128.0,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(
+        color: BreweryColors.brownDark,
+      ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: BreweryColors.brown,
@@ -66,6 +71,12 @@ class BreweryTheme {
       ),
       // Popup menu items text
       bodyText2: TextStyle(
+        color: BreweryColors.goldLight,
+        fontSize: 15.0,
+        fontWeight: FontWeight.w400,
+      ),
+      // Search bar text
+      subtitle1: TextStyle(
         color: BreweryColors.goldLight,
         fontSize: 15.0,
         fontWeight: FontWeight.w400,
