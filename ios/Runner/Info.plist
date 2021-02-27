@@ -42,6 +42,6 @@
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 		<key>UIStatusBarHidden</key>
-		<true/>
+		<false/>
 	</dict>
 </plist>
