@@ -5,7 +5,7 @@ import 'package:brewery/models/formula.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
-class API {
+class ApiService {
   static final String baseURL = "https://formulae.brew.sh/api";
   static final String formulaeEndpoint = "/formula.json";
   static final String formulaeLinuxEndpoint = "/formula-linux.json";
@@ -31,8 +31,6 @@ class API {
 
   static Future<List<Formula>> fetchFormulae() async {
     print("Fetching formulae");
-
-    throw Exception("test");
 
     final response = await http.get(baseURL + formulaeEndpoint);
     //final responseLinux = await http.get(baseURL + formulaLinuxEndpoint);

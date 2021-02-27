@@ -6,7 +6,8 @@ class ScaleAnimation extends StatefulWidget {
   final Duration duration;
   final bool loop;
 
-  ScaleAnimation({this.child, this.duration, this.interval, this.loop});
+  ScaleAnimation({Key key, this.child, this.duration, this.interval, this.loop})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => ScaleAnimationState();

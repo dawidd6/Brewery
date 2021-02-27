@@ -1,4 +1,4 @@
-import 'package:brewery/styles/colors.dart';
+import 'package:brewery/styles/brewery_colors.dart';
 import 'package:flutter/material.dart';
 
 class BreweryTheme {
@@ -32,7 +32,17 @@ class BreweryTheme {
     ),
     inputDecorationTheme: InputDecorationTheme(
       labelStyle: TextStyle(
-        color: BreweryColors.brownDark,
+        color: BreweryColors.goldLight,
+      ),
+      border: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: BreweryColors.brownDark,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: BreweryColors.goldDark,
+        ),
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(

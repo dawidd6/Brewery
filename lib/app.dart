@@ -1,5 +1,5 @@
-import 'package:brewery/pages/home.dart';
-import 'package:brewery/styles/theme.dart';
+import 'package:brewery/pages/home_page.dart';
+import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
