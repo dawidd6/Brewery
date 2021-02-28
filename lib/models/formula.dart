@@ -3,8 +3,6 @@ import 'package:flutter/foundation.dart';
 class Formula {
   final String name;
   final String version;
-  final String versionScheme;
-  final String revision;
   final String description;
   final String license;
   final String homepage;
@@ -13,6 +11,8 @@ class Formula {
   final String deprecateReason;
   final String disableDate;
   final String disableReason;
+  final int versionScheme;
+  final int revision;
   final bool bottleDisabled;
   final bool kegOnly;
   final bool deprecated;
@@ -20,15 +20,12 @@ class Formula {
   final List<String> bottles;
   final List<String> buildDependencies;
   final List<String> dependencies;
-  final List<String> usesFromMacOS;
   final List<String> requirements;
   final List<String> conflictsWith;
 
   Formula({
     @required this.name,
     @required this.version,
-    @required this.versionScheme,
-    @required this.revision,
     @required this.description,
     @required this.license,
     @required this.homepage,
@@ -37,6 +34,8 @@ class Formula {
     @required this.deprecateReason,
     @required this.disableDate,
     @required this.disableReason,
+    @required this.versionScheme,
+    @required this.revision,
     @required this.bottleDisabled,
     @required this.kegOnly,
     @required this.deprecated,
@@ -44,7 +43,6 @@ class Formula {
     @required this.bottles,
     @required this.buildDependencies,
     @required this.dependencies,
-    @required this.usesFromMacOS,
     @required this.requirements,
     @required this.conflictsWith,
   });
@@ -53,8 +51,6 @@ class Formula {
     return Formula(
       name: json["name"],
       version: json["versions"]["stable"],
-      versionScheme: json["version_scheme"],
-      revision: json["revision"],
       description: json["desc"],
       license: json["license"],
       homepage: json["homepage"],
@@ -63,20 +59,21 @@ class Formula {
       deprecateReason: json["deprecate_reason"] ?? "",
       disableDate: json["disable_date"] ?? "",
       disableReason: json["disable_reason"] ?? "",
+      versionScheme: json["version_scheme"],
+      revision: json["revision"],
       bottleDisabled: json["bottle_disabled"],
       kegOnly: json["keg_only"],
       deprecated: json["deprecated"],
       disabled: json["disabled"],
-      bottles: json["bottle_disabled"]
+      bottles: json["bottle"].isEmpty
           ? []
-          : (json["bottle"]["stable"]["files"] as Map<String, Object>)
-              .keys
-              .toList(),
-      buildDependencies: json["build_dependencies"],
-      dependencies: json["dependencies"],
-      usesFromMacOS: json["uses_from_macos"],
-      requirements: json["requirements"],
-      conflictsWith: json["conflicts_with"],
+          : json["bottle"]["stable"]["files"].keys.toList(),
+      buildDependencies: List<String>.from(json["build_dependencies"]),
+      dependencies: List<String>.from(json["dependencies"]),
+      requirements: List<String>.from(
+          List<Map<String, Object>>.from(json["requirements"])
+              .map((req) => req["name"])),
+      conflictsWith: List<String>.from(json["conflicts_with"]),
     );
   }
 }
