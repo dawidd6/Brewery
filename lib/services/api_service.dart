@@ -86,7 +86,7 @@ class ApiService {
       }
     }
 
-    throw Exception();
+    throw Exception("Failed to fetch");
   }
 
   static Future<List<Formula>> fetchFormulae({cache = true}) async {
