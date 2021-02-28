@@ -31,7 +31,7 @@ class FormulaePageState extends State<FormulaePage>
             controller: viewModel.filterController,
           ),
           RefreshableList<Formula>(
-            onRefresh: viewModel.fetch,
+            onRefresh: () => viewModel.fetch(cache: false),
             itemList: viewModel.filteredFormulae.value,
             tileTitleBuilder: (formula) => formula.name,
             tileSubtitleBuilder: (formula) => formula.description,

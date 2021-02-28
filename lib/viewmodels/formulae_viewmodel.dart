@@ -12,9 +12,9 @@ class FormulaeViewModel {
     fetch();
   }
 
-  Future fetch() async {
+  Future fetch({cache = true}) async {
     this.filterController.clear();
-    this.fetchedFormulae.value = await ApiService.fetchFormulae();
+    this.fetchedFormulae.value = await ApiService.fetchFormulae(cache: cache);
     this.filteredFormulae.value = this.fetchedFormulae.value;
     return null;
   }

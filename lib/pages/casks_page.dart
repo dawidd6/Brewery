@@ -31,7 +31,7 @@ class CasksPageState extends State<CasksPage>
             controller: viewModel.filterController,
           ),
           RefreshableList<Cask>(
-            onRefresh: viewModel.fetch,
+            onRefresh: () => viewModel.fetch(cache: false),
             itemList: viewModel.filteredCasks.value,
             tileTitleBuilder: (cask) => cask.token,
             tileSubtitleBuilder: (cask) => cask.description,

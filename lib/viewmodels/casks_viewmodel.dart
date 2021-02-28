@@ -12,9 +12,9 @@ class CasksViewModel {
     fetch();
   }
 
-  Future fetch() async {
+  Future fetch({cache = true}) async {
     this.filterController.clear();
-    this.fetchedCasks.value = await ApiService.fetchCasks();
+    this.fetchedCasks.value = await ApiService.fetchCasks(cache: cache);
     this.filteredCasks.value = this.fetchedCasks.value;
     return null;
   }
