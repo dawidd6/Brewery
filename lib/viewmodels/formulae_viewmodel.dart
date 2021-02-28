@@ -19,8 +19,9 @@ class FormulaeViewModel extends ValueNotifier {
 
   Future fetch({cache = true}) async {
     this._filterController.clear();
+    this._exception = null;
+    notifyListeners();
     try {
-      this._exception = null;
       this._fetchedFormulae = await ApiService.fetchFormulae(cache: cache);
       this._filteredFormulae = this._fetchedFormulae;
     } catch (exception) {

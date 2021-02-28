@@ -19,8 +19,9 @@ class CasksViewModel extends ValueNotifier {
 
   Future fetch({cache = true}) async {
     this._filterController.clear();
+    this._exception = null;
+    notifyListeners();
     try {
-      this._exception = null;
       this._fetchedCasks = await ApiService.fetchCasks(cache: cache);
       this._filteredCasks = this._fetchedCasks;
     } catch (exception) {
