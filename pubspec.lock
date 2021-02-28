@@ -114,9 +114,11 @@ packages:
   flutter_native_splash:
     dependency: "direct dev"
     description:
-      name: flutter_native_splash
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: web-fix-before-script
+      resolved-ref: a60978c34357ad5bf9fc9018f0edbed6f9e1e756
+      url: "https://github.com/dawidd6/flutter_native_splash"
+    source: git
     version: "0.3.0"
   flutter_test:
     dependency: "direct dev"

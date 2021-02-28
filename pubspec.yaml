@@ -18,7 +18,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: "^0.8.0"
-  flutter_native_splash: "^0.3.0"
+  flutter_native_splash: #"^0.3.0"
+    git:
+      url: https://github.com/dawidd6/flutter_native_splash
+      ref: web-fix-before-script
   flutter_launcher_name: "^0.0.1"
 
 # flutter pub run flutter_launcher_icons:main
