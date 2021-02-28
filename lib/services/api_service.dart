@@ -56,16 +56,33 @@ class ApiService {
       else
         rethrow;
 
-      print("$endpoint: calling api");
-      final response = await http.get(baseURL + endpoint);
-      print("$endpoint: got response from api");
+      try {
+        print("$endpoint: calling api");
+        final response = await http.get(baseURL + endpoint);
+        print("$endpoint: got response from api");
+        if (response.statusCode == 200) {
+          print("$endpoint: saving cache");
+          await CacheService.write(response.body, endpoint);
+          print("$endpoint: cache saved");
 
-      if (response.statusCode == 200) {
-        print("$endpoint: saving cache");
-        await CacheService.write(response.body, endpoint);
-        print("$endpoint: cache saved");
+          return compute(parseFunction, response.body);
+        }
+      } catch (exception) {
+        if (exception is SocketException)
+          print("$endpoint: network failure");
+        else
+          rethrow;
 
-        return compute(parseFunction, response.body);
+        if (cache == false) rethrow;
+
+        try {
+          print("$endpoint: trying cache (ignoring if old)");
+          final data = await CacheService.read(endpoint, ignoreOld: true);
+          print("$endpoint: cache hit");
+          return compute(parseFunction, data);
+        } catch (exception) {
+          rethrow;
+        }
       }
     }
 

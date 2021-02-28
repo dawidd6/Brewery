@@ -3,25 +3,30 @@ import 'package:brewery/services/api_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class FormulaeViewModel {
-  final ValueNotifier<List<Formula>> fetchedFormulae = ValueNotifier([]);
-  final ValueNotifier<List<Formula>> filteredFormulae = ValueNotifier([]);
-  final TextEditingController filterController = TextEditingController();
+class FormulaeViewModel extends ValueNotifier {
+  final TextEditingController _filterController = TextEditingController();
+  List<Formula> _fetchedFormulae;
+  List<Formula> _filteredFormulae;
 
-  FormulaeViewModel() {
+  FormulaeViewModel() : super(null) {
     fetch();
   }
 
+  TextEditingController get filterController => _filterController;
+  List<Formula> get formulae => _filteredFormulae;
+
   Future fetch({cache = true}) async {
-    this.filterController.clear();
-    this.fetchedFormulae.value = await ApiService.fetchFormulae(cache: cache);
-    this.filteredFormulae.value = this.fetchedFormulae.value;
+    this._filterController.clear();
+    this._fetchedFormulae = await ApiService.fetchFormulae(cache: cache);
+    this._filteredFormulae = this._fetchedFormulae;
+    notifyListeners();
     return null;
   }
 
   void filter(String filter) {
-    filteredFormulae.value = fetchedFormulae.value
+    _filteredFormulae = _fetchedFormulae
         .where((formula) => formula.name.contains(RegExp(filter)))
         .toList();
+    notifyListeners();
   }
 }

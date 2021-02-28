@@ -14,12 +14,13 @@ class CacheService {
     return file.writeAsString(data);
   }
 
-  static Future<String> read(String endpoint) async {
+  static Future<String> read(String endpoint, {ignoreOld = false}) async {
     var cacheDirPath = await getTemporaryDirectory();
     var filePath = cacheDirPath.path + endpoint;
     var file = File(filePath);
     var mod = file.lastModifiedSync();
-    if (mod.difference(DateTime.now()) > Duration(minutes: 10))
+    var diff = DateTime.now().difference(mod);
+    if (diff > Duration(minutes: 10) && !ignoreOld)
       throw CacheTooOldException();
     return file.readAsString();
   }

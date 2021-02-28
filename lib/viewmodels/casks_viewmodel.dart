@@ -3,25 +3,30 @@ import 'package:brewery/services/api_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class CasksViewModel {
-  final ValueNotifier<List<Cask>> fetchedCasks = ValueNotifier([]);
-  final ValueNotifier<List<Cask>> filteredCasks = ValueNotifier([]);
-  final TextEditingController filterController = TextEditingController();
+class CasksViewModel extends ValueNotifier {
+  final TextEditingController _filterController = TextEditingController();
+  List<Cask> _fetchedCasks;
+  List<Cask> _filteredCasks;
 
-  CasksViewModel() {
+  CasksViewModel() : super(null) {
     fetch();
   }
 
+  TextEditingController get filterController => _filterController;
+  List<Cask> get casks => _filteredCasks;
+
   Future fetch({cache = true}) async {
-    this.filterController.clear();
-    this.fetchedCasks.value = await ApiService.fetchCasks(cache: cache);
-    this.filteredCasks.value = this.fetchedCasks.value;
+    this._filterController.clear();
+    this._fetchedCasks = await ApiService.fetchCasks(cache: cache);
+    this._filteredCasks = this._fetchedCasks;
+    notifyListeners();
     return null;
   }
 
   void filter(String filter) {
-    filteredCasks.value = fetchedCasks.value
+    _filteredCasks = _fetchedCasks
         .where((cask) => cask.token.contains(RegExp(filter)))
         .toList();
+    notifyListeners();
   }
 }
