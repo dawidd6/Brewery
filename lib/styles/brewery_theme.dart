@@ -21,14 +21,8 @@ class BreweryTheme {
     popupMenuTheme: PopupMenuThemeData(
       color: BreweryColors.brown,
     ),
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        primary: BreweryColors.brownDark,
-      ),
-    ),
     iconTheme: IconThemeData(
-      color: BreweryColors.goldDark,
-      size: 128.0,
+      color: BreweryColors.brownDark,
     ),
     inputDecorationTheme: InputDecorationTheme(
       labelStyle: TextStyle(
