@@ -14,7 +14,8 @@ class CasksViewModel extends ValueNotifier {
   }
 
   TextEditingController get filterController => _filterController;
-  List<Cask> get casks => _filteredCasks;
+  List<Cask> get fetchedCasks => _fetchedCasks;
+  List<Cask> get filteredCasks => _filteredCasks;
   Exception get error => _exception;
 
   Future fetch({cache = true}) async {
