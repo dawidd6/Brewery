@@ -38,6 +38,8 @@ class ApiService {
   static Future<List<dynamic>> _fetchObjects(
       Function parseFunction, String endpoint,
       [bool cache = true]) async {
+    // Disable cache on web
+    if (!Platform.isAndroid && !Platform.isIOS) cache = false;
     try {
       if (cache == false) throw SkipCacheException();
 
