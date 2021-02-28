@@ -28,6 +28,9 @@ class BreweryTheme {
       labelStyle: TextStyle(
         color: BreweryColors.goldLight,
       ),
+      counterStyle: TextStyle(
+        color: BreweryColors.goldLight,
+      ),
       border: OutlineInputBorder(
         borderSide: BorderSide(
           color: BreweryColors.brownDark,
