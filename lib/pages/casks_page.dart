@@ -49,7 +49,7 @@ class CasksPageState extends State<CasksPage>
             );
           else if (viewModel.error != null)
             return FailureText(
-              message: "Data fetching failed",
+              message: viewModel.error.toString(),
               onRefresh: () => viewModel.fetch(cache: false),
             );
           else
