@@ -14,7 +14,8 @@ class FormulaeViewModel extends ValueNotifier {
   }
 
   TextEditingController get filterController => _filterController;
-  List<Formula> get formulae => _filteredFormulae;
+  List<Formula> get fetchedFormulae => _fetchedFormulae;
+  List<Formula> get filteredFormulae => _filteredFormulae;
   Exception get error => _exception;
 
   Future fetch({cache = true}) async {
