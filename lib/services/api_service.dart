@@ -39,7 +39,7 @@ class ApiService {
       Function parseFunction, String endpoint,
       [bool cache = true]) async {
     // Disable cache on web
-    if (!Platform.isAndroid && !Platform.isIOS) cache = false;
+    if (kIsWeb == true) cache = false;
     try {
       if (cache == false) throw SkipCacheException();
 
