@@ -7,7 +7,10 @@ class LoadingIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaleAnimation(
-      child: Icon(Icons.refresh),
+      child: Icon(
+        Icons.refresh,
+        size: 128.0,
+      ),
       duration: Duration(milliseconds: 500),
       interval: Duration(milliseconds: 1000),
       loop: true,
