@@ -6,17 +6,21 @@ class BreweryTheme {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     primaryColor: BreweryColors.brown,
     appBarTheme: AppBarTheme(
-        color: BreweryColors.brown,
-        textTheme: TextTheme(
-          headline6: TextStyle(
-            color: BreweryColors.goldLight,
-            fontSize: 20.0,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        actionsIconTheme: IconThemeData(
+      color: BreweryColors.brown,
+      textTheme: TextTheme(
+        headline6: TextStyle(
           color: BreweryColors.goldLight,
-        )),
+          fontSize: 20.0,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      iconTheme: IconThemeData(
+        color: BreweryColors.goldLight,
+      ),
+      actionsIconTheme: IconThemeData(
+        color: BreweryColors.goldLight,
+      ),
+    ),
     scaffoldBackgroundColor: BreweryColors.brown,
     popupMenuTheme: PopupMenuThemeData(
       color: BreweryColors.brown,
