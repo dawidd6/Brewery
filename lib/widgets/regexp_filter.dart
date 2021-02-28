@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class RegexpFilter extends StatelessWidget {
   final TextEditingController controller;
-  final void Function(String) callback;
+  final void Function(String) onChanged;
+  final int filteredCount;
+  final int totalCount;
 
-  RegexpFilter({Key key, this.controller, this.callback});
+  RegexpFilter({Key key, this.controller, this.onChanged, this.filteredCount, this.totalCount});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +14,10 @@ class RegexpFilter extends StatelessWidget {
       padding: EdgeInsets.all(10.0),
       child: TextField(
         controller: controller,
-        onChanged: callback,
+        onChanged: onChanged,
         decoration: InputDecoration(
           labelText: "Regexp filter",
+          counterText: "$filteredCount / $totalCount",
         ),
       ),
     );
