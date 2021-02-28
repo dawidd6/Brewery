@@ -25,11 +25,12 @@ class CasksViewModel extends ValueNotifier {
     try {
       this._fetchedCasks = await ApiService.fetchCasks(cache: cache);
       this._filteredCasks = this._fetchedCasks;
+      notifyListeners();
     } catch (exception) {
       this._exception = exception;
+      notifyListeners();
       rethrow;
     }
-    notifyListeners();
     return null;
   }
 

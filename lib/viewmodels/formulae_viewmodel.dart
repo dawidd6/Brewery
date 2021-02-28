@@ -25,11 +25,12 @@ class FormulaeViewModel extends ValueNotifier {
     try {
       this._fetchedFormulae = await ApiService.fetchFormulae(cache: cache);
       this._filteredFormulae = this._fetchedFormulae;
+      notifyListeners();
     } catch (exception) {
       this._exception = exception;
+      notifyListeners();
       rethrow;
     }
-    notifyListeners();
     return null;
   }
 
