@@ -28,15 +28,17 @@ class CasksPageState extends State<CasksPage>
       builder: (context, _, child) => AnimatedSwitcher(
         duration: Duration(milliseconds: 200),
         child: () {
-          if (viewModel.casks != null)
+          if (viewModel.filteredCasks != null)
             return Column(
               children: [
                 RegexpFilter(
-                  callback: (filter) => viewModel.filter(filter),
+                  onChanged: (filter) => viewModel.filter(filter),
                   controller: viewModel.filterController,
+                  filteredCount: viewModel.filteredCasks.length,
+                  totalCount: viewModel.fetchedCasks.length,
                 ),
                 RefreshableList<Cask>(
-                  itemList: viewModel.casks,
+                  itemList: viewModel.filteredCasks,
                   onRefresh: () => viewModel.fetch(cache: false),
                   tileTitleBuilder: (cask) => cask.token,
                   tileSubtitleBuilder: (cask) => cask.description,
