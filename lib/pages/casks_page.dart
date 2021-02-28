@@ -25,31 +25,35 @@ class CasksPageState extends State<CasksPage>
     super.build(context);
     return ValueListenableBuilder(
       valueListenable: viewModel,
-      builder: (context, _, child) {
-        if (viewModel.casks != null)
-          return Column(
-            children: [
-              RegexpFilter(
-                callback: (filter) => viewModel.filter(filter),
-                controller: viewModel.filterController,
-              ),
-              RefreshableList<Cask>(
-                itemList: viewModel.casks,
-                onRefresh: () => viewModel.fetch(cache: false),
-                tileTitleBuilder: (cask) => cask.token,
-                tileSubtitleBuilder: (cask) => cask.description,
-                tileTrailingBuilder: (cask) => cask.version,
-                pageBuilder: (cask) => CaskPage(cask: cask),
-              ),
-            ],
-          );
-        else if (viewModel.error != null)
-          return FailureText(
-            message: viewModel.error.toString(),
-          );
-        else
-          return LoadingIcon();
-      },
+      builder: (context, _, child) => AnimatedSwitcher(
+        duration: Duration(milliseconds: 200),
+        child: () {
+          if (viewModel.casks != null)
+            return Column(
+              children: [
+                RegexpFilter(
+                  callback: (filter) => viewModel.filter(filter),
+                  controller: viewModel.filterController,
+                ),
+                RefreshableList<Cask>(
+                  itemList: viewModel.casks,
+                  onRefresh: () => viewModel.fetch(cache: false),
+                  tileTitleBuilder: (cask) => cask.token,
+                  tileSubtitleBuilder: (cask) => cask.description,
+                  tileTrailingBuilder: (cask) => cask.version,
+                  pageBuilder: (cask) => CaskPage(cask: cask),
+                ),
+              ],
+            );
+          else if (viewModel.error != null)
+            return FailureText(
+              message: "Data fetching failed",
+              onRefresh: () => viewModel.fetch(cache: false),
+            );
+          else
+            return LoadingIcon();
+        }(),
+      ),
     );
   }
 
