@@ -1,5 +1,6 @@
 import 'package:brewery/pages/casks_page.dart';
 import 'package:brewery/pages/formulae_page.dart';
+import 'package:brewery/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -45,6 +46,19 @@ class HomePageState extends State<HomePage> {
     );
   }
 
+  void onSelected(int index) {
+    switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SettingsPage(),
+          ),
+        );
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,14 +66,12 @@ class HomePageState extends State<HomePage> {
         title: Text(widget.title),
         actions: [
           PopupMenuButton(
-            onSelected: (value) {
-              setState(() {});
-            },
+            onSelected: onSelected,
             itemBuilder: (context) => [
               PopupMenuItem(
                 value: 0,
                 child: Text(
-                  "TODO",
+                  "Settings",
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
