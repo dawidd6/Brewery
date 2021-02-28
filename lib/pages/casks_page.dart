@@ -1,6 +1,7 @@
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/pages/cask_page.dart';
 import 'package:brewery/viewmodels/casks_viewmodel.dart';
+import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
 import 'package:brewery/widgets/refreshable_list.dart';
 import 'package:brewery/widgets/regexp_filter.dart';
@@ -24,24 +25,31 @@ class CasksPageState extends State<CasksPage>
     super.build(context);
     return ValueListenableBuilder(
       valueListenable: viewModel,
-      builder: (context, _, child) => viewModel.casks == null
-          ? LoadingIcon()
-          : Column(
-              children: [
-                RegexpFilter(
-                  callback: (filter) => viewModel.filter(filter),
-                  controller: viewModel.filterController,
-                ),
-                RefreshableList<Cask>(
-                  itemList: viewModel.casks,
-                  onRefresh: () => viewModel.fetch(cache: false),
-                  tileTitleBuilder: (cask) => cask.token,
-                  tileSubtitleBuilder: (cask) => cask.description,
-                  tileTrailingBuilder: (cask) => cask.version,
-                  pageBuilder: (cask) => CaskPage(cask: cask),
-                ),
-              ],
-            ),
+      builder: (context, _, child) {
+        if (viewModel.casks != null)
+          return Column(
+            children: [
+              RegexpFilter(
+                callback: (filter) => viewModel.filter(filter),
+                controller: viewModel.filterController,
+              ),
+              RefreshableList<Cask>(
+                itemList: viewModel.casks,
+                onRefresh: () => viewModel.fetch(cache: false),
+                tileTitleBuilder: (cask) => cask.token,
+                tileSubtitleBuilder: (cask) => cask.description,
+                tileTrailingBuilder: (cask) => cask.version,
+                pageBuilder: (cask) => CaskPage(cask: cask),
+              ),
+            ],
+          );
+        else if (viewModel.error != null)
+          return FailureText(
+            message: viewModel.error.toString(),
+          );
+        else
+          return LoadingIcon();
+      },
     );
   }
 

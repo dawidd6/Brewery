@@ -7,6 +7,7 @@ class FormulaeViewModel extends ValueNotifier {
   final TextEditingController _filterController = TextEditingController();
   List<Formula> _fetchedFormulae;
   List<Formula> _filteredFormulae;
+  Exception _exception;
 
   FormulaeViewModel() : super(null) {
     fetch();
@@ -14,11 +15,17 @@ class FormulaeViewModel extends ValueNotifier {
 
   TextEditingController get filterController => _filterController;
   List<Formula> get formulae => _filteredFormulae;
+  Exception get error => _exception;
 
   Future fetch({cache = true}) async {
     this._filterController.clear();
-    this._fetchedFormulae = await ApiService.fetchFormulae(cache: cache);
-    this._filteredFormulae = this._fetchedFormulae;
+    try {
+      this._exception = null;
+      this._fetchedFormulae = await ApiService.fetchFormulae(cache: cache);
+      this._filteredFormulae = this._fetchedFormulae;
+    } catch (exception) {
+      this._exception = exception;
+    }
     notifyListeners();
     return null;
   }

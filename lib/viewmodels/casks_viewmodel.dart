@@ -7,6 +7,7 @@ class CasksViewModel extends ValueNotifier {
   final TextEditingController _filterController = TextEditingController();
   List<Cask> _fetchedCasks;
   List<Cask> _filteredCasks;
+  Exception _exception;
 
   CasksViewModel() : super(null) {
     fetch();
@@ -14,11 +15,17 @@ class CasksViewModel extends ValueNotifier {
 
   TextEditingController get filterController => _filterController;
   List<Cask> get casks => _filteredCasks;
+  Exception get error => _exception;
 
   Future fetch({cache = true}) async {
     this._filterController.clear();
-    this._fetchedCasks = await ApiService.fetchCasks(cache: cache);
-    this._filteredCasks = this._fetchedCasks;
+    try {
+      this._exception = null;
+      this._fetchedCasks = await ApiService.fetchCasks(cache: cache);
+      this._filteredCasks = this._fetchedCasks;
+    } catch (exception) {
+      this._exception = exception;
+    }
     notifyListeners();
     return null;
   }
