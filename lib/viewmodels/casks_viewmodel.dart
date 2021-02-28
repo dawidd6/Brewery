@@ -27,6 +27,7 @@ class CasksViewModel extends ValueNotifier {
       this._filteredCasks = this._fetchedCasks;
     } catch (exception) {
       this._exception = exception;
+      rethrow;
     }
     notifyListeners();
     return null;

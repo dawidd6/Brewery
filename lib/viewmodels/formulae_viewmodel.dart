@@ -27,6 +27,7 @@ class FormulaeViewModel extends ValueNotifier {
       this._filteredFormulae = this._fetchedFormulae;
     } catch (exception) {
       this._exception = exception;
+      rethrow;
     }
     notifyListeners();
     return null;
