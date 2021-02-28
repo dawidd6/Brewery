@@ -12,7 +12,35 @@ class FormulaPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(formula.name),
       ),
-      body: Placeholder(),
+      body: Padding(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  "name:",
+                ),
+                Text(
+                  formula.name,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  "description:",
+                ),
+                Text(
+                  formula.description,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
