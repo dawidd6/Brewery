@@ -28,15 +28,17 @@ class FormulaePageState extends State<FormulaePage>
       builder: (context, _, child) => AnimatedSwitcher(
         duration: Duration(milliseconds: 200),
         child: () {
-          if (viewModel.formulae != null)
+          if (viewModel.filteredFormulae != null)
             return Column(
               children: [
                 RegexpFilter(
-                  callback: (filter) => viewModel.filter(filter),
+                  onChanged: (filter) => viewModel.filter(filter),
                   controller: viewModel.filterController,
+                  filteredCount: viewModel.filteredFormulae.length,
+                  totalCount: viewModel.fetchedFormulae.length,
                 ),
                 RefreshableList<Formula>(
-                  itemList: viewModel.formulae,
+                  itemList: viewModel.filteredFormulae,
                   onRefresh: () => viewModel.fetch(cache: false),
                   tileTitleBuilder: (formula) => formula.name,
                   tileSubtitleBuilder: (formula) => formula.description,
