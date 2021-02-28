@@ -63,9 +63,11 @@ class ApiService {
         final response = await http.get(baseURL + endpoint);
         print("$endpoint: got response from api");
         if (response.statusCode == 200) {
-          print("$endpoint: saving cache");
-          await CacheService.write(response.body, endpoint);
-          print("$endpoint: cache saved");
+          if (cache == true) {
+            print("$endpoint: saving cache");
+            await CacheService.write(response.body, endpoint);
+            print("$endpoint: cache saved");
+          }
 
           return compute(parseFunction, response.body);
         }
