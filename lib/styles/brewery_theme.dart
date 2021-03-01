@@ -5,6 +5,8 @@ class BreweryTheme {
   static final ThemeData data = ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,
     primaryColor: BreweryColors.brown,
+    accentColor: BreweryColors.goldDark,
+    canvasColor: BreweryColors.brownDark,
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
       color: BreweryColors.brown,
