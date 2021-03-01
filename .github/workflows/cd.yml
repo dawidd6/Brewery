@@ -10,9 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ${{runner.os}}-flutter-beta-
       - uses: subosito/flutter-action@v1
         with:
           channel: beta
+      - uses: actions/cache@v2
+        with:
+          path: ${{env.FLUTTER_HOME}}/.pub-cache
+          key: ${{runner.os}}-pub-${{hashFiles('**/pubspec.lock')}}
+          restore-keys: ${{runner.os}}-pub-
       - run: flutter pub get
       - run: flutter config --enable-web
       - run: flutter build web --release
