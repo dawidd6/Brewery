@@ -1,6 +1,6 @@
+import 'package:brewery/blocs/formulae_viewmodel.dart';
 import 'package:brewery/models/formula.dart';
 import 'package:brewery/pages/formula_page.dart';
-import 'package:brewery/viewmodels/formulae_viewmodel.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
 import 'package:brewery/widgets/refreshable_list.dart';

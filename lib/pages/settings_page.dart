@@ -1,4 +1,4 @@
-import 'package:brewery/viewmodels/settings_viewmodel.dart';
+import 'package:brewery/blocs/settings_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
