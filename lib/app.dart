@@ -5,20 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class App extends StatelessWidget {
-  final String title = "Brewery";
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: title,
+      title: "Brewery",
       theme: BreweryTheme.data,
       home: MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (context) => CasksBloc()),
-          ],
-          child: HomePage(
-            title: title,
-          )),
+        providers: [
+          BlocProvider(create: (context) => CasksBloc()),
+        ],
+        child: HomePage(),
     );
   }
 }
