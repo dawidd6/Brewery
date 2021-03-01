@@ -50,7 +50,7 @@ class _LoadingIconState extends State<LoadingIcon>
       animation: _controller,
       child: Icon(
         Icons.refresh,
-        size: 128.0,
+        size: MediaQuery.of(context).size.shortestSide * 0.5,
       ),
       builder: (context, child) => Transform.rotate(
         angle: _animation.value,

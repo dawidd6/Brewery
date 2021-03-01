@@ -18,7 +18,7 @@ class FailureText extends StatelessWidget {
         ),
         IconButton(
           icon: Icon(Icons.refresh),
-          iconSize: 64.0,
+          iconSize: MediaQuery.of(context).size.shortestSide * 0.2,
           onPressed: onRefresh,
         ),
         Text(
