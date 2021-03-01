@@ -5,6 +5,7 @@ class BreweryTheme {
   static final ThemeData data = ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,
     primaryColor: BreweryColors.brown,
+    brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
       color: BreweryColors.brown,
       textTheme: TextTheme(
@@ -34,6 +35,11 @@ class BreweryTheme {
       ),
       counterStyle: TextStyle(
         color: BreweryColors.goldLight,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: BreweryColors.brownDark,
+        ),
       ),
       border: OutlineInputBorder(
         borderSide: BorderSide(

@@ -1,3 +1,4 @@
+import 'package:brewery/widgets/animated_tile.dart';
 import 'package:flutter/material.dart';
 
 class RefreshableList<T> extends StatelessWidget {
@@ -26,23 +27,14 @@ class RefreshableList<T> extends StatelessWidget {
         child: ListView.separated(
           separatorBuilder: (context, index) => Divider(),
           itemCount: itemList.length,
-          itemBuilder: (context, index) => ListTile(
+          itemBuilder: (context, index) => AnimatedTile(
+            title: tileTitleBuilder(itemList[index]),
+            subtitle: tileSubtitleBuilder(itemList[index]),
+            trailing: tileTrailingBuilder(itemList[index]),
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => pageBuilder(itemList[index])),
-            ),
-            title: Text(
-              tileTitleBuilder(itemList[index]),
-              style: Theme.of(context).textTheme.headline1,
-            ),
-            subtitle: Text(
-              tileSubtitleBuilder(itemList[index]),
-              style: Theme.of(context).textTheme.headline2,
-            ),
-            trailing: Text(
-              tileTrailingBuilder(itemList[index]),
-              style: Theme.of(context).textTheme.headline3,
             ),
           ),
         ),
