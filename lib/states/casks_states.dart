@@ -12,7 +12,7 @@ class CasksReadyState extends CasksState {
 }
 
 class CasksErrorState extends CasksState {
-  final Object object;
+  final Object error;
 
-  CasksErrorState({this.object});
+  CasksErrorState(this.error);
 }

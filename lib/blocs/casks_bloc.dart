@@ -1,7 +1,7 @@
-import 'package:brewery/blocs/casks_events.dart';
-import 'package:brewery/blocs/casks_states.dart';
+import 'package:brewery/events/casks_events.dart';
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/services/api_service.dart';
+import 'package:brewery/states/casks_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CasksBloc extends Bloc<CasksEvent, CasksState> {
@@ -15,9 +15,12 @@ class CasksBloc extends Bloc<CasksEvent, CasksState> {
       try {
         yield CasksLoadingState();
         _casks = await ApiService.fetchCasks();
-        yield CasksReadyState(filteredCasks: _casks, allCasks: _casks);
+        yield CasksReadyState(
+          filteredCasks: _casks,
+          allCasks: _casks,
+        );
       } catch (e) {
-        yield CasksErrorState(object: e);
+        yield CasksErrorState(e);
       }
     } else if (event is CasksFilterEvent) {
       yield CasksReadyState(

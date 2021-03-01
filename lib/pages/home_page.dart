@@ -4,6 +4,8 @@ import 'package:brewery/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  static final route = "/";
+
   HomePage({Key key}) : super(key: key);
 
   @override
@@ -39,12 +41,7 @@ class _HomePageState extends State<HomePage> {
   void onSelected(int index) {
     switch (index) {
       case 0:
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SettingsPage(),
-          ),
-        );
+        Navigator.pushNamed(context, SettingsPage.route);
         break;
     }
   }
