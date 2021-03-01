@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -60,7 +61,8 @@ class ApiService {
 
       try {
         print("$endpoint: calling api");
-        final response = await http.get(baseURL + endpoint);
+        final response =
+            await http.get(baseURL + endpoint).timeout(Duration(seconds: 10));
         print("$endpoint: got response from api");
         if (response.statusCode == 200) {
           if (cache == true) {
@@ -72,6 +74,7 @@ class ApiService {
           return compute(parseFunction, response.body);
         }
       } catch (exception) {
+        if (exception is TimeoutException) print("$endpoint: timeout");
         if (exception is SocketException)
           print("$endpoint: network failure");
         else
