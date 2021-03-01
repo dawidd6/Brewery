@@ -15,6 +15,7 @@ class App extends StatelessWidget {
           BlocProvider(create: (context) => CasksBloc()),
         ],
         child: HomePage(),
+      ),
     );
   }
 }
