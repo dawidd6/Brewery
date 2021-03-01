@@ -4,26 +4,16 @@ import 'package:brewery/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  final String title;
-
-  HomePage({Key key, @required this.title}) : super(key: key);
+  HomePage({Key key}) : super(key: key);
 
   @override
-  HomePageState createState() => HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class HomePageState extends State<HomePage> {
-  int currentPageIndex;
-  PageController pageController;
-  Duration pageChangeDuration;
-
-  @override
-  void initState() {
-    super.initState();
-    currentPageIndex = 0;
-    pageController = PageController();
-    pageChangeDuration = Duration(milliseconds: 200);
-  }
+class _HomePageState extends State<HomePage> {
+  // TODO bloc it
+  int currentPageIndex = 0;
+  PageController pageController = PageController();
 
   @override
   void dispose() {
@@ -41,7 +31,7 @@ class HomePageState extends State<HomePage> {
     onPageChanged(index);
     pageController.animateToPage(
       index,
-      duration: pageChangeDuration,
+      duration: Duration(milliseconds: 200),
       curve: Curves.easeOut,
     );
   }
@@ -63,7 +53,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Brewery"),
         actions: [
           PopupMenuButton(
             onSelected: onSelected,
