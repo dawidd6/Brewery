@@ -1,3 +1,4 @@
+import 'package:brewery/icons/brewery_icons.dart';
 import 'package:brewery/pages/casks_page.dart';
 import 'package:brewery/pages/formulae_page.dart';
 import 'package:brewery/pages/settings_page.dart';
@@ -79,11 +80,17 @@ class _HomePageState extends State<HomePage> {
         onTap: onTap,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Padding(
+              padding: EdgeInsets.only(bottom: 3.0),
+              child: Icon(BreweryIcons.recipe_book),
+            ),
             label: FormulaePage.name,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Padding(
+              padding: EdgeInsets.only(bottom: 3.0),
+              child: Icon(BreweryIcons.wine_cask),
+            ),
             label: CasksPage.name,
           ),
         ],
