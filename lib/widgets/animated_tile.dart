@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class AnimatedTile extends StatefulWidget {
   final String title;
@@ -53,10 +54,14 @@ class _AnimatedTileState extends State<AnimatedTile>
     return FadeTransition(
       opacity: _animation,
       child: ListTile(
+        isThreeLine: true,
         onTap: widget.onTap,
-        title: Text(
-          widget.title,
-          style: Theme.of(context).textTheme.headline1,
+        title: Padding(
+          padding: EdgeInsets.only(bottom: 10.0),
+          child: Text(
+            widget.title,
+            style: Theme.of(context).textTheme.headline1,
+          ),
         ),
         subtitle: Text(
           widget.subtitle,

@@ -17,9 +17,12 @@ class SettingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(
-        title,
-        style: Theme.of(context).textTheme.headline1,
+      title: Padding(
+        padding: EdgeInsets.only(bottom: 10.0),
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.headline1,
+        ),
       ),
       subtitle: Text(
         subtitle,
