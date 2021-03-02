@@ -17,10 +17,10 @@ class FormulaePage extends StatefulWidget {
   FormulaePage({Key key}) : super(key: key);
 
   @override
-  FormulaePageState createState() => FormulaePageState();
+  _FormulaePageState createState() => _FormulaePageState();
 }
 
-class FormulaePageState extends State<FormulaePage>
+class _FormulaePageState extends State<FormulaePage>
     with AutomaticKeepAliveClientMixin {
   @override
   void initState() {

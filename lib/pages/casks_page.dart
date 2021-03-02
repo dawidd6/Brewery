@@ -17,10 +17,10 @@ class CasksPage extends StatefulWidget {
   CasksPage({Key key}) : super(key: key);
 
   @override
-  CasksPageState createState() => CasksPageState();
+  _CasksPageState createState() => _CasksPageState();
 }
 
-class CasksPageState extends State<CasksPage>
+class _CasksPageState extends State<CasksPage>
     with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
