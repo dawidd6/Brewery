@@ -1,4 +1,4 @@
-<img align="left" width="64" height="64" src="assets/icons/icon.png">
+<img align="left" width="64" height="64" src="icons/icon.png">
 <h1>Brewery</h1>
 
 A mobile frontend to [Homebrew formulae API](https://formulae.brew.sh).
