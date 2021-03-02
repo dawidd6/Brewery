@@ -1,6 +1,7 @@
 import 'package:brewery/blocs/settings_bloc.dart';
 import 'package:brewery/events/settings_events.dart';
 import 'package:brewery/states/settings_states.dart';
+import 'package:brewery/widgets/setting_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,15 +34,13 @@ class _SettingsPageState extends State<SettingsPage> {
             if (state is SettingsReadyState)
               return ListView(
                 children: [
-                  ListTile(
-                    title: Text("Test setting"),
-                    subtitle: Text("Test description"),
-                    trailing: Switch(
-                      value: state.testValue,
-                      onChanged: (value) => context
-                          .read<SettingsBloc>()
-                          .add(SettingsSetTestEvent(value)),
-                    ),
+                  SettingTile(
+                    title: "Test setting",
+                    subtitle: "Test description",
+                    toggled: state.testValue,
+                    onChanged: (value) => context
+                        .read<SettingsBloc>()
+                        .add(SettingsSetTestEvent(value)),
                   ),
                 ],
               );

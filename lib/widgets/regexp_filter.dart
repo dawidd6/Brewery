@@ -19,7 +19,12 @@ class RegexpFilter extends StatelessWidget {
       child: TextField(
         onChanged: onChanged,
         decoration: InputDecoration(
-          labelText: "Regexp filter",
+          prefixIcon: Icon(
+            Icons.search,
+            color: Theme.of(context).inputDecorationTheme.labelStyle.color,
+          ),
+          labelText: "Search",
+          hintText: "hello",
           counterText: "$filteredCount / $totalCount",
         ),
       ),

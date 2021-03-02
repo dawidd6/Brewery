@@ -7,6 +7,7 @@ class BreweryTheme {
     primaryColor: BreweryColors.brown,
     accentColor: BreweryColors.goldDark,
     canvasColor: BreweryColors.brownDark,
+    toggleableActiveColor: BreweryColors.goldDark,
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
       color: BreweryColors.brown,
@@ -32,25 +33,32 @@ class BreweryTheme {
       color: BreweryColors.brownDark,
     ),
     inputDecorationTheme: InputDecorationTheme(
+      isDense: true,
+      filled: true,
+      fillColor: BreweryColors.brownDark,
       labelStyle: TextStyle(
-        color: BreweryColors.goldLight,
+        color: BreweryColors.goldDark,
+      ),
+      hintStyle: TextStyle(
+        color: BreweryColors.brown,
       ),
       counterStyle: TextStyle(
-        color: BreweryColors.goldLight,
+        color: BreweryColors.goldDark,
       ),
       enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
         borderSide: BorderSide(
           color: BreweryColors.brownDark,
         ),
       ),
       border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
         borderSide: BorderSide(
           color: BreweryColors.brownDark,
-        ),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: BreweryColors.goldDark,
         ),
       ),
     ),
@@ -61,6 +69,9 @@ class BreweryTheme {
     ),
     dividerTheme: DividerThemeData(
       color: BreweryColors.brownDark,
+    ),
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: BreweryColors.goldDark,
     ),
     textTheme: TextTheme(
       // List tile name text
