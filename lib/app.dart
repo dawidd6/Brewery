@@ -1,5 +1,6 @@
 import 'package:brewery/blocs/casks_bloc.dart';
 import 'package:brewery/blocs/formulae_bloc.dart';
+import 'package:brewery/blocs/home_bloc.dart';
 import 'package:brewery/blocs/settings_bloc.dart';
 import 'package:brewery/pages/home_page.dart';
 import 'package:brewery/pages/settings_page.dart';
@@ -17,6 +18,9 @@ class App extends StatelessWidget {
         HomePage.route: (context) => MultiBlocProvider(
               child: HomePage(),
               providers: [
+                BlocProvider(
+                  create: (context) => HomeBloc(),
+                ),
                 BlocProvider(
                   create: (context) => CasksBloc(),
                 ),
