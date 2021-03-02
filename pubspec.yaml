@@ -30,12 +30,12 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: assets/icons/icon.png
+  image_path: icons/icon.png
 
 # flutter pub run flutter_native_splash:create
 flutter_native_splash:
   color: "#2F2A25"
-  image: assets/icons/icon-splash.png
+  image: icons/icon-splash.png
 
 # flutter pub run flutter_launcher_name:main
 flutter_launcher_name:
@@ -46,4 +46,4 @@ flutter:
   fonts:
     - family:  BreweryIcons
       fonts:
-        - asset: assets/fonts/BreweryIcons.ttf
+        - asset: fonts/BreweryIcons.ttf
