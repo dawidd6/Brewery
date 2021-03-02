@@ -3,6 +3,7 @@ import 'package:brewery/events/casks_events.dart';
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/pages/cask_page.dart';
 import 'package:brewery/states/casks_states.dart';
+import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
 import 'package:brewery/widgets/refreshable_list.dart';
@@ -31,9 +32,8 @@ class CasksPageState extends State<CasksPage>
   Widget build(BuildContext context) {
     super.build(context);
     return BlocBuilder<CasksBloc, CasksState>(
-      builder: (context, state) => AnimatedSwitcher(
-        duration: Duration(milliseconds: 400),
-        child: () {
+      builder: (context, state) => CenterSwitcher(
+        builder: (context) {
           if (state is CasksReadyState)
             return Column(
               children: [
@@ -67,7 +67,7 @@ class CasksPageState extends State<CasksPage>
             return LoadingIcon();
           else
             return Container();
-        }(),
+        },
       ),
     );
   }

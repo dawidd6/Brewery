@@ -1,6 +1,7 @@
 import 'package:brewery/blocs/settings_bloc.dart';
 import 'package:brewery/events/settings_events.dart';
 import 'package:brewery/states/settings_states.dart';
+import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
 import 'package:brewery/widgets/setting_tile.dart';
@@ -30,9 +31,8 @@ class _SettingsPageState extends State<SettingsPage> {
         title: Text("Settings"),
       ),
       body: BlocBuilder<SettingsBloc, SettingsState>(
-        builder: (context, state) => AnimatedSwitcher(
-          duration: Duration(milliseconds: 400),
-          child: () {
+        builder: (context, state) => CenterSwitcher(
+          builder: (context) {
             if (state is SettingsReadyState)
               return ListView(
                 children: [
@@ -46,12 +46,15 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ],
               );
-            if (state is SettingsErrorState)
+            else if (state is SettingsErrorState)
               return FailureText(
                 message: state.error.toString(),
               );
-            if (state is SettingsLoadingState) return LoadingIcon();
-          }(),
+            else if (state is SettingsLoadingState)
+              return LoadingIcon();
+            else
+              return Container();
+          },
         ),
       ),
     );

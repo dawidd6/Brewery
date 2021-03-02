@@ -2,8 +2,6 @@ import 'package:flutter/foundation.dart';
 
 abstract class SettingsState {}
 
-class SettingsInitialState extends SettingsState {}
-
 class SettingsLoadingState extends SettingsState {}
 
 class SettingsReadyState extends SettingsState {

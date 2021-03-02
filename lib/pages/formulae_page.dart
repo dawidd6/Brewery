@@ -3,6 +3,7 @@ import 'package:brewery/events/formulae_events.dart';
 import 'package:brewery/models/formula.dart';
 import 'package:brewery/pages/formula_page.dart';
 import 'package:brewery/states/formulae_states.dart';
+import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
 import 'package:brewery/widgets/refreshable_list.dart';
@@ -31,9 +32,8 @@ class FormulaePageState extends State<FormulaePage>
   Widget build(BuildContext context) {
     super.build(context);
     return BlocBuilder<FormulaeBloc, FormulaeState>(
-      builder: (context, state) => AnimatedSwitcher(
-        duration: Duration(milliseconds: 400),
-        child: () {
+      builder: (context, state) => CenterSwitcher(
+        builder: (context) {
           if (state is FormulaeReadyState)
             return Column(
               children: [
@@ -67,7 +67,7 @@ class FormulaePageState extends State<FormulaePage>
             return LoadingIcon();
           else
             return Container();
-        }(),
+        },
       ),
     );
   }
