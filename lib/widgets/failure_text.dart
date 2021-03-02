@@ -16,11 +16,13 @@ class FailureText extends StatelessWidget {
           message,
           style: Theme.of(context).textTheme.bodyText1,
         ),
-        IconButton(
-          icon: Icon(Icons.refresh),
-          iconSize: MediaQuery.of(context).size.shortestSide * 0.2,
-          onPressed: onRefresh,
-        ),
+        onRefresh == null
+            ? Container()
+            : IconButton(
+                icon: Icon(Icons.refresh),
+                iconSize: MediaQuery.of(context).size.shortestSide * 0.2,
+                onPressed: onRefresh,
+              ),
         Text(
           "",
           style: Theme.of(context).textTheme.bodyText1,
