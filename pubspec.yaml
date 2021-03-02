@@ -43,3 +43,7 @@ flutter_launcher_name:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family:  BreweryIcons
+      fonts:
+        - asset: assets/fonts/BreweryIcons.ttf
