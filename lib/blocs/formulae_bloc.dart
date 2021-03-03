@@ -21,6 +21,7 @@ class FormulaeBloc extends Bloc<FormulaeEvent, FormulaeState> {
           allFormulae: _formulae,
         );
       } catch (e) {
+        addError(e);
         yield FormulaeErrorState(e);
       }
     } else if (event is FormulaeFilterEvent) {
