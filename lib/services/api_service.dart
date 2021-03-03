@@ -6,10 +6,6 @@ import 'package:brewery/models/formula.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
-class SkipCacheException {
-  SkipCacheException();
-}
-
 class ApiService {
   final String baseURL = 'https://formulae.brew.sh/api';
   final String formulaeEndpoint = '/formula.json';
@@ -22,7 +18,7 @@ class ApiService {
     required this.client,
   });
 
-  List<Formula> parseFormulae(String body) {
+  static List<Formula> parseFormulae(String body) {
     List<dynamic> json = jsonDecode(body);
 
     return List.generate(
@@ -31,7 +27,7 @@ class ApiService {
     );
   }
 
-  List<Cask> parseCasks(String body) {
+  static List<Cask> parseCasks(String body) {
     List<dynamic> json = jsonDecode(body);
 
     return List.generate(
