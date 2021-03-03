@@ -7,13 +7,9 @@ A mobile frontend to [Homebrew formulae API](https://formulae.brew.sh).
 
 WIP
 
-## Thanks
+## Credits
 
-... to all Homebrew maintainers and contributors for providing the formulae API, creating the icons and keeping the project going!
-
-## Attribution
-
-<div>Main icon made by <a href="https://brew.sh" title="brew">Homebrew contributors</a> (BSD 2-Clause License)</div>
+<div>Thanks to <a href="https://brew.sh" title="brew">Homebrew contributors</a> for making the Homebrew icon (BSD 2-Clause License), providing the API and maintaining the project</div>
 
 <div>Some icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
