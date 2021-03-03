@@ -13,17 +13,16 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: /opt/hostedtoolcache/flutter
-          key: ${{runner.os}}-flutter-beta-
+          key: ${{runner.os}}-flutter-
       - uses: subosito/flutter-action@v1
         with:
-          channel: beta
+          channel: stable
       - uses: actions/cache@v2
         with:
           path: ${{env.FLUTTER_HOME}}/.pub-cache
           key: ${{runner.os}}-pub-${{hashFiles('**/pubspec.lock')}}
           restore-keys: ${{runner.os}}-pub-
       - run: flutter pub get
-      - run: flutter config --enable-web
       - run: flutter build web --release
       - uses: crazy-max/ghaction-github-pages@v2
         with:
