@@ -27,6 +27,10 @@ jobs:
           key: ${{runner.os}}-pub-${{hashFiles('**/pubspec.lock')}}
           restore-keys: ${{runner.os}}-pub-
       - run: flutter pub get
+      - uses: actions/cache@v2
+        with:
+          path: build
+          key: ${{runner.os}}-build-
       - run: flutter build apk
       - uses: actions/upload-artifact@v2
         with:
