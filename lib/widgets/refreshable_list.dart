@@ -10,13 +10,13 @@ class RefreshableList<T> extends StatelessWidget {
   final List<T> itemList;
 
   RefreshableList({
-    Key key,
-    @required this.pageBuilder,
-    @required this.tileTitleBuilder,
-    @required this.tileSubtitleBuilder,
-    @required this.tileTrailingBuilder,
-    @required this.onRefresh,
-    @required this.itemList,
+    Key? key,
+    required this.pageBuilder,
+    required this.tileTitleBuilder,
+    required this.tileSubtitleBuilder,
+    required this.tileTrailingBuilder,
+    required this.onRefresh,
+    required this.itemList,
   }) : super(key: key);
 
   @override

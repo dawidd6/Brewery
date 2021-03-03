@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
-  static final route = "/";
+  static final route = '/';
 
-  HomePage({Key key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -29,18 +29,19 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<HomeBloc, int>(
       builder: (context, index) => Scaffold(
         appBar: AppBar(
-          title: Text("Brewery"),
+          title: Text('Brewery'),
           actions: [
             PopupMenuButton(
               onSelected: (index) {
-                if (index == 0)
+                if (index == 0) {
                   Navigator.pushNamed(context, SettingsPage.route);
+                }
               },
               itemBuilder: (context) => [
                 PopupMenuItem(
                   value: 0,
                   child: Text(
-                    "Settings",
+                    'Settings',
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),

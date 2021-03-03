@@ -6,10 +6,10 @@ class RegexpFilter extends StatelessWidget {
   final int totalCount;
 
   RegexpFilter({
-    Key key,
-    this.onChanged,
-    this.filteredCount,
-    this.totalCount,
+    Key? key,
+    required this.onChanged,
+    required this.filteredCount,
+    required this.totalCount,
   });
 
   @override
@@ -21,11 +21,11 @@ class RegexpFilter extends StatelessWidget {
         decoration: InputDecoration(
           prefixIcon: Icon(
             Icons.search,
-            color: Theme.of(context).inputDecorationTheme.labelStyle.color,
+            color: Theme.of(context).inputDecorationTheme.labelStyle!.color,
           ),
-          labelText: "Search",
-          hintText: "hello",
-          counterText: "$filteredCount / $totalCount",
+          labelText: 'Search',
+          hintText: 'hello',
+          counterText: '$filteredCount / $totalCount',
         ),
       ),
     );

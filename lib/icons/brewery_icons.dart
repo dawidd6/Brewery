@@ -19,7 +19,7 @@ class BreweryIcons {
   BreweryIcons._();
 
   static const _kFontFam = 'BreweryIcons';
-  static const String _kFontPkg = null;
+  static const String? _kFontPkg = null;
 
   static const IconData wine_cask =
       IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);

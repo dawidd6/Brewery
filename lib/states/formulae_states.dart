@@ -8,7 +8,10 @@ class FormulaeReadyState extends FormulaeState {
   final List<Formula> allFormulae;
   final List<Formula> filteredFormulae;
 
-  FormulaeReadyState({this.filteredFormulae, this.allFormulae});
+  FormulaeReadyState({
+    required this.filteredFormulae,
+    required this.allFormulae,
+  });
 }
 
 class FormulaeErrorState extends FormulaeState {

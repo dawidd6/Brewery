@@ -8,11 +8,11 @@ class AnimatedTile extends StatefulWidget {
   final void Function() onTap;
 
   AnimatedTile({
-    Key key,
-    this.title,
-    this.subtitle,
-    this.trailing,
-    this.onTap,
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.trailing,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -21,8 +21,8 @@ class AnimatedTile extends StatefulWidget {
 
 class _AnimatedTileState extends State<AnimatedTile>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation _animation;
+  late final AnimationController _controller;
+  late final Animation<double> _animation;
 
   @override
   void initState() {

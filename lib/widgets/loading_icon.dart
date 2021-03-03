@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class LoadingIcon extends StatefulWidget {
-  LoadingIcon({Key key}) : super(key: key);
+  LoadingIcon({Key? key}) : super(key: key);
 
   @override
   _LoadingIconState createState() => _LoadingIconState();
@@ -11,8 +11,8 @@ class LoadingIcon extends StatefulWidget {
 
 class _LoadingIconState extends State<LoadingIcon>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation _animation;
+  late final AnimationController _controller;
+  late final Animation _animation;
 
   @override
   void initState() {
@@ -48,13 +48,13 @@ class _LoadingIconState extends State<LoadingIcon>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _controller,
-      child: Icon(
-        Icons.refresh,
-        size: MediaQuery.of(context).size.shortestSide * 0.5,
-      ),
       builder: (context, child) => Transform.rotate(
         angle: _animation.value,
         child: child,
+      ),
+      child: Icon(
+        Icons.refresh,
+        size: MediaQuery.of(context).size.shortestSide * 0.5,
       ),
     );
   }

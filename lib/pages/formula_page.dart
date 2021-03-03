@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class FormulaPage extends StatelessWidget {
   final Formula formula;
 
-  FormulaPage({Key key, @required this.formula}) : super(key: key);
+  FormulaPage({Key? key, required this.formula}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class FormulaPage extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "name:",
+                  'name:',
                 ),
                 Text(
                   formula.name,
@@ -31,7 +31,7 @@ class FormulaPage extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "description:",
+                  'description:',
                 ),
                 Text(
                   formula.description,

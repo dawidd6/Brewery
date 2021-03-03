@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsPage extends StatefulWidget {
-  static final route = "/settings";
+  static final route = '/settings';
 
-  SettingsPage({Key key}) : super(key: key);
+  SettingsPage({Key? key}) : super(key: key);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -28,17 +28,17 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings"),
+        title: Text('Settings'),
       ),
       body: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) => CenterSwitcher(
           builder: (context) {
-            if (state is SettingsReadyState)
+            if (state is SettingsReadyState) {
               return ListView(
                 children: [
                   SettingTile(
-                    title: "Test setting",
-                    subtitle: "Test description",
+                    title: 'Test setting',
+                    subtitle: 'Test description',
                     toggled: state.testValue,
                     onChanged: (value) => context
                         .read<SettingsBloc>()
@@ -46,14 +46,15 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ],
               );
-            else if (state is SettingsErrorState)
+            } else if (state is SettingsErrorState) {
               return FailureText(
                 message: state.error.toString(),
               );
-            else if (state is SettingsLoadingState)
+            } else if (state is SettingsLoadingState) {
               return LoadingIcon();
-            else
+            } else {
               return Container();
+            }
           },
         ),
       ),

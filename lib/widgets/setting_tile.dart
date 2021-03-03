@@ -7,11 +7,11 @@ class SettingTile extends StatelessWidget {
   final void Function(bool) onChanged;
 
   SettingTile({
-    Key key,
-    this.title,
-    this.subtitle,
-    this.toggled,
-    this.onChanged,
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.toggled,
+    required this.onChanged,
   }) : super(key: key);
 
   @override

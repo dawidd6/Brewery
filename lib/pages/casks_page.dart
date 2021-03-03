@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CasksPage extends StatefulWidget {
-  static final name = "Casks";
+  static final name = 'Casks';
 
-  CasksPage({Key key}) : super(key: key);
+  CasksPage({Key? key}) : super(key: key);
 
   @override
   _CasksPageState createState() => _CasksPageState();
@@ -34,7 +34,7 @@ class _CasksPageState extends State<CasksPage>
     return BlocBuilder<CasksBloc, CasksState>(
       builder: (context, state) => CenterSwitcher(
         builder: (context) {
-          if (state is CasksReadyState)
+          if (state is CasksReadyState) {
             return Column(
               children: [
                 RegexpFilter(
@@ -57,16 +57,17 @@ class _CasksPageState extends State<CasksPage>
                 ),
               ],
             );
-          else if (state is CasksErrorState)
+          } else if (state is CasksErrorState) {
             return FailureText(
               message: state.error.toString(),
               onRefresh: () =>
                   context.read<CasksBloc>().add(CasksRequestEvent()),
             );
-          else if (state is CasksLoadingState)
+          } else if (state is CasksLoadingState) {
             return LoadingIcon();
-          else
+          } else {
             return Container();
+          }
         },
       ),
     );

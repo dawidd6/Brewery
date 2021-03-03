@@ -1,20 +1,21 @@
 import 'package:brewery/events/casks_events.dart';
 import 'package:brewery/models/cask.dart';
-import 'package:brewery/services/api_service.dart';
+import 'package:brewery/repositories/api_repository.dart';
 import 'package:brewery/states/casks_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CasksBloc extends Bloc<CasksEvent, CasksState> {
-  List<Cask> _casks;
+  List<Cask> _casks = [];
+  final ApiRepository repository;
 
-  CasksBloc() : super(CasksLoadingState());
+  CasksBloc({required this.repository}) : super(CasksLoadingState());
 
   @override
   Stream<CasksState> mapEventToState(CasksEvent event) async* {
     if (event is CasksRequestEvent) {
       try {
         yield CasksLoadingState();
-        _casks = await ApiService.fetchCasks();
+        _casks = await repository.getCasks();
         yield CasksReadyState(
           filteredCasks: _casks,
           allCasks: _casks,

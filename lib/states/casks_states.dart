@@ -8,7 +8,10 @@ class CasksReadyState extends CasksState {
   final List<Cask> allCasks;
   final List<Cask> filteredCasks;
 
-  CasksReadyState({this.filteredCasks, this.allCasks});
+  CasksReadyState({
+    required this.filteredCasks,
+    required this.allCasks,
+  });
 }
 
 class CasksErrorState extends CasksState {

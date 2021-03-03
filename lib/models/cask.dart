@@ -3,13 +3,17 @@ class Cask {
   final String version;
   final String description;
 
-  Cask({this.token, this.version, this.description});
+  Cask({
+    required this.token,
+    required this.version,
+    required this.description,
+  });
 
   factory Cask.fromJson(Map<String, dynamic> json) {
     return Cask(
-      token: json["token"],
-      version: json["version"],
-      description: json["desc"] ?? "",
+      token: json['token'],
+      version: json['version'],
+      description: json['desc'] ?? '',
     );
   }
 }

@@ -1,20 +1,21 @@
 import 'package:brewery/events/formulae_events.dart';
 import 'package:brewery/models/formula.dart';
-import 'package:brewery/services/api_service.dart';
+import 'package:brewery/repositories/api_repository.dart';
 import 'package:brewery/states/formulae_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FormulaeBloc extends Bloc<FormulaeEvent, FormulaeState> {
-  List<Formula> _formulae;
+  List<Formula> _formulae = [];
+  final ApiRepository repository;
 
-  FormulaeBloc() : super(FormulaeLoadingState());
+  FormulaeBloc({required this.repository}) : super(FormulaeLoadingState());
 
   @override
   Stream<FormulaeState> mapEventToState(FormulaeEvent event) async* {
     if (event is FormulaeRequestEvent) {
       try {
         yield FormulaeLoadingState();
-        _formulae = await ApiService.fetchFormulae();
+        _formulae = await repository.getFormulae();
         yield FormulaeReadyState(
           filteredFormulae: _formulae,
           allFormulae: _formulae,

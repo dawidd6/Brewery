@@ -2,21 +2,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyBlocObserver extends BlocObserver {
   @override
-  void onCreate(Cubit cubit) {
-    super.onCreate(cubit);
-    print('onCreate -- cubit: ${cubit.runtimeType}');
+  void onCreate(Bloc bloc) {
+    super.onCreate(bloc);
+    print('onCreate -- bloc: ${bloc.runtimeType}');
   }
 
   @override
-  void onEvent(Bloc bloc, Object event) {
+  void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
     print('onEvent -- bloc: ${bloc.runtimeType}, event: $event');
-  }
-
-  @override
-  void onChange(Cubit cubit, Change change) {
-    super.onChange(cubit, change);
-    print('onChange -- cubit: ${cubit.runtimeType}, change: $change');
   }
 
   @override
@@ -26,14 +20,14 @@ class MyBlocObserver extends BlocObserver {
   }
 
   @override
-  void onError(Cubit cubit, Object error, StackTrace stackTrace) {
-    print('onError -- cubit: ${cubit.runtimeType}, error: $error');
-    super.onError(cubit, error, stackTrace);
+  void onError(Bloc bloc, Object error, StackTrace stackTrace) {
+    print('onError -- bloc: ${bloc.runtimeType}, error: $error');
+    super.onError(bloc, error, stackTrace);
   }
 
   @override
-  void onClose(Cubit cubit) {
-    super.onClose(cubit);
-    print('onClose -- cubit: ${cubit.runtimeType}');
+  void onClose(Bloc bloc) {
+    super.onClose(bloc);
+    print('onClose -- bloc: ${bloc.runtimeType}');
   }
 }

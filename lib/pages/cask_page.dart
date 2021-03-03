@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CaskPage extends StatelessWidget {
   final Cask cask;
 
-  CaskPage({Key key, @required this.cask}) : super(key: key);
+  CaskPage({Key? key, required this.cask}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

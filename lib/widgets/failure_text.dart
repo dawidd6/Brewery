@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 class FailureText extends StatelessWidget {
   final String message;
-  final Function onRefresh;
+  final void Function()? onRefresh;
 
-  FailureText({Key key, @required this.message, this.onRefresh})
-      : super(key: key);
+  FailureText({
+    Key? key,
+    required this.message,
+    this.onRefresh,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class FailureText extends StatelessWidget {
                 onPressed: onRefresh,
               ),
         Text(
-          "",
+          '',
           style: Theme.of(context).textTheme.bodyText1,
         ),
       ],

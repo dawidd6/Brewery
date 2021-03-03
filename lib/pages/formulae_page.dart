@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FormulaePage extends StatefulWidget {
-  static final name = "Formulae";
+  static final name = 'Formulae';
 
-  FormulaePage({Key key}) : super(key: key);
+  FormulaePage({Key? key}) : super(key: key);
 
   @override
   _FormulaePageState createState() => _FormulaePageState();
@@ -34,7 +34,7 @@ class _FormulaePageState extends State<FormulaePage>
     return BlocBuilder<FormulaeBloc, FormulaeState>(
       builder: (context, state) => CenterSwitcher(
         builder: (context) {
-          if (state is FormulaeReadyState)
+          if (state is FormulaeReadyState) {
             return Column(
               children: [
                 RegexpFilter(
@@ -57,16 +57,17 @@ class _FormulaePageState extends State<FormulaePage>
                 ),
               ],
             );
-          else if (state is FormulaeErrorState)
+          } else if (state is FormulaeErrorState) {
             return FailureText(
               message: state.error.toString(),
               onRefresh: () =>
                   context.read<FormulaeBloc>().add(FormulaeRequestEvent()),
             );
-          else if (state is FormulaeLoadingState)
+          } else if (state is FormulaeLoadingState) {
             return LoadingIcon();
-          else
+          } else {
             return Container();
+          }
         },
       ),
     );

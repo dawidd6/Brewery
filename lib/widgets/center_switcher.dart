@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CenterSwitcher extends StatelessWidget {
   final Widget Function(BuildContext context) builder;
 
-  CenterSwitcher({Key key, @required this.builder}) : super(key: key);
+  CenterSwitcher({Key? key, required this.builder}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
