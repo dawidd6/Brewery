@@ -1,8 +1,6 @@
 import 'package:brewery/blocs/casks_bloc.dart';
-import 'package:brewery/events/casks_events.dart';
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/pages/cask_page.dart';
-import 'package:brewery/states/casks_states.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
@@ -25,7 +23,7 @@ class _CasksPageState extends State<CasksPage>
   @override
   void initState() {
     super.initState();
-    context.read<CasksBloc>().add(CasksRequestEvent());
+    BlocProvider.of<CasksBloc>(context).add(CasksRequestEvent());
   }
 
   @override
@@ -38,8 +36,7 @@ class _CasksPageState extends State<CasksPage>
             return Column(
               children: [
                 RegexpFilter(
-                  onChanged: (filter) => context
-                      .read<CasksBloc>()
+                  onChanged: (filter) => BlocProvider.of<CasksBloc>(context)
                       .add(CasksFilterEvent(filter: filter)),
                   filteredCount: state.filteredCasks.length,
                   totalCount: state.allCasks.length,
@@ -47,7 +44,8 @@ class _CasksPageState extends State<CasksPage>
                 RefreshableList<Cask>(
                   itemList: state.filteredCasks,
                   onRefresh: () async {
-                    context.read<CasksBloc>().add(CasksRequestEvent());
+                    BlocProvider.of<CasksBloc>(context)
+                        .add(CasksRequestEvent());
                     return null;
                   },
                   tileTitleBuilder: (cask) => cask.token,
@@ -61,7 +59,7 @@ class _CasksPageState extends State<CasksPage>
             return FailureText(
               message: state.error.toString(),
               onRefresh: () =>
-                  context.read<CasksBloc>().add(CasksRequestEvent()),
+                  BlocProvider.of<CasksBloc>(context).add(CasksRequestEvent()),
             );
           } else if (state is CasksLoadingState) {
             return LoadingIcon();

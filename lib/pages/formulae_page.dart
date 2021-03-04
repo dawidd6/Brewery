@@ -1,8 +1,6 @@
 import 'package:brewery/blocs/formulae_bloc.dart';
-import 'package:brewery/events/formulae_events.dart';
 import 'package:brewery/models/formula.dart';
 import 'package:brewery/pages/formula_page.dart';
-import 'package:brewery/states/formulae_states.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
@@ -25,7 +23,7 @@ class _FormulaePageState extends State<FormulaePage>
   @override
   void initState() {
     super.initState();
-    context.read<FormulaeBloc>().add(FormulaeRequestEvent());
+    BlocProvider.of<FormulaeBloc>(context).add(FormulaeRequestEvent());
   }
 
   @override
@@ -38,8 +36,7 @@ class _FormulaePageState extends State<FormulaePage>
             return Column(
               children: [
                 RegexpFilter(
-                  onChanged: (filter) => context
-                      .read<FormulaeBloc>()
+                  onChanged: (filter) => BlocProvider.of<FormulaeBloc>(context)
                       .add(FormulaeFilterEvent(filter: filter)),
                   filteredCount: state.filteredFormulae.length,
                   totalCount: state.allFormulae.length,
@@ -47,7 +44,8 @@ class _FormulaePageState extends State<FormulaePage>
                 RefreshableList<Formula>(
                   itemList: state.filteredFormulae,
                   onRefresh: () async {
-                    context.read<FormulaeBloc>().add(FormulaeRequestEvent());
+                    BlocProvider.of<FormulaeBloc>(context)
+                        .add(FormulaeRequestEvent());
                     return null;
                   },
                   tileTitleBuilder: (formula) => formula.name,
@@ -60,8 +58,8 @@ class _FormulaePageState extends State<FormulaePage>
           } else if (state is FormulaeErrorState) {
             return FailureText(
               message: state.error.toString(),
-              onRefresh: () =>
-                  context.read<FormulaeBloc>().add(FormulaeRequestEvent()),
+              onRefresh: () => BlocProvider.of<FormulaeBloc>(context)
+                  .add(FormulaeRequestEvent()),
             );
           } else if (state is FormulaeLoadingState) {
             return LoadingIcon();

@@ -1,6 +1,4 @@
 import 'package:brewery/blocs/settings_bloc.dart';
-import 'package:brewery/events/settings_events.dart';
-import 'package:brewery/states/settings_states.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
@@ -21,7 +19,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
-    context.read<SettingsBloc>().add(SettingsLoadEvent());
+    BlocProvider.of<SettingsBloc>(context).add(SettingsLoadEvent());
   }
 
   @override
@@ -36,13 +34,17 @@ class _SettingsPageState extends State<SettingsPage> {
             if (state is SettingsReadyState) {
               return ListView(
                 children: [
-                  SettingTile(
-                    title: 'Test setting',
-                    subtitle: 'Test description',
-                    toggled: state.testValue,
-                    onChanged: (value) => context
-                        .read<SettingsBloc>()
-                        .add(SettingsSetTestEvent(value)),
+                  BlocBuilder<SettingsTestCubit, bool>(
+                    bloc: BlocProvider.of<SettingsBloc>(context).test,
+                    builder: (context, state) => SettingTile(
+                      title: 'Test setting',
+                      subtitle: 'Test description',
+                      toggled: state,
+                      onChanged: (value) =>
+                          BlocProvider.of<SettingsBloc>(context)
+                              .test
+                              .set(value),
+                    ),
                   ),
                 ],
               );

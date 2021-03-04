@@ -1,7 +1,35 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeBloc extends Cubit<int> {
-  HomeBloc() : super(0);
+abstract class HomeEvent extends Equatable {}
 
-  void change(int index) => emit(index);
+abstract class HomeState extends Equatable {}
+
+class HomeChangePageEvent extends HomeEvent {
+  final int index;
+
+  HomeChangePageEvent(this.index);
+
+  @override
+  List<Object?> get props => [index];
+}
+
+class HomePageState extends HomeState {
+  final int index;
+
+  HomePageState(this.index);
+
+  @override
+  List<Object?> get props => [index];
+}
+
+class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  HomeBloc() : super(HomePageState(0));
+
+  @override
+  Stream<HomeState> mapEventToState(HomeEvent event) async* {
+    if (event is HomeChangePageEvent) {
+      yield HomePageState(event.index);
+    }
+  }
 }

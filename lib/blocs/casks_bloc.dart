@@ -1,8 +1,52 @@
-import 'package:brewery/events/casks_events.dart';
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/repositories/api_repository.dart';
-import 'package:brewery/states/casks_states.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+abstract class CasksEvent extends Equatable {}
+
+abstract class CasksState extends Equatable {}
+
+class CasksRequestEvent extends CasksEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class CasksFilterEvent extends CasksEvent {
+  final String filter;
+
+  CasksFilterEvent({required this.filter});
+
+  @override
+  List<Object?> get props => [filter];
+}
+
+class CasksLoadingState extends CasksState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CasksReadyState extends CasksState {
+  final List<Cask> allCasks;
+  final List<Cask> filteredCasks;
+
+  CasksReadyState({
+    required this.filteredCasks,
+    required this.allCasks,
+  });
+
+  @override
+  List<Object?> get props => [allCasks, filteredCasks];
+}
+
+class CasksErrorState extends CasksState {
+  final Object error;
+
+  CasksErrorState(this.error);
+
+  @override
+  List<Object?> get props => [error];
+}
 
 class CasksBloc extends Bloc<CasksEvent, CasksState> {
   List<Cask> _casks = [];

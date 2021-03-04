@@ -26,8 +26,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, int>(
-      builder: (context, index) => Scaffold(
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) => Scaffold(
         appBar: AppBar(
           title: Text('Brewery'),
           actions: [
@@ -51,14 +51,15 @@ class _HomePageState extends State<HomePage> {
         ),
         body: PageView(
           controller: _pageController,
-          onPageChanged: context.read<HomeBloc>().change,
+          onPageChanged: (index) => BlocProvider.of<HomeBloc>(context)
+              .add(HomeChangePageEvent(index)),
           children: [
             FormulaePage(),
             CasksPage(),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: index,
+          currentIndex: (state as HomePageState).index,
           onTap: (index) => _pageController.animateToPage(
             index,
             duration: Duration(milliseconds: 200),
