@@ -18,7 +18,6 @@ class Formula {
   final List<String> bottles;
   final List<String> buildDependencies;
   final List<String> dependencies;
-  final List<String> requirements;
   final List<String> conflictsWith;
 
   Formula({
@@ -41,7 +40,6 @@ class Formula {
     required this.bottles,
     required this.buildDependencies,
     required this.dependencies,
-    required this.requirements,
     required this.conflictsWith,
   });
 
@@ -50,7 +48,7 @@ class Formula {
       name: json['name'],
       version: json['versions']['stable'],
       description: json['desc'],
-      license: json['license'],
+      license: json['license'] ?? '',
       homepage: json['homepage'],
       caveats: json['caveats'] ?? '',
       deprecateDate: json['deprecate_date'] ?? '',
@@ -68,9 +66,6 @@ class Formula {
           : json['bottle']['stable']['files'].keys.toList(),
       buildDependencies: List<String>.from(json['build_dependencies']),
       dependencies: List<String>.from(json['dependencies']),
-      requirements: List<String>.from(
-          List<Map<String, Object>>.from(json['requirements'])
-              .map((req) => req['name'])),
       conflictsWith: List<String>.from(json['conflicts_with']),
     );
   }
