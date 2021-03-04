@@ -20,9 +20,9 @@ class CasksBloc extends Bloc<CasksEvent, CasksState> {
           filteredCasks: _casks,
           allCasks: _casks,
         );
-      } catch (e) {
-        addError(e);
+      } catch (e, s) {
         yield CasksErrorState(e);
+        addError(e, s);
       }
     } else if (event is CasksFilterEvent) {
       yield CasksReadyState(
