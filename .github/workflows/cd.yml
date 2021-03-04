@@ -1,13 +1,18 @@
 name: CD
 
 on:
-  push:
+  workflow_run:
+    workflows:
+      - CI
     branches:
       - master
+    types:
+      - completed
 
 jobs:
   cd:
     runs-on: ubuntu-latest
+    if: ${{github.event.workflow_run.conclusion == 'success'}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1
