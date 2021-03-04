@@ -23,7 +23,7 @@ jobs:
           key: ${{runner.os}}-pub-${{hashFiles('**/pubspec.lock')}}
           restore-keys: ${{runner.os}}-pub-
       - run: flutter pub get
-      - run: dart analyze
+      - run: flutter analyze
       - run: flutter format --set-exit-if-changed .
       - run: flutter test
       - run: flutter build apk
