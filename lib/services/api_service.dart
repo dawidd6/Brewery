@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/models/formula.dart';
+import 'package:brewery/services/cache_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
@@ -12,6 +14,7 @@ class ApiService {
   final String formulaeLinuxEndpoint = '/formula-linux.json';
   final String casksEndpoint = '/cask.json';
   final Duration timeout = Duration(seconds: 15);
+  final CacheService cache = CacheService();
   final Client client;
 
   ApiService({
@@ -37,24 +40,48 @@ class ApiService {
   }
 
   Future<List<Formula>> fetchFormulae() async {
-    final response =
-        await get(Uri.parse(baseURL + formulaeEndpoint)).timeout(timeout);
+    var response = Response(await cache.read(formulaeEndpoint), 200);
 
-    if (response.statusCode == 200) {
-      return compute(parseFormulae, response.body);
+    if (response.body.isEmpty) {
+      try {
+        response = await client
+            .get(Uri.parse(baseURL + formulaeEndpoint))
+            .timeout(timeout);
+        if (response.statusCode == 200) {
+          await cache.write(response.body, formulaeEndpoint);
+        }
+      } on SocketException {
+        response =
+            Response(await cache.read(formulaeEndpoint, ignoreOld: true), 200);
+        if (response.body.isEmpty) {
+          rethrow;
+        }
+      }
     }
 
-    throw Exception('Failed to fetch formulae');
+    return compute(parseFormulae, response.body);
   }
 
   Future<List<Cask>> fetchCasks({cache = true}) async {
-    final response =
-        await get(Uri.parse(baseURL + casksEndpoint)).timeout(timeout);
+    var response = Response(await cache.read(casksEndpoint), 200);
 
-    if (response.statusCode == 200) {
-      return compute(parseCasks, response.body);
+    if (response.body.isEmpty) {
+      try {
+        response = await client
+            .get(Uri.parse(baseURL + casksEndpoint))
+            .timeout(timeout);
+        if (response.statusCode == 200) {
+          await cache.write(response.body, casksEndpoint);
+        }
+      } on SocketException {
+        response =
+            Response(await cache.read(casksEndpoint, ignoreOld: true), 200);
+        if (response.body.isEmpty) {
+          rethrow;
+        }
+      }
     }
 
-    throw Exception('Failed to fetch formulae');
+    return compute(parseCasks, response.body);
   }
 }
