@@ -32,7 +32,7 @@ jobs:
           path: build
           key: ${{runner.os}}-build-
       - run: dart analyze
-      - run: flutter format --set-exit-if-changed
+      - run: flutter format --set-exit-if-changed .
       - run: flutter test
       - run: flutter build apk
       - uses: actions/upload-artifact@v2
