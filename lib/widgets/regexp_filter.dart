@@ -24,18 +24,25 @@ class RegexpFilter extends StatelessWidget {
         decoration: InputDecoration(
           prefixIcon: Icon(
             Icons.search,
+            size: 24.0,
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color,
           ),
-          suffixIcon: controller.text.isEmpty ? null : IconButton(
-            icon: Icon(
-              Icons.cancel,
-              color: Theme.of(context).inputDecorationTheme.labelStyle!.color,
-            ),
-            onPressed: () {
-              controller.clear();
-              onChanged('');
-            },
-          ),
+          suffixIcon: controller.text.isEmpty
+              ? null
+              : IconButton(
+                  onPressed: () {
+                    controller.clear();
+                    onChanged('');
+                  },
+                  icon: Icon(
+                    Icons.clear,
+                    size: 24.0,
+                    color: Theme.of(context)
+                        .inputDecorationTheme
+                        .labelStyle!
+                        .color,
+                  ),
+                ),
           labelText: 'Search',
           hintText: 'hello',
           counterText: '$filteredCount / $totalCount',
