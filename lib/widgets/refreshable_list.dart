@@ -24,8 +24,7 @@ class RefreshableList<T> extends StatelessWidget {
     return Expanded(
       child: RefreshIndicator(
         onRefresh: onRefresh,
-        child: ListView.separated(
-          separatorBuilder: (context, index) => Divider(),
+        child: ListView(
           itemCount: itemList.length,
           itemExtent: 50.0,
           itemBuilder: (context, index) => AnimatedTile(
