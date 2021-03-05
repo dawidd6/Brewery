@@ -54,18 +54,21 @@ class _AnimatedTileState extends State<AnimatedTile>
     return FadeTransition(
       opacity: _animation,
       child: ListTile(
-        isThreeLine: true,
         onTap: widget.onTap,
         title: Padding(
           padding: EdgeInsets.only(bottom: 10.0),
           child: Text(
             widget.title,
             style: Theme.of(context).textTheme.headline1,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
         ),
         subtitle: Text(
           widget.subtitle,
           style: Theme.of(context).textTheme.headline2,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
         ),
         trailing: Text(
           widget.trailing,
