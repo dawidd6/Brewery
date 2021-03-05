@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/models/formula.dart';
@@ -40,48 +39,23 @@ class ApiService {
   }
 
   Future<List<Formula>> fetchFormulae() async {
-    var response = Response(await cache.read(formulaeEndpoint), 200);
-
-    if (response.body.isEmpty) {
-      try {
-        response = await client
-            .get(Uri.parse(baseURL + formulaeEndpoint))
-            .timeout(timeout);
-        if (response.statusCode == 200) {
-          await cache.write(response.body, formulaeEndpoint);
-        }
-      } on SocketException {
-        response =
-            Response(await cache.read(formulaeEndpoint, ignoreOld: true), 200);
-        if (response.body.isEmpty) {
-          rethrow;
-        }
-      }
+    final response = await client
+        .get(Uri.parse(baseURL + formulaeEndpoint))
+        .timeout(timeout);
+    if (response.statusCode == 200) {
+      return compute(parseFormulae, response.body);
     }
 
-    return compute(parseFormulae, response.body);
+    throw Exception('Failed to fetch formulae');
   }
 
   Future<List<Cask>> fetchCasks() async {
-    var response = Response(await cache.read(casksEndpoint), 200);
-
-    if (response.body.isEmpty) {
-      try {
-        response = await client
-            .get(Uri.parse(baseURL + casksEndpoint))
-            .timeout(timeout);
-        if (response.statusCode == 200) {
-          await cache.write(response.body, casksEndpoint);
-        }
-      } on SocketException {
-        response =
-            Response(await cache.read(casksEndpoint, ignoreOld: true), 200);
-        if (response.body.isEmpty) {
-          rethrow;
-        }
-      }
+    final response =
+        await client.get(Uri.parse(baseURL + casksEndpoint)).timeout(timeout);
+    if (response.statusCode == 200) {
+      return compute(parseCasks, response.body);
     }
 
-    return compute(parseCasks, response.body);
+    throw Exception('Failed to fetch casks');
   }
 }
