@@ -20,10 +20,18 @@ class CasksPage extends StatefulWidget {
 
 class _CasksPageState extends State<CasksPage>
     with AutomaticKeepAliveClientMixin {
+  final TextEditingController _controller = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     BlocProvider.of<CasksBloc>(context).add(CasksRequestEvent());
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -36,6 +44,7 @@ class _CasksPageState extends State<CasksPage>
             return Column(
               children: [
                 RegexpFilter(
+                  controller: _controller,
                   onChanged: (filter) => BlocProvider.of<CasksBloc>(context)
                       .add(CasksFilterEvent(filter: filter)),
                   filteredCount: state.filteredCasks.length,

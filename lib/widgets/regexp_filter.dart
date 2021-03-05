@@ -11,7 +11,8 @@ class RegexpFilter extends StatelessWidget {
     required this.onChanged,
     required this.filteredCount,
     required this.totalCount,
-  }) : controller = TextEditingController();
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {

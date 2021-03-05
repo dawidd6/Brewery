@@ -20,10 +20,18 @@ class FormulaePage extends StatefulWidget {
 
 class _FormulaePageState extends State<FormulaePage>
     with AutomaticKeepAliveClientMixin {
+  final TextEditingController _controller = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     BlocProvider.of<FormulaeBloc>(context).add(FormulaeRequestEvent());
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -36,6 +44,7 @@ class _FormulaePageState extends State<FormulaePage>
             return Column(
               children: [
                 RegexpFilter(
+                  controller: _controller,
                   onChanged: (filter) => BlocProvider.of<FormulaeBloc>(context)
                       .add(FormulaeFilterEvent(filter: filter)),
                   filteredCount: state.filteredFormulae.length,
