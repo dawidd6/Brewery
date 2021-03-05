@@ -1,11 +1,11 @@
 import 'package:brewery/models/cask.dart';
 import 'package:flutter/material.dart';
 
-class CaskPage extends StatelessWidget {
+class CaskScreen extends StatelessWidget {
   final Cask cask;
   final List<Cask> casks;
 
-  CaskPage({
+  CaskScreen({
     Key? key,
     required this.cask,
     required this.casks,

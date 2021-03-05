@@ -5,19 +5,8 @@ import 'package:brewery/widgets/setting_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SettingsPage extends StatefulWidget {
-  SettingsPage({Key? key}) : super(key: key);
-
-  @override
-  _SettingsPageState createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<SettingsBloc>(context).add(SettingsLoadEvent());
-  }
+class SettingsScreen extends StatelessWidget {
+  SettingsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

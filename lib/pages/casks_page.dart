@@ -1,6 +1,6 @@
 import 'package:brewery/blocs/casks_bloc.dart';
 import 'package:brewery/models/cask.dart';
-import 'package:brewery/pages/cask_page.dart';
+import 'package:brewery/screens/cask_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
@@ -23,12 +23,6 @@ class _CasksPageState extends State<CasksPage>
   final TextEditingController _controller = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<CasksBloc>(context).add(CasksRequestEvent());
-  }
-
-  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -36,6 +30,7 @@ class _CasksPageState extends State<CasksPage>
 
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<CasksBloc>(context);
     super.build(context);
     return BlocBuilder<CasksBloc, CasksState>(
       builder: (context, state) => CenterSwitcher(
@@ -45,8 +40,8 @@ class _CasksPageState extends State<CasksPage>
               children: [
                 RegexpFilter(
                   controller: _controller,
-                  onChanged: (filter) => BlocProvider.of<CasksBloc>(context)
-                      .add(CasksFilterEvent(filter: filter)),
+                  onChanged: (filter) =>
+                      bloc.add(CasksFilterEvent(filter: filter)),
                   filteredCount: state.filteredCasks.length,
                   totalCount: state.allCasks.length,
                 ),
@@ -54,14 +49,13 @@ class _CasksPageState extends State<CasksPage>
                   itemList: state.filteredCasks,
                   onRefresh: () async {
                     _controller.clear();
-                    BlocProvider.of<CasksBloc>(context)
-                        .add(CasksRequestEvent());
+                    bloc.add(CasksRequestEvent());
                     return null;
                   },
                   onTileClick: (cask) => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CaskPage(
+                      builder: (context) => CaskScreen(
                         cask: cask,
                         casks: state.allCasks,
                       ),
@@ -76,8 +70,7 @@ class _CasksPageState extends State<CasksPage>
           } else if (state is CasksErrorState) {
             return FailureText(
               message: state.error.toString(),
-              onRefresh: () =>
-                  BlocProvider.of<CasksBloc>(context).add(CasksRequestEvent()),
+              onRefresh: () => bloc.add(CasksRequestEvent()),
             );
           } else if (state is CasksLoadingState) {
             return LoadingIcon();

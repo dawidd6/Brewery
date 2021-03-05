@@ -1,6 +1,6 @@
 import 'package:brewery/blocs/formulae_bloc.dart';
 import 'package:brewery/models/formula.dart';
-import 'package:brewery/pages/formula_page.dart';
+import 'package:brewery/screens/formula_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
@@ -23,12 +23,6 @@ class _FormulaePageState extends State<FormulaePage>
   final TextEditingController _controller = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<FormulaeBloc>(context).add(FormulaeRequestEvent());
-  }
-
-  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -36,6 +30,7 @@ class _FormulaePageState extends State<FormulaePage>
 
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<FormulaeBloc>(context);
     super.build(context);
     return BlocBuilder<FormulaeBloc, FormulaeState>(
       builder: (context, state) => CenterSwitcher(
@@ -45,8 +40,8 @@ class _FormulaePageState extends State<FormulaePage>
               children: [
                 RegexpFilter(
                   controller: _controller,
-                  onChanged: (filter) => BlocProvider.of<FormulaeBloc>(context)
-                      .add(FormulaeFilterEvent(filter: filter)),
+                  onChanged: (filter) =>
+                      bloc.add(FormulaeFilterEvent(filter: filter)),
                   filteredCount: state.filteredFormulae.length,
                   totalCount: state.allFormulae.length,
                 ),
@@ -54,14 +49,13 @@ class _FormulaePageState extends State<FormulaePage>
                   itemList: state.filteredFormulae,
                   onRefresh: () async {
                     _controller.clear();
-                    BlocProvider.of<FormulaeBloc>(context)
-                        .add(FormulaeRequestEvent());
+                    bloc.add(FormulaeRequestEvent());
                     return null;
                   },
                   onTileClick: (formula) => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => FormulaPage(
+                      builder: (context) => FormulaScreen(
                         formula: formula,
                         formulae: state.allFormulae,
                       ),
@@ -76,8 +70,7 @@ class _FormulaePageState extends State<FormulaePage>
           } else if (state is FormulaeErrorState) {
             return FailureText(
               message: state.error.toString(),
-              onRefresh: () => BlocProvider.of<FormulaeBloc>(context)
-                  .add(FormulaeRequestEvent()),
+              onRefresh: () => bloc.add(FormulaeRequestEvent()),
             );
           } else if (state is FormulaeLoadingState) {
             return LoadingIcon();

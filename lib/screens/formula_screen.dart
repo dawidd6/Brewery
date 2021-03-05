@@ -2,11 +2,11 @@ import 'package:brewery/models/formula.dart';
 import 'package:brewery/widgets/chips_section.dart';
 import 'package:flutter/material.dart';
 
-class FormulaPage extends StatelessWidget {
+class FormulaScreen extends StatelessWidget {
   final Formula formula;
   final List<Formula> formulae;
 
-  FormulaPage({
+  FormulaScreen({
     Key? key,
     required this.formula,
     required this.formulae,
@@ -32,7 +32,7 @@ class FormulaPage extends StatelessWidget {
               onChipTap: (label) => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FormulaPage(
+                  builder: (context) => FormulaScreen(
                     formula: formulae.findByName(label),
                     formulae: formulae,
                   ),
@@ -45,7 +45,7 @@ class FormulaPage extends StatelessWidget {
               onChipTap: (label) => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FormulaPage(
+                  builder: (context) => FormulaScreen(
                     formula: formulae.findByName(label),
                     formulae: formulae,
                   ),
@@ -58,7 +58,7 @@ class FormulaPage extends StatelessWidget {
               onChipTap: (label) => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FormulaPage(
+                  builder: (context) => FormulaScreen(
                     formula: formulae.findByName(label),
                     formulae: formulae,
                   ),

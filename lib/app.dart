@@ -1,8 +1,8 @@
 import 'package:brewery/blocs/casks_bloc.dart';
 import 'package:brewery/blocs/formulae_bloc.dart';
 import 'package:brewery/blocs/home_bloc.dart';
-import 'package:brewery/pages/home_page.dart';
 import 'package:brewery/repositories/api_repository.dart';
+import 'package:brewery/screens/home_screen.dart';
 import 'package:brewery/services/api_service.dart';
 import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class App extends StatelessWidget {
               )..add(CasksRequestEvent()),
             ),
           ],
-          child: HomePage(),
+          child: HomeScreen(),
         ),
       ),
     );

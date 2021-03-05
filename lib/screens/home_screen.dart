@@ -3,18 +3,18 @@ import 'package:brewery/blocs/settings_bloc.dart';
 import 'package:brewery/icons/brewery_icons.dart';
 import 'package:brewery/pages/casks_page.dart';
 import 'package:brewery/pages/formulae_page.dart';
-import 'package:brewery/pages/settings_page.dart';
+import 'package:brewery/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
 
   @override
@@ -37,8 +37,9 @@ class _HomePageState extends State<HomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => BlocProvider(
-                        create: (context) => SettingsBloc(),
-                        child: SettingsPage(),
+                        create: (context) =>
+                            SettingsBloc()..add(SettingsLoadEvent()),
+                        child: SettingsScreen(),
                       ),
                     ),
                   );
