@@ -44,7 +44,7 @@ class _CasksPageState extends State<CasksPage>
             return Column(
               children: [
                 RegexpFilter(
-                  controller: _controller;
+                  controller: _controller,
                   onChanged: (filter) => BlocProvider.of<CasksBloc>(context)
                       .add(CasksFilterEvent(filter: filter)),
                   filteredCount: state.filteredCasks.length,
