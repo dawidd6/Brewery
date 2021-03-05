@@ -47,6 +47,7 @@ class BreweryTheme {
         color: BreweryColors.brown,
       ),
       counterStyle: TextStyle(
+        fontSize: 13.0,
         color: BreweryColors.goldDark,
       ),
       enabledBorder: OutlineInputBorder(
@@ -109,7 +110,7 @@ class BreweryTheme {
       // List tile version text
       headline3: TextStyle(
         color: BreweryColors.goldLight,
-        fontSize: 12.0,
+        fontSize: 13.0,
         fontWeight: FontWeight.w400,
         fontStyle: FontStyle.italic,
       ),
