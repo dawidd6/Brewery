@@ -1,4 +1,5 @@
 import 'package:brewery/models/formula.dart';
+import 'package:brewery/widgets/chips_section.dart';
 import 'package:flutter/material.dart';
 
 class FormulaPage extends StatelessWidget {
@@ -14,29 +15,23 @@ class FormulaPage extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
-            Row(
-              children: [
-                Text(
-                  'name:',
-                ),
-                Text(
-                  formula.name,
-                ),
-              ],
+            ChipsSection(
+              header: 'Bottles',
+              list: formula.bottles,
             ),
-            Row(
-              children: [
-                Text(
-                  'description:',
-                ),
-                Text(
-                  formula.description,
-                ),
-              ],
+            ChipsSection(
+              header: 'Build dependencies',
+              list: formula.buildDependencies,
+            ),
+            ChipsSection(
+              header: 'Dependencies',
+              list: formula.dependencies,
+            ),
+            ChipsSection(
+              header: 'Conflicts',
+              list: formula.conflictsWith,
             ),
           ],
         ),
