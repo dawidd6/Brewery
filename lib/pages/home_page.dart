@@ -68,14 +68,14 @@ class _HomePageState extends State<HomePage> {
           items: [
             BottomNavigationBarItem(
               icon: Padding(
-                padding: EdgeInsets.only(bottom: 3.0),
+                padding: EdgeInsets.all(3.0),
                 child: Icon(BreweryIcons.recipe_book),
               ),
               label: FormulaePage.name,
             ),
             BottomNavigationBarItem(
               icon: Padding(
-                padding: EdgeInsets.only(bottom: 3.0),
+                padding: EdgeInsets.all(3.0),
                 child: Icon(BreweryIcons.wine_cask),
               ),
               label: CasksPage.name,
