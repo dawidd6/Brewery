@@ -77,7 +77,7 @@ class BreweryTheme {
       labelStyle: TextStyle(
         color: BreweryColors.goldLight,
         fontSize: 15.0,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
       ),
     ),
     textSelectionTheme: TextSelectionThemeData(
