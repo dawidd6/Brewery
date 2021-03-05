@@ -2,19 +2,19 @@ import 'package:brewery/widgets/animated_tile.dart';
 import 'package:flutter/material.dart';
 
 class RefreshableList<T> extends StatelessWidget {
-  final Widget Function(T) pageBuilder;
   final String Function(T) tileTitleBuilder;
   final String Function(T) tileSubtitleBuilder;
   final String Function(T) tileTrailingBuilder;
+  final void Function(T) onTileClick;
   final RefreshCallback onRefresh;
   final List<T> itemList;
 
   RefreshableList({
     Key? key,
-    required this.pageBuilder,
     required this.tileTitleBuilder,
     required this.tileSubtitleBuilder,
     required this.tileTrailingBuilder,
+    required this.onTileClick,
     required this.onRefresh,
     required this.itemList,
   }) : super(key: key);
@@ -31,11 +31,7 @@ class RefreshableList<T> extends StatelessWidget {
             title: tileTitleBuilder(itemList[index]),
             subtitle: tileSubtitleBuilder(itemList[index]),
             trailing: tileTrailingBuilder(itemList[index]),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => pageBuilder(itemList[index])),
-            ),
+            onTap: () => onTileClick(itemList[index]),
           ),
         ),
       ),
