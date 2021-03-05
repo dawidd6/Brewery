@@ -60,14 +60,14 @@ class _AnimatedTileState extends State<AnimatedTile>
           child: Text(
             widget.title,
             style: Theme.of(context).textTheme.headline1,
-            overflow: TextOverflow.ellipsis,
+            overflow: TextOverflow.fade,
             maxLines: 1,
           ),
         ),
         subtitle: Text(
           widget.subtitle,
           style: Theme.of(context).textTheme.headline2,
-          overflow: TextOverflow.ellipsis,
+          overflow: TextOverflow.fade,
           maxLines: 1,
         ),
         trailing: Text(
