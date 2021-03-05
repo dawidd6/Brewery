@@ -70,3 +70,9 @@ class Formula {
     );
   }
 }
+
+extension FormulaList on List<Formula> {
+  Formula findByName(String name) {
+    return firstWhere((formula) => formula.name == name);
+  }
+}
