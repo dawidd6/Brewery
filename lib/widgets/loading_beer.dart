@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+//import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
 class LoadingBeer extends StatefulWidget {
   LoadingBeer({Key? key}) : super(key: key);
@@ -52,12 +52,12 @@ class _LoadingBeerState extends State<LoadingBeer>
       height: width,
       child: AnimatedBuilder(
         animation: _controller,
-        builder: (context, child) => LiquidCustomProgressIndicator(
+        builder: (context, child) =>
+            Container(), /*LiquidCustomProgressIndicator(
           value: _controller.value,
           direction: Axis.vertical,
           shapePath: path(width),
-          center: Text('Brewing...'),
-        ),
+          center: Text('Brewing...'),),*/
       ),
     );
   }
