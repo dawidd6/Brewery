@@ -24,17 +24,19 @@ class RefreshableList<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: RefreshIndicator(
-        onRefresh: onRefresh,
-        child: ListView.builder(
-          itemCount: itemList.length,
-          itemExtent: 80.0,
-          itemBuilder: (context, index) => AnimatedTile(
-            filter: filter,
-            title: tileTitleBuilder(itemList[index]),
-            subtitle: tileSubtitleBuilder(itemList[index]),
-            trailing: tileTrailingBuilder(itemList[index]),
-            onTap: () => onTileClick(itemList[index]),
+      child: Scrollbar(
+        child: RefreshIndicator(
+          onRefresh: onRefresh,
+          child: ListView.builder(
+            itemCount: itemList.length,
+            itemExtent: 80.0,
+            itemBuilder: (context, index) => AnimatedTile(
+              filter: filter,
+              title: tileTitleBuilder(itemList[index]),
+              subtitle: tileSubtitleBuilder(itemList[index]),
+              trailing: tileTrailingBuilder(itemList[index]),
+              onTap: () => onTileClick(itemList[index]),
+            ),
           ),
         ),
       ),
