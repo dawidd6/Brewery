@@ -46,6 +46,7 @@ class _CasksPageState extends State<CasksPage>
                   totalCount: state.allCasks.length,
                 ),
                 RefreshableList<Cask>(
+                  filter: RegExp(_controller.text),
                   itemList: state.filteredCasks,
                   onRefresh: () async {
                     _controller.clear();

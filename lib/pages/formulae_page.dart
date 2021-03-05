@@ -46,6 +46,7 @@ class _FormulaePageState extends State<FormulaePage>
                   totalCount: state.allFormulae.length,
                 ),
                 RefreshableList<Formula>(
+                  filter: RegExp(_controller.text),
                   itemList: state.filteredFormulae,
                   onRefresh: () async {
                     _controller.clear();
