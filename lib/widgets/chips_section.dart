@@ -1,13 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChipsSection extends StatelessWidget {
   final String header;
   final List<String> list;
+  final void Function(String)? onChipTap;
 
   ChipsSection({
     Key? key,
     required this.header,
     required this.list,
+    this.onChipTap,
   }) : super(key: key);
 
   @override
@@ -33,9 +36,17 @@ class ChipsSection extends StatelessWidget {
           runSpacing: 5.0,
           children: List.generate(
             list.length,
-            (index) => Chip(
-              label: Text(list[index]),
-            ),
+            (index) => onChipTap == null
+                ? Chip(
+                    label: Text(list[index]),
+                  )
+                : ActionChip(
+                    label: Text(
+                      list[index],
+                      style: TextStyle(decoration: TextDecoration.underline),
+                    ),
+                    onPressed: () => onChipTap!(list[index]),
+                  ),
           ),
         ),
         SizedBox(
