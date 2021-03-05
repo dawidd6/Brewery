@@ -71,6 +71,15 @@ class BreweryTheme {
     dividerTheme: DividerThemeData(
       color: BreweryColors.brownDark,
     ),
+    chipTheme: ChipThemeData.fromDefaults(
+      primaryColor: BreweryColors.goldLight,
+      secondaryColor: BreweryColors.brownDark,
+      labelStyle: TextStyle(
+        color: BreweryColors.goldLight,
+        fontSize: 15.0,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: BreweryColors.goldDark,
     ),
@@ -93,6 +102,12 @@ class BreweryTheme {
         fontSize: 12.0,
         fontWeight: FontWeight.w400,
         fontStyle: FontStyle.italic,
+      ),
+      // Details headline text
+      headline4: TextStyle(
+        color: BreweryColors.goldDark,
+        fontSize: 16.0,
+        fontWeight: FontWeight.w600,
       ),
       // Error text
       bodyText1: TextStyle(
