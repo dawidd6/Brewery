@@ -31,7 +31,10 @@ class RegexpFilter extends StatelessWidget {
               Icons.cancel,
               color: Theme.of(context).inputDecorationTheme.labelStyle!.color,
             ),
-            onPressed: controller.clear,
+            onPressed: () {
+              controller.clear();
+              onChanged('');
+            },
           ),
           labelText: 'Search',
           hintText: 'hello',
