@@ -90,6 +90,13 @@ class BreweryTheme {
         fontSize: 16.0,
         fontWeight: FontWeight.w500,
       ),
+      // List tile name highlighted text
+      headline6: TextStyle(
+        color: BreweryColors.brown,
+        fontSize: 16.0,
+        backgroundColor: BreweryColors.goldDark,
+        fontWeight: FontWeight.w500,
+      ),
       // List tile description text
       headline2: TextStyle(
         color: BreweryColors.goldLight,
