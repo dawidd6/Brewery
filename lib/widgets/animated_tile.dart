@@ -61,6 +61,7 @@ class _AnimatedTileState extends State<AnimatedTile>
             widget.title,
             style: Theme.of(context).textTheme.headline1,
             overflow: TextOverflow.fade,
+            softWrap: false,
             maxLines: 1,
           ),
         ),
@@ -68,6 +69,7 @@ class _AnimatedTileState extends State<AnimatedTile>
           widget.subtitle,
           style: Theme.of(context).textTheme.headline2,
           overflow: TextOverflow.fade,
+          softWrap: false,
           maxLines: 1,
         ),
         trailing: Text(
