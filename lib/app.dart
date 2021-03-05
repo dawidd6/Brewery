@@ -1,9 +1,7 @@
 import 'package:brewery/blocs/casks_bloc.dart';
 import 'package:brewery/blocs/formulae_bloc.dart';
 import 'package:brewery/blocs/home_bloc.dart';
-import 'package:brewery/blocs/settings_bloc.dart';
 import 'package:brewery/pages/home_page.dart';
-import 'package:brewery/pages/settings_page.dart';
 import 'package:brewery/repositories/api_repository.dart';
 import 'package:brewery/services/api_service.dart';
 import 'package:brewery/styles/brewery_theme.dart';
@@ -17,37 +15,31 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Brewery',
       theme: BreweryTheme.data,
-      routes: {
-        HomePage.route: (context) => RepositoryProvider(
-              create: (context) => ApiRepository(
-                service: ApiService(
-                  client: Client(),
-                ),
-              ),
-              child: MultiBlocProvider(
-                providers: [
-                  BlocProvider(
-                    create: (context) => HomeBloc(),
-                  ),
-                  BlocProvider(
-                    create: (context) => CasksBloc(
-                      repository: RepositoryProvider.of<ApiRepository>(context),
-                    ),
-                  ),
-                  BlocProvider(
-                    create: (context) => FormulaeBloc(
-                      repository: RepositoryProvider.of<ApiRepository>(context),
-                    ),
-                  ),
-                ],
-                child: HomePage(),
+      home: RepositoryProvider(
+        create: (context) => ApiRepository(
+          service: ApiService(
+            client: Client(),
+          ),
+        ),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => HomeBloc(),
+            ),
+            BlocProvider(
+              create: (context) => FormulaeBloc(
+                repository: RepositoryProvider.of<ApiRepository>(context),
               ),
             ),
-        SettingsPage.route: (context) => BlocProvider(
-              create: (context) => SettingsBloc(),
-              child: SettingsPage(),
-            )
-      },
+            BlocProvider(
+              create: (context) => CasksBloc(
+                repository: RepositoryProvider.of<ApiRepository>(context),
+              ),
+            ),
+          ],
+          child: HomePage(),
+        ),
+      ),
     );
   }
 }
