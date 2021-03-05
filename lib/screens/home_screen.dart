@@ -1,9 +1,9 @@
 import 'package:brewery/blocs/home_bloc.dart';
 import 'package:brewery/blocs/settings_bloc.dart';
-import 'package:brewery/icons/brewery_icons.dart';
 import 'package:brewery/pages/casks_page.dart';
 import 'package:brewery/pages/formulae_page.dart';
 import 'package:brewery/screens/settings_screen.dart';
+import 'package:brewery/styles/brewery_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
