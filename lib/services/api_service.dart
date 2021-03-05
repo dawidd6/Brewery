@@ -62,7 +62,7 @@ class ApiService {
     return compute(parseFormulae, response.body);
   }
 
-  Future<List<Cask>> fetchCasks({cache = true}) async {
+  Future<List<Cask>> fetchCasks() async {
     var response = Response(await cache.read(casksEndpoint), 200);
 
     if (response.body.isEmpty) {
