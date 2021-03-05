@@ -7,6 +7,7 @@ class BreweryTheme {
     primaryColor: BreweryColors.brown,
     accentColor: BreweryColors.goldDark,
     canvasColor: BreweryColors.brownDark,
+    backgroundColor: BreweryColors.brownDark,
     toggleableActiveColor: BreweryColors.goldDark,
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
