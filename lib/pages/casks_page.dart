@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CasksPage extends StatefulWidget {
-  static final name = 'Casks';
+  static const name = 'Casks';
 
   CasksPage({Key? key}) : super(key: key);
 
@@ -53,14 +53,23 @@ class _CasksPageState extends State<CasksPage>
                 RefreshableList<Cask>(
                   itemList: state.filteredCasks,
                   onRefresh: () async {
+                    _controller.clear();
                     BlocProvider.of<CasksBloc>(context)
                         .add(CasksRequestEvent());
                     return null;
                   },
+                  onTileClick: (cask) => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CaskPage(
+                        cask: cask,
+                        casks: state.allCasks,
+                      ),
+                    ),
+                  ),
                   tileTitleBuilder: (cask) => cask.token,
                   tileSubtitleBuilder: (cask) => cask.description,
                   tileTrailingBuilder: (cask) => cask.version,
-                  pageBuilder: (cask) => CaskPage(cask: cask),
                 ),
               ],
             );

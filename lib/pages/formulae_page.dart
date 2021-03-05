@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FormulaePage extends StatefulWidget {
-  static final name = 'Formulae';
+  static const name = 'Formulae';
 
   FormulaePage({Key? key}) : super(key: key);
 
@@ -53,14 +53,23 @@ class _FormulaePageState extends State<FormulaePage>
                 RefreshableList<Formula>(
                   itemList: state.filteredFormulae,
                   onRefresh: () async {
+                    _controller.clear();
                     BlocProvider.of<FormulaeBloc>(context)
                         .add(FormulaeRequestEvent());
                     return null;
                   },
+                  onTileClick: (formula) => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FormulaPage(
+                        formula: formula,
+                        formulae: state.allFormulae,
+                      ),
+                    ),
+                  ),
                   tileTitleBuilder: (formula) => formula.name,
                   tileSubtitleBuilder: (formula) => formula.description,
                   tileTrailingBuilder: (formula) => formula.version,
-                  pageBuilder: (formula) => FormulaPage(formula: formula),
                 ),
               ],
             );

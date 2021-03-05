@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 
 class FormulaPage extends StatelessWidget {
   final Formula formula;
+  final List<Formula> formulae;
 
-  FormulaPage({Key? key, required this.formula}) : super(key: key);
+  FormulaPage({
+    Key? key,
+    required this.formula,
+    required this.formulae,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +29,41 @@ class FormulaPage extends StatelessWidget {
             ChipsSection(
               header: 'Build dependencies',
               list: formula.buildDependencies,
+              onChipTap: (label) => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FormulaPage(
+                    formula: formulae.findByName(label),
+                    formulae: formulae,
+                  ),
+                ),
+              ),
             ),
             ChipsSection(
               header: 'Dependencies',
               list: formula.dependencies,
+              onChipTap: (label) => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FormulaPage(
+                    formula: formulae.findByName(label),
+                    formulae: formulae,
+                  ),
+                ),
+              ),
             ),
             ChipsSection(
               header: 'Conflicts',
               list: formula.conflictsWith,
+              onChipTap: (label) => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FormulaPage(
+                    formula: formulae.findByName(label),
+                    formulae: formulae,
+                  ),
+                ),
+              ),
             ),
           ],
         ),

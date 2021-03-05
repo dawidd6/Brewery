@@ -1,4 +1,5 @@
 import 'package:brewery/blocs/home_bloc.dart';
+import 'package:brewery/blocs/settings_bloc.dart';
 import 'package:brewery/icons/brewery_icons.dart';
 import 'package:brewery/pages/casks_page.dart';
 import 'package:brewery/pages/formulae_page.dart';
@@ -7,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
-  static final route = '/';
-
   HomePage({Key? key}) : super(key: key);
 
   @override
@@ -34,7 +33,15 @@ class _HomePageState extends State<HomePage> {
             PopupMenuButton(
               onSelected: (index) {
                 if (index == 0) {
-                  Navigator.pushNamed(context, SettingsPage.route);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                        create: (context) => SettingsBloc(),
+                        child: SettingsPage(),
+                      ),
+                    ),
+                  );
                 }
               },
               itemBuilder: (context) => [

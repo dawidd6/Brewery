@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsPage extends StatefulWidget {
-  static final route = '/settings';
-
   SettingsPage({Key? key}) : super(key: key);
 
   @override
