@@ -27,6 +27,7 @@ class RefreshableList<T> extends StatelessWidget {
         child: ListView.separated(
           separatorBuilder: (context, index) => Divider(),
           itemCount: itemList.length,
+          itemExtent: 50.0,
           itemBuilder: (context, index) => AnimatedTile(
             title: tileTitleBuilder(itemList[index]),
             subtitle: tileSubtitleBuilder(itemList[index]),
