@@ -5,6 +5,7 @@ class AnimatedTile extends StatefulWidget {
   final String title;
   final String subtitle;
   final String trailing;
+  final RegExp filter;
   final void Function() onTap;
 
   AnimatedTile({
@@ -12,6 +13,7 @@ class AnimatedTile extends StatefulWidget {
     required this.title,
     required this.subtitle,
     required this.trailing,
+    required this.filter,
     required this.onTap,
   }) : super(key: key);
 
@@ -51,14 +53,33 @@ class _AnimatedTileState extends State<AnimatedTile>
 
   @override
   Widget build(BuildContext context) {
+    final spans = <TextSpan>[];
+
+    if (widget.filter.pattern.isEmpty) {
+      spans.add(TextSpan(text: widget.title));
+    } else {
+      widget.title.splitMapJoin(widget.filter, onMatch: (match) {
+        spans.add(TextSpan(
+          text: match.group(0),
+          style: Theme.of(context).textTheme.headline6,
+        ));
+        return '';
+      }, onNonMatch: (str) {
+        spans.add(TextSpan(text: str));
+        return '';
+      });
+    }
+
     return FadeTransition(
       opacity: _animation,
       child: ListTile(
         onTap: widget.onTap,
         title: Padding(
           padding: EdgeInsets.only(bottom: 10.0),
-          child: Text(
-            widget.title,
+          child: Text.rich(
+            TextSpan(
+              children: spans,
+            ),
             style: Theme.of(context).textTheme.headline1,
             overflow: TextOverflow.fade,
             softWrap: false,

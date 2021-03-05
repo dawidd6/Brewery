@@ -8,6 +8,7 @@ class RefreshableList<T> extends StatelessWidget {
   final void Function(T) onTileClick;
   final RefreshCallback onRefresh;
   final List<T> itemList;
+  final RegExp filter;
 
   RefreshableList({
     Key? key,
@@ -17,6 +18,7 @@ class RefreshableList<T> extends StatelessWidget {
     required this.onTileClick,
     required this.onRefresh,
     required this.itemList,
+    required this.filter,
   }) : super(key: key);
 
   @override
@@ -28,6 +30,7 @@ class RefreshableList<T> extends StatelessWidget {
           itemCount: itemList.length,
           itemExtent: 80.0,
           itemBuilder: (context, index) => AnimatedTile(
+            filter: filter,
             title: tileTitleBuilder(itemList[index]),
             subtitle: tileSubtitleBuilder(itemList[index]),
             trailing: tileTrailingBuilder(itemList[index]),
