@@ -29,12 +29,12 @@ class App extends StatelessWidget {
             BlocProvider(
               create: (context) => FormulaeBloc(
                 repository: RepositoryProvider.of<ApiRepository>(context),
-              ),
+              )..add(FormulaeRequestEvent()),
             ),
             BlocProvider(
               create: (context) => CasksBloc(
                 repository: RepositoryProvider.of<ApiRepository>(context),
-              ),
+              )..add(CasksRequestEvent()),
             ),
           ],
           child: HomePage(),
