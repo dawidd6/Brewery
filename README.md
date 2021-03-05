@@ -9,6 +9,7 @@ Currently the following platforms are supported:
 - Web
 - Android
 - iOS
+- Linux
 
 ## Credits
 
