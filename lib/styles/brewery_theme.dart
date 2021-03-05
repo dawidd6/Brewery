@@ -33,6 +33,9 @@ class BreweryTheme {
     iconTheme: IconThemeData(
       color: BreweryColors.brownDark,
     ),
+    scrollbarTheme: ScrollbarThemeData(
+      thumbColor: MaterialStateProperty.all(BreweryColors.goldDark),
+    ),
     inputDecorationTheme: InputDecorationTheme(
       isDense: true,
       filled: true,
