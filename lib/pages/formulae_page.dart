@@ -3,7 +3,7 @@ import 'package:brewery/models/formula.dart';
 import 'package:brewery/pages/formula_page.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
-import 'package:brewery/widgets/loading_icon.dart';
+import 'package:brewery/widgets/loading_beer.dart';
 import 'package:brewery/widgets/refreshable_list.dart';
 import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +62,7 @@ class _FormulaePageState extends State<FormulaePage>
                   .add(FormulaeRequestEvent()),
             );
           } else if (state is FormulaeLoadingState) {
-            return LoadingIcon();
+            return LoadingBeer();
           } else {
             return Container();
           }

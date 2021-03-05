@@ -3,7 +3,7 @@ import 'package:brewery/models/cask.dart';
 import 'package:brewery/pages/cask_page.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
-import 'package:brewery/widgets/loading_icon.dart';
+import 'package:brewery/widgets/loading_beer.dart';
 import 'package:brewery/widgets/refreshable_list.dart';
 import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +62,7 @@ class _CasksPageState extends State<CasksPage>
                   BlocProvider.of<CasksBloc>(context).add(CasksRequestEvent()),
             );
           } else if (state is CasksLoadingState) {
-            return LoadingIcon();
+            return LoadingBeer();
           } else {
             return Container();
           }
