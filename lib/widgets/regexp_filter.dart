@@ -26,8 +26,10 @@ class RegexpFilter extends StatelessWidget {
             color: Theme.of(context).inputDecorationTheme.labelStyle!.color,
           ),
           suffixIcon: controller.text.isEmpty ? null : IconButton(
-            icon: Icons.cancel,
-            color: Theme.of(context).inputDecorationTheme.labelStyle!.color,
+            icon: Icon(
+              Icons.cancel,
+              color: Theme.of(context).inputDecorationTheme.labelStyle!.color,
+            ),
             onPressed: controller.clear,
           ),
           labelText: 'Search',
