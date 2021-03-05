@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class LoadingIcon extends StatefulWidget {
@@ -12,30 +10,15 @@ class LoadingIcon extends StatefulWidget {
 class _LoadingIconState extends State<LoadingIcon>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  late final Animation _animation;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 1000),
     );
-    _animation = Tween(begin: 0.0, end: 360.0 * pi / 180.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeInOut,
-      ),
-    );
-    _controller.addStatusListener(
-      (status) {
-        if (status == AnimationStatus.completed) {
-          if (mounted) _controller.reset();
-          if (mounted) _controller.forward();
-        }
-      },
-    );
-    _controller.forward();
+    _controller.repeat();
   }
 
   @override
@@ -46,15 +29,11 @@ class _LoadingIconState extends State<LoadingIcon>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) => Transform.rotate(
-        angle: _animation.value,
-        child: child,
-      ),
+    return RotationTransition(
+      turns: _controller,
       child: Icon(
         Icons.refresh,
-        size: MediaQuery.of(context).size.shortestSide * 0.5,
+        size: MediaQuery.of(context).size.shortestSide * 0.4,
       ),
     );
   }
