@@ -17,3 +17,9 @@ class Cask {
     );
   }
 }
+
+extension CaskList on List<Cask> {
+  Cask findByToken(String token) {
+    return firstWhere((cask) => cask.token == token);
+  }
+}

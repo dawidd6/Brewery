@@ -1,4 +1,4 @@
-import 'package:brewery/blocs/settings_bloc.dart';
+import 'package:brewery/blocs/settings/settings_bloc.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/setting_tile.dart';
@@ -10,6 +10,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<SettingsBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),
@@ -17,19 +19,16 @@ class SettingsScreen extends StatelessWidget {
       body: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) => CenterSwitcher(
           builder: (context) {
-            if (state is SettingsReadyState) {
+            if (state is SettingsLoadedState) {
               return ListView(
                 children: [
                   BlocBuilder<SettingsTestCubit, bool>(
-                    bloc: BlocProvider.of<SettingsBloc>(context).test,
+                    bloc: bloc.test,
                     builder: (context, state) => SettingTile(
                       title: 'Test setting',
                       subtitle: 'Test description',
                       toggled: state,
-                      onChanged: (value) =>
-                          BlocProvider.of<SettingsBloc>(context)
-                              .test
-                              .set(value),
+                      onChanged: (value) => bloc.test.set(value),
                     ),
                   ),
                 ],

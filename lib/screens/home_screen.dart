@@ -1,11 +1,13 @@
-import 'package:brewery/blocs/home_bloc.dart';
-import 'package:brewery/blocs/settings_bloc.dart';
-import 'package:brewery/pages/casks_page.dart';
-import 'package:brewery/pages/formulae_page.dart';
+import 'package:brewery/blocs/home/home_bloc.dart';
+import 'package:brewery/screens/casks_screen.dart';
+import 'package:brewery/screens/formulae_screen.dart';
 import 'package:brewery/screens/settings_screen.dart';
-import 'package:brewery/styles/brewery_icons.dart';
+import 'package:brewery/widgets/menu_button.dart';
+import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -15,18 +17,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final PageController _pageController = PageController();
-
-  @override
-  void dispose() {
-    super.dispose();
-    _pageController.dispose();
-  }
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) => Scaffold(
+    return BlocBuilder<HomeBloc, int>(
+      builder: (context, index) => Scaffold(
         appBar: AppBar(
           title: Text('Brewery'),
           actions: [
@@ -36,11 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BlocProvider(
-                        create: (context) =>
-                            SettingsBloc()..add(SettingsLoadEvent()),
-                        child: SettingsScreen(),
-                      ),
+                      builder: (context) => SettingsScreen(),
                     ),
                   );
                 }
@@ -57,38 +49,45 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ],
         ),
-        body: PageView(
-          controller: _pageController,
-          onPageChanged: (index) => BlocProvider.of<HomeBloc>(context)
-              .add(HomeChangePageEvent(index)),
-          children: [
-            FormulaePage(),
-            CasksPage(),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: (state as HomePageState).index,
-          onTap: (index) => _pageController.animateToPage(
-            index,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeOut,
+        body: Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: 500.0,
+              ),
+              child: ListView(
+                children: [
+                  SizedBox(height: 20),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: 200,
+                    ),
+                    child: SvgPicture.asset(
+                      'icons/icon.svg',
+                    ),
+                  ),
+                  SizedBox(height: 40),
+                  RegexpFilter(
+                    title: 'Search formulae or casks',
+                    onChanged: (filter) {},
+                    controller: _controller,
+                  ),
+                  SizedBox(height: 20),
+                  MenuButton(
+                    label: 'Formulae',
+                    pageBuilder: (context) => FormulaeScreen(),
+                  ),
+                  SizedBox(height: 20),
+                  MenuButton(
+                    label: 'Casks',
+                    pageBuilder: (context) => CasksScreen(),
+                  ),
+                  SizedBox(height: 20),
+                ],
+              ),
+            ),
           ),
-          items: [
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: EdgeInsets.all(3.0),
-                child: Icon(BreweryIcons.recipe_book),
-              ),
-              label: FormulaePage.name,
-            ),
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: EdgeInsets.all(3.0),
-                child: Icon(BreweryIcons.wine_cask),
-              ),
-              label: CasksPage.name,
-            ),
-          ],
         ),
       ),
     );

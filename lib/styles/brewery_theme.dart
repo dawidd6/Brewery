@@ -27,6 +27,24 @@ class BreweryTheme {
       ),
     ),
     scaffoldBackgroundColor: BreweryColors.brown,
+    cardTheme: CardTheme(
+      color: BreweryColors.brownDark,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        primary: BreweryColors.brownDark,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20.0),
+          ),
+        ),
+      ),
+    ),
     popupMenuTheme: PopupMenuThemeData(
       color: BreweryColors.brown,
     ),
@@ -118,6 +136,12 @@ class BreweryTheme {
       headline4: TextStyle(
         color: BreweryColors.goldDark,
         fontSize: 16.0,
+        fontWeight: FontWeight.w600,
+      ),
+      // Home card text
+      headline5: TextStyle(
+        color: BreweryColors.goldLight,
+        fontSize: 24.0,
         fontWeight: FontWeight.w600,
       ),
       // Error text
