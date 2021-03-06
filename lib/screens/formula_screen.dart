@@ -26,10 +26,10 @@ class FormulaScreen extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(20.0),
         children: [
-          LinkSection(header: 'Homepage', link: formula.homepage),
-          TextSection(header: 'License', body: formula.license),
           TextSection(header: 'Description', body: formula.description),
           TextSection(header: 'Version', body: formula.version),
+          LinkSection(header: 'Homepage', link: formula.homepage),
+          TextSection(header: 'License', body: formula.license),
           ChipsSection(
             header: 'Bottles',
             list: formula.bottles,
