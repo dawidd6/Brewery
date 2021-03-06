@@ -49,14 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ],
         ),
-        body: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Center(
+        body: Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 maxWidth: 500.0,
               ),
               child: ListView(
+                padding: EdgeInsets.all(20.0),
                 children: [
                   SizedBox(height: 20),
                   ConstrainedBox(
@@ -88,7 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-        ),
       ),
     );
   }
