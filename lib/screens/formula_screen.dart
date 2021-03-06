@@ -18,9 +18,8 @@ class FormulaScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(formula.name),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: ListView(
+      body: ListView(
+          padding: EdgeInsets.all(20.0),
           children: [
             ChipsSection(
               header: 'Bottles',
@@ -67,7 +66,6 @@ class FormulaScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
     );
   }
 }
