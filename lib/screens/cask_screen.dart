@@ -14,9 +14,6 @@ class CaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<CasksBloc>(context);
-    //final casks = (bloc.state as CasksLoadedState).casks;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(cask.token),
