@@ -156,6 +156,13 @@ class BreweryTheme {
         fontSize: 15.0,
         fontWeight: FontWeight.w400,
       ),
+      // Clickable link text
+      subtitle2: TextStyle(
+        color: BreweryColors.goldLight,
+        fontSize: 14.0,
+        fontWeight: FontWeight.w400,
+        decoration: TextDecoration.underline,
+      ),
       // Search bar text
       subtitle1: TextStyle(
         color: BreweryColors.goldLight,
