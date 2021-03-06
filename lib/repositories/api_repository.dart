@@ -3,17 +3,13 @@ import 'package:brewery/models/formula.dart';
 import 'package:brewery/services/api_service.dart';
 
 class ApiRepository {
-  final ApiService service;
-
-  ApiRepository({
-    required this.service,
-  });
+  final ApiService api = ApiService();
 
   Future<List<Formula>> getFormulae() async {
-    return service.fetchFormulae();
+    return api.fetchFormulae();
   }
 
   Future<List<Cask>> getCasks() async {
-    return service.fetchCasks();
+    return api.fetchCasks();
   }
 }

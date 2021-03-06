@@ -3,11 +3,9 @@ import 'package:brewery/blocs/formulae_bloc.dart';
 import 'package:brewery/blocs/home_bloc.dart';
 import 'package:brewery/repositories/api_repository.dart';
 import 'package:brewery/screens/home_screen.dart';
-import 'package:brewery/services/api_service.dart';
 import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 
 class App extends StatelessWidget {
   @override
@@ -16,11 +14,7 @@ class App extends StatelessWidget {
       title: 'Brewery',
       theme: BreweryTheme.data,
       home: RepositoryProvider(
-        create: (context) => ApiRepository(
-          service: ApiService(
-            client: Client(),
-          ),
-        ),
+        create: (context) => ApiRepository(),
         child: MultiBlocProvider(
           providers: [
             BlocProvider(

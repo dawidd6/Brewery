@@ -14,11 +14,6 @@ class ApiService {
   final String casksEndpoint = '/cask.json';
   final Duration timeout = Duration(seconds: 15);
   final CacheService cache = CacheService();
-  final Client client;
-
-  ApiService({
-    required this.client,
-  });
 
   static List<Formula> parseFormulae(String body) {
     List<dynamic> json = jsonDecode(body);
@@ -38,24 +33,51 @@ class ApiService {
     );
   }
 
-  Future<List<Formula>> fetchFormulae() async {
-    final response = await client
-        .get(Uri.parse(baseURL + formulaeEndpoint))
-        .timeout(timeout);
-    if (response.statusCode == 200) {
-      return compute(parseFormulae, response.body);
+  Future<String?> _fetchResponseBody(String endpoint) async {
+    final uri = Uri.parse(baseURL + endpoint);
+    final response = await get(uri).timeout(timeout);
+    if (response.statusCode != 200) {
+      return null;
     }
+    return response.body;
+  }
 
-    throw Exception('Failed to fetch formulae');
+  // TODO somehow pass info about hit/miss up to the UI
+  Future<String?> _fetchResponseBodyWithCache(String endpoint) async {
+    String? responseBody = '';
+
+    responseBody = await cache.read(endpoint);
+    if (responseBody != null) {
+      print('$endpoint: local hit');
+      return responseBody;
+    }
+    print('$endpoint: local miss');
+
+    responseBody = await _fetchResponseBody(endpoint);
+    if (responseBody != null) {
+      await cache.write(responseBody, endpoint);
+      print('$endpoint: remote hit');
+      return responseBody;
+    }
+    print('$endpoint: remote miss');
+
+    responseBody = await cache.read(endpoint, ignoreOld: true);
+    if (responseBody != null) {
+      print('$endpoint: local hit (old)');
+      return responseBody;
+    }
+    print('$endpoint: local miss (old)');
+
+    return responseBody;
+  }
+
+  Future<List<Formula>> fetchFormulae() async {
+    final responseBody = await _fetchResponseBodyWithCache(formulaeEndpoint);
+    return compute(parseFormulae, responseBody!);
   }
 
   Future<List<Cask>> fetchCasks() async {
-    final response =
-        await client.get(Uri.parse(baseURL + casksEndpoint)).timeout(timeout);
-    if (response.statusCode == 200) {
-      return compute(parseCasks, response.body);
-    }
-
-    throw Exception('Failed to fetch casks');
+    final responseBody = await _fetchResponseBodyWithCache(casksEndpoint);
+    return compute(parseCasks, responseBody!);
   }
 }
