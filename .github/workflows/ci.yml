@@ -26,8 +26,6 @@ jobs:
       - run: flutter analyze
       - run: flutter test
       - run: flutter build apk
-      - run: flutter build web
-      - run: flutter build linux
       - uses: actions/upload-artifact@v2
         with:
           name: apk
