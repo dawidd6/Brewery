@@ -24,7 +24,7 @@ jobs:
           key: ${{runner.os}}-pub-${{hashFiles('**/pubspec.lock')}}
           restore-keys: ${{runner.os}}-pub-
       - run: flutter pub get
-      - run: flutter build web --release
+      - run: flutter build web --release --web-renderer canvaskit
       - uses: crazy-max/ghaction-github-pages@v2
         with:
           build_dir: build/web
