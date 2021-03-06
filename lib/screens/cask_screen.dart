@@ -1,5 +1,6 @@
 import 'package:brewery/blocs/casks/casks_bloc.dart';
 import 'package:brewery/models/cask.dart';
+import 'package:brewery/widgets/text_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +15,7 @@ class CaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<CasksBloc>(context);
-    final casks = (bloc.state as CasksLoadedState).casks;
+    //final casks = (bloc.state as CasksLoadedState).casks;
 
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +23,10 @@ class CaskScreen extends StatelessWidget {
       ),
       body: ListView(
         padding: EdgeInsets.all(20.0),
-        children: [],
+        children: [
+          TextSection(header: 'Description', body: cask.description),
+          TextSection(header: 'Version', body: cask.version),
+        ],
       ),
     );
   }
