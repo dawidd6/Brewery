@@ -21,6 +21,14 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
   final TextEditingController _controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<FilteredFormulaeBloc>(context).add(
+      FilteredFormulaeFilterEvent(filter: _controller.text),
+    );
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -33,19 +41,18 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
     return BlocBuilder<FormulaeBloc, FormulaeState>(
       bloc: filteredBloc.bloc,
       builder: (context, state) => Scaffold(
-        appBar: state is FormulaeLoadedState
-            ? AppBar(
-                title: BlocBuilder<FilteredFormulaeBloc, FilteredFormulaeState>(
-                  builder: (context, state) => RegexpFilter(
-                    controller: _controller..text = state.filter,
+        appBar: AppBar(
+                title: Hero(
+                  tag: "search",
+                  child: RegexpFilter(
+                    controller: _controller,
                     title: 'Search formulae',
                     onChanged: (filter) => filteredBloc.add(
                       FilteredFormulaeFilterEvent(filter: filter),
                     ),
                   ),
                 ),
-              )
-            : null,
+              ),
         body: CenterSwitcher(
           builder: (context) {
             if (state is FormulaeLoadedState) {
