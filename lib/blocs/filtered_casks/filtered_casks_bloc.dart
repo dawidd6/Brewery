@@ -39,7 +39,7 @@ class FilteredCasksBloc extends Bloc<FilteredCasksEvent, FilteredCasksState> {
           .toList();
       yield FilteredCasksState(filter: event.filter, casks: casks);
     } else if (event is FilteredCasksUpdateEvent) {
-      yield FilteredCasksState(filter: '', casks: event.casks);
+      yield FilteredCasksState(filter: state.filter, casks: event.casks);
     }
   }
 
