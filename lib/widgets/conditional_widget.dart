@@ -12,6 +12,18 @@ class ConditionalWidget extends StatelessWidget {
     this.widgetIfFalse,
   });
 
+  static Widget? nullable({
+    required bool condition,
+    Widget? widgetIfTrue,
+    Widget? widgetIfFalse,
+  }) {
+    if (condition) {
+      return widgetIfTrue;
+    } else {
+      return widgetIfFalse;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (condition) {
