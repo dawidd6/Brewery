@@ -43,7 +43,7 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
       builder: (context, state) => Scaffold(
         appBar: AppBar(
                 title: Hero(
-                  tag: "search",
+                  tag: 'search',
                   child: RegexpFilter(
                     controller: _controller,
                     title: 'Search formulae',
