@@ -42,7 +42,8 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
       bloc: filteredBloc.bloc,
       builder: (context, state) => Scaffold(
         appBar: AppBar(
-                title: Hero(
+                title: BlocBuilder<FilteredFormulaeBloc, FilteredFormulaeState>(
+                builder: (context, state) => Hero(
                   tag: 'search',
                   child: RegexpFilter(
                     controller: _controller,
@@ -53,6 +54,7 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
                   ),
                 ),
               ),
+            ),
         body: CenterSwitcher(
           builder: (context) {
             if (state is FormulaeLoadedState) {
