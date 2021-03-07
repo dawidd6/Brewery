@@ -2,6 +2,7 @@ import 'package:brewery/blocs/home/home_bloc.dart';
 import 'package:brewery/screens/casks_screen.dart';
 import 'package:brewery/screens/formulae_screen.dart';
 import 'package:brewery/screens/settings_screen.dart';
+import 'package:brewery/widgets/material_hero.dart';
 import 'package:brewery/widgets/menu_button.dart';
 import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(height: 40),
-                Hero(
+                MaterialHero(
                   tag: 'search',
                   child: RegexpFilter(
                     title: 'Search formulae and casks',

@@ -5,6 +5,7 @@ import 'package:brewery/screens/formula_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
+import 'package:brewery/widgets/material_hero.dart';
 import 'package:brewery/widgets/model_list.dart';
 import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
       builder: (context, state) => Scaffold(
         appBar: AppBar(
           title: BlocBuilder<FilteredFormulaeBloc, FilteredFormulaeState>(
-            builder: (context, state) => Hero(
+            builder: (context, state) => MaterialHero(
               tag: 'search',
               child: RegexpFilter(
                 controller: _controller,
