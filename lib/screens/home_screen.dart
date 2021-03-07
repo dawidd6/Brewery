@@ -18,8 +18,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController _controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, int>(
@@ -61,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: RegexpFilter(
                     title: 'Search formulae and casks',
                     onChanged: (filter) {},
-                    controller: _controller,
                   ),
                 ),
                 SizedBox(height: 20),

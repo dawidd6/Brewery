@@ -19,20 +19,12 @@ class FormulaeScreen extends StatefulWidget {
 }
 
 class _FormulaeScreenState extends State<FormulaeScreen> {
-  final TextEditingController _controller = TextEditingController();
-
   @override
   void initState() {
     super.initState();
     BlocProvider.of<FilteredFormulaeBloc>(context).add(
-      FilteredFormulaeFilterEvent(filter: _controller.text),
+      FilteredFormulaeFilterEvent(filter: ''),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -40,18 +32,14 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
     final filteredBloc = BlocProvider.of<FilteredFormulaeBloc>(context);
 
     return BlocBuilder<FormulaeBloc, FormulaeState>(
-      bloc: filteredBloc.bloc,
       builder: (context, state) => Scaffold(
         appBar: AppBar(
-          title: BlocBuilder<FilteredFormulaeBloc, FilteredFormulaeState>(
-            builder: (context, state) => MaterialHero(
-              tag: 'search',
-              child: RegexpFilter(
-                controller: _controller,
-                title: 'Search formulae',
-                onChanged: (filter) => filteredBloc.add(
-                  FilteredFormulaeFilterEvent(filter: filter),
-                ),
+          title: MaterialHero(
+            tag: 'search',
+            child: RegexpFilter(
+              title: 'Search formulae',
+              onChanged: (filter) => filteredBloc.add(
+                FilteredFormulaeFilterEvent(filter: filter),
               ),
             ),
           ),
@@ -61,7 +49,7 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
             if (state is FormulaeLoadedState) {
               return BlocBuilder<FilteredFormulaeBloc, FilteredFormulaeState>(
                 builder: (context, state) => ModelList<Formula>(
-                  filter: RegExp(_controller.text),
+                  filter: RegExp(state.filter),
                   itemList: state.formulae,
                   onTileClick: (formula) => Navigator.push(
                     context,

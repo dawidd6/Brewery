@@ -18,14 +18,6 @@ class CasksScreen extends StatefulWidget {
 }
 
 class _CasksScreenState extends State<CasksScreen> {
-  final TextEditingController _controller = TextEditingController();
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final filteredBloc = BlocProvider.of<FilteredCasksBloc>(context);
@@ -37,7 +29,6 @@ class _CasksScreenState extends State<CasksScreen> {
             ? AppBar(
                 title: BlocBuilder<FilteredCasksBloc, FilteredCasksState>(
                   builder: (context, state) => RegexpFilter(
-                    controller: _controller..text = state.filter,
                     title: 'Search casks',
                     onChanged: (filter) => filteredBloc.add(
                       FilteredCasksFilterEvent(filter: filter),
@@ -51,7 +42,7 @@ class _CasksScreenState extends State<CasksScreen> {
             if (state is CasksLoadedState) {
               return BlocBuilder<FilteredCasksBloc, FilteredCasksState>(
                 builder: (context, state) => ModelList<Cask>(
-                  filter: RegExp(_controller.text),
+                  filter: RegExp(state.filter),
                   itemList: state.casks,
                   onTileClick: (cask) => Navigator.push(
                     context,
