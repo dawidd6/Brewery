@@ -42,19 +42,19 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
       bloc: filteredBloc.bloc,
       builder: (context, state) => Scaffold(
         appBar: AppBar(
-                title: BlocBuilder<FilteredFormulaeBloc, FilteredFormulaeState>(
-                builder: (context, state) => Hero(
-                  tag: 'search',
-                  child: RegexpFilter(
-                    controller: _controller,
-                    title: 'Search formulae',
-                    onChanged: (filter) => filteredBloc.add(
-                      FilteredFormulaeFilterEvent(filter: filter),
-                    ),
-                  ),
+          title: BlocBuilder<FilteredFormulaeBloc, FilteredFormulaeState>(
+            builder: (context, state) => Hero(
+              tag: 'search',
+              child: RegexpFilter(
+                controller: _controller,
+                title: 'Search formulae',
+                onChanged: (filter) => filteredBloc.add(
+                  FilteredFormulaeFilterEvent(filter: filter),
                 ),
               ),
             ),
+          ),
+        ),
         body: CenterSwitcher(
           builder: (context) {
             if (state is FormulaeLoadedState) {

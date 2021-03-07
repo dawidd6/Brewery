@@ -40,7 +40,10 @@ class FilteredFormulaeBloc
         );
         yield FilteredFormulaeState(filter: event.filter, formulae: formulae);
       } else {
-        yield FilteredFormulaeState(filter: event.filter, formulae: state.formulae);
+        yield FilteredFormulaeState(
+          filter: event.filter,
+          formulae: state.formulae,
+        );
       }
     } else if (event is FilteredFormulaeUpdateEvent) {
       final formulae = _filter(state.filter, event.formulae);
@@ -49,10 +52,11 @@ class FilteredFormulaeBloc
   }
 
   List<Formula> _filter(String filter, List<Formula> formulae) {
-    return formulae.where((formula) => formula.name.contains(
-                  RegExp(filter),
-                ))
-            .toList();
+    return formulae
+        .where((formula) => formula.name.contains(
+              RegExp(filter),
+            ))
+        .toList();
   }
 
   @override
