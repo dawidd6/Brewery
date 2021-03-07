@@ -26,27 +26,15 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text('Brewery'),
           actions: [
-            PopupMenuButton(
-              onSelected: (index) {
-                if (index == 0) {
-                  Navigator.push(
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => SettingsScreen(),
                     ),
-                  );
-                }
-              },
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  value: 0,
-                  child: Text(
-                    'Settings',
-                    style: Theme.of(context).textTheme.bodyText2,
                   ),
-                ),
-              ],
-            )
+              ),
           ],
         ),
         body: Center(
@@ -67,10 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(height: 40),
-                  RegexpFilter(
-                    title: 'Search formulae or casks',
-                    onChanged: (filter) {},
-                    controller: _controller,
+                  Hero(
+                    tag: 'search',
+                    child: RegexpFilter(
+                      title: 'Search formulae and casks',
+                      onChanged: (filter) {},
+                      controller: _controller,
+                    ),
                   ),
                   SizedBox(height: 20),
                   MenuButton(
