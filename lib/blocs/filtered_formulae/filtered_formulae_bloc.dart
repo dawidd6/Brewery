@@ -41,7 +41,7 @@ class FilteredFormulaeBloc
           .toList();
       yield FilteredFormulaeState(filter: event.filter, formulae: formulae);
     } else if (event is FilteredFormulaeUpdateEvent) {
-      yield FilteredFormulaeState(filter: '', formulae: event.formulae);
+      yield FilteredFormulaeState(filter: state.filter, formulae: event.formulae);
     }
   }
 
