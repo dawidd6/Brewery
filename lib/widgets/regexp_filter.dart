@@ -1,5 +1,6 @@
 import 'package:brewery/widgets/conditional_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class RegexpFilter extends StatefulWidget {
   final void Function(String) onChanged;
@@ -17,6 +18,7 @@ class RegexpFilter extends StatefulWidget {
 
 class _RegexpFilterState extends State<RegexpFilter> {
   final _controller = TextEditingController();
+  final _focus = FocusNode();
 
   void onClear() {
     _controller.clear();
@@ -28,8 +30,21 @@ class _RegexpFilterState extends State<RegexpFilter> {
     setState(() {});
   }
 
+  void onKey(RawKeyEvent event) {
+    if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
+      _focus.unfocus();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    RawKeyboard.instance.addListener(onKey);
+  }
+
   @override
   void dispose() {
+    RawKeyboard.instance.removeListener(onKey);
     _controller.dispose();
     super.dispose();
   }
@@ -37,6 +52,7 @@ class _RegexpFilterState extends State<RegexpFilter> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      focusNode: _focus,
       controller: _controller,
       onChanged: onInput,
       decoration: InputDecoration(
@@ -50,6 +66,7 @@ class _RegexpFilterState extends State<RegexpFilter> {
           condition: _controller.text.isNotEmpty,
           widgetIfTrue: IconButton(
             onPressed: onClear,
+            hoverColor: Colors.transparent,
             icon: Icon(
               Icons.clear,
               size: 24.0,
