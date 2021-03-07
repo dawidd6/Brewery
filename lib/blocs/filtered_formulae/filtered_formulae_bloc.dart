@@ -4,6 +4,7 @@ import 'package:brewery/blocs/formulae/formulae_bloc.dart';
 import 'package:brewery/models/formula.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rxdart/rxdart.dart';
 
 part 'filtered_formulae_event.dart';
 part 'filtered_formulae_state.dart';
@@ -51,17 +52,25 @@ class FilteredFormulaeBloc
     }
   }
 
-  List<Formula> _filter(String filter, List<Formula> formulae) {
-    return formulae
-        .where((formula) => formula.name.contains(
-              RegExp(filter),
-            ))
-        .toList();
+  @override
+  Stream<Transition<FilteredFormulaeEvent, FilteredFormulaeState>>
+      transformEvents(Stream<FilteredFormulaeEvent> events, transitionFn) {
+    return events
+        .debounceTime(Duration(milliseconds: 500))
+        .switchMap(transitionFn);
   }
 
   @override
   Future<void> close() {
     subscription.cancel();
     return super.close();
+  }
+
+  List<Formula> _filter(String filter, List<Formula> formulae) {
+    return formulae
+        .where((formula) => formula.name.contains(
+              RegExp(filter),
+            ))
+        .toList();
   }
 }
