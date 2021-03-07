@@ -34,19 +34,25 @@ class FilteredFormulaeBloc
       FilteredFormulaeEvent event) async* {
     if (event is FilteredFormulaeFilterEvent) {
       if (bloc.state is FormulaeLoadedState) {
-        final formulae = (bloc.state as FormulaeLoadedState)
-            .formulae
-            .where((formula) => formula.name.contains(
-                  RegExp(event.filter),
-                ))
-            .toList();
+        final formulae = _filter(
+          event.filter,
+          (bloc.state as FormulaeLoadedState).formulae,
+        );
         yield FilteredFormulaeState(filter: event.filter, formulae: formulae);
       } else {
         yield FilteredFormulaeState(filter: event.filter, formulae: state.formulae);
       }
     } else if (event is FilteredFormulaeUpdateEvent) {
-      yield FilteredFormulaeState(filter: state.filter, formulae: event.formulae);
+      final formulae = _filter(state.filter, event.formulae);
+      yield FilteredFormulaeState(filter: state.filter, formulae: formulae);
     }
+  }
+
+  List<Formula> _filter(String filter, List<Formula> formulae) {
+    return formulae.where((formula) => formula.name.contains(
+                  RegExp(filter),
+                ))
+            .toList();
   }
 
   @override
