@@ -31,6 +31,10 @@ class _RegexpFilterState extends State<RegexpFilter> {
     setState(() {});
   }
 
+  void onSubmit(String input) {
+    _focus.unfocus();
+  }
+
   void onKey(RawKeyEvent event) {
     if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
       _focus.unfocus();
@@ -57,6 +61,7 @@ class _RegexpFilterState extends State<RegexpFilter> {
       focusNode: _focus,
       controller: _controller,
       onChanged: onInput,
+      onSubmitted: onSubmit,
       decoration: InputDecoration(
         labelText: widget.title,
         prefixIcon: Icon(
