@@ -31,20 +31,20 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
   Widget build(BuildContext context) {
     final filteredBloc = BlocProvider.of<FilteredFormulaeBloc>(context);
 
-    return BlocBuilder<FormulaeBloc, FormulaeState>(
-      builder: (context, state) => Scaffold(
-        appBar: AppBar(
-          title: MaterialHero(
-            tag: 'search',
-            child: RegexpFilter(
-              title: 'Search formulae',
-              onChanged: (filter) => filteredBloc.add(
-                FilteredFormulaeFilterEvent(filter: filter),
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        title: MaterialHero(
+          tag: 'search',
+          child: RegexpFilter(
+            title: 'Search formulae',
+            onChanged: (filter) => filteredBloc.add(
+              FilteredFormulaeFilterEvent(filter: filter),
             ),
           ),
         ),
-        body: CenterSwitcher(
+      ),
+      body: BlocBuilder<FormulaeBloc, FormulaeState>(
+        builder: (context, state) => CenterSwitcher(
           builder: (context) {
             if (state is FormulaeLoadedState) {
               return BlocBuilder<FilteredFormulaeBloc, FilteredFormulaeState>(
