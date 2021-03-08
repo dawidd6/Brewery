@@ -46,6 +46,7 @@ class _RegexpFilterState extends State<RegexpFilter> {
   @override
   void dispose() {
     RawKeyboard.instance.removeListener(onKey);
+    _focus.dispose();
     _controller.dispose();
     super.dispose();
   }
