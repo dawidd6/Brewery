@@ -60,9 +60,11 @@ class _ModelTileState extends State<ModelTile>
             maxLines: 1,
           ),
         ),
-        subtitle: Text(
-          widget.subtitle,
+        subtitle: HighlightedText(
+          text: widget.subtitle,
+          filter: widget.filter,
           style: Theme.of(context).textTheme.headline2,
+          highlightStyle: Theme.of(context).textTheme.overline,
           overflow: TextOverflow.fade,
           softWrap: false,
           maxLines: 1,
