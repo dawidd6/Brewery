@@ -23,6 +23,7 @@ class _RegexpFilterState extends State<RegexpFilter> {
   void onClear() {
     _controller.clear();
     widget.onChanged('');
+    setState(() {});
   }
 
   void onInput(String input) {
