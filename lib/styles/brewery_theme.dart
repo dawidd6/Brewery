@@ -105,6 +105,7 @@ class BreweryTheme {
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: BreweryColors.goldDark,
     ),
+    // TODO move those below into static methods
     textTheme: TextTheme(
       // List tile name text
       headline1: TextStyle(
@@ -123,6 +124,13 @@ class BreweryTheme {
       headline2: TextStyle(
         color: BreweryColors.goldLight,
         fontSize: 14.0,
+        fontWeight: FontWeight.w400,
+      ),
+      // List tile description highlighted text
+      overline: TextStyle(
+        color: BreweryColors.brown,
+        fontSize: 14.0,
+        backgroundColor: BreweryColors.goldLight,
         fontWeight: FontWeight.w400,
       ),
       // List tile version text
