@@ -49,7 +49,7 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
             if (state is FormulaeLoadedState) {
               return BlocBuilder<FilteredFormulaeBloc, FilteredFormulaeState>(
                 builder: (context, state) => ModelList<Formula>(
-                  filter: RegExp(state.filter),
+                  filter: RegExp(state.filter, caseSensitive: false),
                   itemList: state.formulae,
                   onTileClick: (formula) => Navigator.push(
                     context,
