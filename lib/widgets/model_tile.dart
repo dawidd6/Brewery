@@ -1,3 +1,4 @@
+import 'package:brewery/widgets/highlighted_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -24,23 +25,13 @@ class ModelTile extends StatefulWidget {
 class _ModelTileState extends State<ModelTile>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  late final Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1000),
-    );
-    _animation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.fastOutSlowIn,
-      ),
+      duration: Duration(milliseconds: 500),
     );
     _controller.forward();
   }
@@ -53,34 +44,17 @@ class _ModelTileState extends State<ModelTile>
 
   @override
   Widget build(BuildContext context) {
-    final spans = <TextSpan>[];
-
-    if (widget.filter == null) {
-      spans.add(TextSpan(text: widget.title));
-    } else {
-      widget.title.splitMapJoin(widget.filter!, onMatch: (match) {
-        spans.add(TextSpan(
-          text: match.group(0),
-          style: Theme.of(context).textTheme.headline6,
-        ));
-        return '';
-      }, onNonMatch: (str) {
-        spans.add(TextSpan(text: str));
-        return '';
-      });
-    }
-
     return FadeTransition(
-      opacity: _animation,
+      opacity: _controller,
       child: ListTile(
         onTap: widget.onTap,
         title: Padding(
           padding: EdgeInsets.only(bottom: 10.0),
-          child: Text.rich(
-            TextSpan(
-              children: spans,
-            ),
+          child: HighlightedText(
+            text: widget.title,
+            filter: widget.filter,
             style: Theme.of(context).textTheme.headline1,
+            highlightStyle: Theme.of(context).textTheme.headline6,
             overflow: TextOverflow.fade,
             softWrap: false,
             maxLines: 1,
