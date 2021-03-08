@@ -2,7 +2,6 @@ import 'package:brewery/blocs/casks/casks_bloc.dart';
 import 'package:brewery/blocs/filtered_casks/filtered_casks_bloc.dart';
 import 'package:brewery/blocs/filtered_formulae/filtered_formulae_bloc.dart';
 import 'package:brewery/blocs/formulae/formulae_bloc.dart';
-import 'package:brewery/blocs/home/home_bloc.dart';
 import 'package:brewery/blocs/settings/settings_bloc.dart';
 import 'package:brewery/repositories/api_repository.dart';
 import 'package:brewery/screens/home_screen.dart';
@@ -18,6 +17,9 @@ class App extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
+            create: (context) => SettingsBloc(),
+          ),
+          BlocProvider(
             create: (context) => FormulaeBloc(
               repository: RepositoryProvider.of<ApiRepository>(context),
             ),
@@ -31,9 +33,6 @@ class App extends StatelessWidget {
         child: MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => HomeBloc(),
-            ),
-            BlocProvider(
               create: (context) => FilteredFormulaeBloc(
                 bloc: BlocProvider.of<FormulaeBloc>(context),
               ),
@@ -42,9 +41,6 @@ class App extends StatelessWidget {
               create: (context) => FilteredCasksBloc(
                 bloc: BlocProvider.of<CasksBloc>(context),
               ),
-            ),
-            BlocProvider(
-              create: (context) => SettingsBloc(),
             ),
           ],
           child: MaterialApp(
