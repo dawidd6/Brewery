@@ -12,7 +12,7 @@ part 'filtered_formulae_state.dart';
 class FilteredFormulaeBloc
     extends Bloc<FilteredFormulaeEvent, FilteredFormulaeState> {
   final FormulaeBloc bloc;
-  late StreamSubscription subscription;
+  late StreamSubscription _subscription;
 
   FilteredFormulaeBloc({required this.bloc})
       : super(
@@ -23,7 +23,7 @@ class FilteredFormulaeBloc
                 )
               : FilteredFormulaeState(filter: '', formulae: []),
         ) {
-    subscription = bloc.listen((state) {
+    _subscription = bloc.listen((state) {
       if (state is FormulaeLoadedState) {
         add(FilteredFormulaeUpdateEvent(formulae: state.formulae));
       }
@@ -62,15 +62,16 @@ class FilteredFormulaeBloc
 
   @override
   Future<void> close() {
-    subscription.cancel();
+    _subscription.cancel();
     return super.close();
   }
 
   List<Formula> _filter(String filter, List<Formula> formulae) {
+    final matcher = RegExp(filter, caseSensitive: false);
     return formulae
-        .where((formula) => formula.name.contains(
-              RegExp(filter),
-            ))
+        .where((formula) =>
+            matcher.hasMatch(formula.name) ||
+            matcher.hasMatch(formula.description))
         .toList();
   }
 }
