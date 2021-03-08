@@ -37,43 +37,38 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         body: Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: 500.0,
-            ),
-            child: ListView(
-              padding: EdgeInsets.all(20.0),
-              children: [
-                SizedBox(height: 20),
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 200,
-                  ),
-                  child: SvgPicture.asset(
-                    'icons/icon.svg',
-                  ),
+          child: ListView(
+            padding: EdgeInsets.all(20.0),
+            children: [
+              SizedBox(height: 20),
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: 200,
                 ),
-                SizedBox(height: 40),
-                MaterialHero(
-                  tag: 'search',
-                  child: RegexpFilter(
-                    title: 'Search formulae and casks',
-                    onChanged: (filter) {},
-                  ),
+                child: SvgPicture.asset(
+                  'icons/icon.svg',
                 ),
-                SizedBox(height: 20),
-                MenuButton(
-                  label: 'Formulae',
-                  pageBuilder: (context) => FormulaeScreen(),
+              ),
+              SizedBox(height: 40),
+              MaterialHero(
+                tag: 'search',
+                child: RegexpFilter(
+                  title: 'Search formulae and casks',
+                  onChanged: (filter) {},
                 ),
-                SizedBox(height: 20),
-                MenuButton(
-                  label: 'Casks',
-                  pageBuilder: (context) => CasksScreen(),
-                ),
-                SizedBox(height: 20),
-              ],
-            ),
+              ),
+              SizedBox(height: 20),
+              MenuButton(
+                label: 'Formulae',
+                pageBuilder: (context) => FormulaeScreen(),
+              ),
+              SizedBox(height: 20),
+              MenuButton(
+                label: 'Casks',
+                pageBuilder: (context) => CasksScreen(),
+              ),
+              SizedBox(height: 20),
+            ],
           ),
         ),
       ),
