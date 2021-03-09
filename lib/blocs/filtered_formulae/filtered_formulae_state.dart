@@ -1,7 +1,7 @@
 part of 'filtered_formulae_bloc.dart';
 
 class FilteredFormulaeState extends Equatable {
-  final String filter;
+  final RegExp filter;
   final List<Formula> formulae;
 
   FilteredFormulaeState({

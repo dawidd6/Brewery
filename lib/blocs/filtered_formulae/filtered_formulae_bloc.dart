@@ -15,14 +15,12 @@ class FilteredFormulaeBloc
   late StreamSubscription _subscription;
 
   FilteredFormulaeBloc({required this.bloc})
-      : super(
-          bloc.state is FormulaeLoadedState
-              ? FilteredFormulaeState(
-                  filter: '',
-                  formulae: (bloc.state as FormulaeLoadedState).formulae,
-                )
-              : FilteredFormulaeState(filter: '', formulae: []),
-        ) {
+      : super(FilteredFormulaeState(
+          filter: RegExp(''),
+          formulae: bloc.state is FormulaeLoadedState
+              ? (bloc.state as FormulaeLoadedState).formulae
+              : [],
+        )) {
     _subscription = bloc.listen((state) {
       if (state is FormulaeLoadedState) {
         add(FilteredFormulaeUpdateEvent(formulae: state.formulae));
@@ -30,25 +28,39 @@ class FilteredFormulaeBloc
     });
   }
 
+  List<Formula> _filterFormulae(RegExp filter, List<Formula> formulae) {
+    return formulae
+        .where((formula) =>
+            filter.hasMatch(formula.name) ||
+            filter.hasMatch(formula.description))
+        .toList();
+  }
+
   @override
   Stream<FilteredFormulaeState> mapEventToState(
       FilteredFormulaeEvent event) async* {
     if (event is FilteredFormulaeFilterEvent) {
+      final filter = RegExp(event.filter, caseSensitive: false);
+
       if (bloc.state is FormulaeLoadedState) {
-        final formulae = _filter(
-          event.filter,
-          (bloc.state as FormulaeLoadedState).formulae,
+        yield FilteredFormulaeState(
+          filter: filter,
+          formulae: _filterFormulae(
+            filter,
+            (bloc.state as FormulaeLoadedState).formulae,
+          ),
         );
-        yield FilteredFormulaeState(filter: event.filter, formulae: formulae);
       } else {
         yield FilteredFormulaeState(
-          filter: event.filter,
+          filter: filter,
           formulae: state.formulae,
         );
       }
     } else if (event is FilteredFormulaeUpdateEvent) {
-      final formulae = _filter(state.filter, event.formulae);
-      yield FilteredFormulaeState(filter: state.filter, formulae: formulae);
+      yield FilteredFormulaeState(
+        filter: state.filter,
+        formulae: _filterFormulae(state.filter, event.formulae),
+      );
     }
   }
 
@@ -64,14 +76,5 @@ class FilteredFormulaeBloc
   Future<void> close() {
     _subscription.cancel();
     return super.close();
-  }
-
-  List<Formula> _filter(String filter, List<Formula> formulae) {
-    final matcher = RegExp(filter, caseSensitive: false);
-    return formulae
-        .where((formula) =>
-            matcher.hasMatch(formula.name) ||
-            matcher.hasMatch(formula.description))
-        .toList();
   }
 }
