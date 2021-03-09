@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/models/formula.dart';
@@ -35,16 +36,19 @@ class ApiService {
 
   Future<String?> _fetchResponseBody(String endpoint) async {
     final uri = Uri.parse(baseURL + endpoint);
-    final response = await get(uri).timeout(timeout);
-    if (response.statusCode != 200) {
+    try {
+      final response = await get(uri).timeout(timeout);
+      if (response.statusCode == 200) {
+        return response.body;
+      }
+    } on SocketException {
       return null;
     }
-    return response.body;
+    return null;
   }
 
-  // TODO somehow pass info about hit/miss up to the UI
-  Future<String?> _fetchResponseBodyWithCache(String endpoint) async {
-    String? responseBody = '';
+  Future<String> _fetchResponseBodyWithCache(String endpoint) async {
+    String? responseBody;
 
     responseBody = await cache.read(endpoint);
     if (responseBody != null) {
@@ -68,16 +72,16 @@ class ApiService {
     }
     print('$endpoint: local miss (old)');
 
-    return responseBody;
+    throw Exception('Failed to fetch data');
   }
 
   Future<List<Formula>> fetchFormulae() async {
     final responseBody = await _fetchResponseBodyWithCache(formulaeEndpoint);
-    return compute(parseFormulae, responseBody!);
+    return compute(parseFormulae, responseBody);
   }
 
   Future<List<Cask>> fetchCasks() async {
     final responseBody = await _fetchResponseBodyWithCache(casksEndpoint);
-    return compute(parseCasks, responseBody!);
+    return compute(parseCasks, responseBody);
   }
 }
