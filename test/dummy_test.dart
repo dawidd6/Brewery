@@ -1,3 +1,7 @@
+import 'package:flutter_test/flutter_test.dart';
+
 void main() {
-  print('test');
+  test('test', () {
+    print('test');
+  });
 }
