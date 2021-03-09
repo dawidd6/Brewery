@@ -20,6 +20,7 @@ dependencies:
   url_launcher: ^6.0.2
   rxdart: ^0.26.0
   keyboard_dismisser: ^2.0.0
+  flutter_linkify: ^5.0.0
 
 dev_dependencies:
   flutter_test:
