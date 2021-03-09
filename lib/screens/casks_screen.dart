@@ -44,6 +44,7 @@ class _CasksScreenState extends State<CasksScreen> {
                 builder: (context, state) => ModelList<Cask>(
                   filter: RegExp(state.filter),
                   itemList: state.casks,
+                  onRefresh: () => filteredBloc.bloc.add(CasksLoadEvent()),
                   onTileClick: (cask) => Navigator.push(
                     context,
                     MaterialPageRoute(

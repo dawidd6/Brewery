@@ -51,6 +51,7 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
                 builder: (context, state) => ModelList<Formula>(
                   filter: RegExp(state.filter, caseSensitive: false),
                   itemList: state.formulae,
+                  onRefresh: () => filteredBloc.bloc.add(FormulaeLoadEvent()),
                   onTileClick: (formula) => Navigator.push(
                     context,
                     MaterialPageRoute(
