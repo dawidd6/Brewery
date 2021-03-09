@@ -8,6 +8,7 @@ import 'package:brewery/screens/home_screen.dart';
 import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class App extends StatelessWidget {
   @override
@@ -43,10 +44,12 @@ class App extends StatelessWidget {
               ),
             ),
           ],
-          child: MaterialApp(
-            title: 'Brewery',
-            theme: BreweryTheme.data,
-            home: HomeScreen(),
+          child: KeyboardDismisser(
+            child: MaterialApp(
+              title: 'Brewery',
+              theme: BreweryTheme.data,
+              home: HomeScreen(),
+            ),
           ),
         ),
       ),
