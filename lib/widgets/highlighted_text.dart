@@ -44,13 +44,17 @@ class HighlightedText extends StatelessWidget {
       spans.add(TextSpan(text: text));
     } else {
       text.splitMapJoin(filter!, onMatch: (match) {
-        spans.add(TextSpan(
-          text: match.group(0),
-          style: highlightStyle,
-        ));
+        if (match.group(0)!.isNotEmpty) {
+          spans.add(TextSpan(
+            text: match.group(0),
+            style: highlightStyle,
+          ));
+        }
         return match.input;
       }, onNonMatch: (str) {
-        spans.add(TextSpan(text: str));
+        if (str.isNotEmpty) {
+          spans.add(TextSpan(text: str));
+        }
         return str;
       });
     }
