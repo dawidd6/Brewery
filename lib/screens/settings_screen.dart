@@ -35,6 +35,7 @@ class SettingsScreen extends StatelessWidget {
               );
             } else if (state is SettingsErrorState) {
               return FailureText(
+                onRefresh: () => bloc.add(SettingsLoadEvent()),
                 message: state.error.toString(),
               );
             } else {
