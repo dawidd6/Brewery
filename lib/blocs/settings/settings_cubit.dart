@@ -1,11 +1,14 @@
-part of 'settings_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class SettingsBaseCubit extends Cubit<bool> {
-  SettingsBaseCubit(bool value) : super(value);
+  SettingsBaseCubit(bool value) : super(value) {
+    _load();
+  }
 
   String get key;
 
-  Future<void> load() async {
+  Future<void> _load() async {
     final preferences = await SharedPreferences.getInstance();
     final value = preferences.getBool(key);
     return emit(value ?? state);
