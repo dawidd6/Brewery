@@ -38,11 +38,8 @@ class BreweryTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         primary: BreweryColors.brownDark,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(20.0),
-          ),
-        ),
+        shape: StadiumBorder(),
+        shadowColor: Colors.transparent,
       ),
     ),
     popupMenuTheme: PopupMenuThemeData(
@@ -69,17 +66,13 @@ class BreweryTheme {
         color: BreweryColors.goldDark,
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(20.0),
-        ),
+        borderRadius: BorderRadius.circular(100.0),
         borderSide: BorderSide(
           color: BreweryColors.brownDark,
         ),
       ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(20.0),
-        ),
+        borderRadius: BorderRadius.circular(100.0),
         borderSide: BorderSide(
           color: BreweryColors.brownDark,
         ),
