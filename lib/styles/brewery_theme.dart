@@ -95,9 +95,8 @@ class BreweryTheme {
     ),
     chipTheme: ChipThemeData.fromDefaults(
       primaryColor: BreweryColors.goldLight,
-      secondaryColor: BreweryColors.brownDark,
+      secondaryColor: BreweryColors.goldDark,
       labelStyle: TextStyle(
-        color: BreweryColors.goldLight,
         fontSize: 15.0,
         fontWeight: FontWeight.w400,
       ),

@@ -23,7 +23,6 @@ class _CasksScreenState extends State<CasksScreen> {
     final filteredBloc = BlocProvider.of<FilteredCasksBloc>(context);
 
     return BlocBuilder<CasksBloc, CasksState>(
-      bloc: filteredBloc.bloc,
       builder: (context, state) => Scaffold(
         appBar: state is CasksLoadedState
             ? AppBar(
