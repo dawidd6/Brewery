@@ -71,8 +71,8 @@ class Formula {
   }
 }
 
-extension FormulaList on List<Formula> {
-  Formula findByName(String name) {
+extension FormulaListExtension on List<Formula> {
+  Formula findFormulaByName(String name) {
     return firstWhere((formula) => formula.name == name);
   }
 }
