@@ -1,25 +1,70 @@
 class Cask {
   final String token;
-  final String version;
+  final String name;
   final String description;
+  final String homepage;
+  final String version;
+  final String caveats;
+  final String dependsOnMacOS;
+  final List<String> dependsOnFormulae;
+  final List<String> dependsOnCasks;
+  final List<String> conflictsWithFormulae;
+  final List<String> conflictsWithCasks;
+  //final bool autoUpdates;
 
   Cask({
     required this.token,
-    required this.version,
+    required this.name,
     required this.description,
+    required this.homepage,
+    required this.version,
+    required this.caveats,
+    required this.dependsOnMacOS,
+    required this.dependsOnFormulae,
+    required this.dependsOnCasks,
+    required this.conflictsWithFormulae,
+    required this.conflictsWithCasks,
+    //required this.autoUpdates,
   });
 
   factory Cask.fromJson(Map<String, dynamic> json) {
     return Cask(
       token: json['token'],
-      version: json['version'],
+      name: List<String>.from(json['name']).first,
       description: json['desc'] ?? '',
+      homepage: json['homepage'],
+      version: json['version'],
+      caveats: json['caveats'] ?? '',
+      dependsOnMacOS: json['depends_on']['macos'] != null
+          ? json['depends_on']['macos'].entries.first.key +
+              ' ' +
+              json['depends_on']['macos'].entries.first.value.first
+          : '',
+      dependsOnFormulae: json['depends_on']['formula'] != null
+          ? List<String>.from(json['depends_on']['formula'])
+          : [],
+      dependsOnCasks: json['depends_on']['cask'] != null
+          ? List<String>.from(json['depends_on']['cask'])
+          : [],
+      conflictsWithFormulae: (json['conflicts_with'] != null &&
+              json['conflicts_with']['formula'] != null)
+          ? List<String>.from(json['conflicts_with']['formula'])
+          : [],
+      conflictsWithCasks: (json['conflicts_with'] != null &&
+              json['conflicts_with']['cask'] != null)
+          ? List<String>.from(json['conflicts_with']['cask'])
+          : [],
+      //autoUpdates: json['auto_updates'] ?? false,
     );
   }
 }
 
-extension CaskList on List<Cask> {
-  Cask findByToken(String token) {
+extension CaskListExtension on List<Cask> {
+  Cask findCaskByToken(String token) {
     return firstWhere((cask) => cask.token == token);
+  }
+
+  bool isCaskPresent(String token) {
+    return any((cask) => cask.token == token);
   }
 }
