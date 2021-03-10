@@ -1,7 +1,7 @@
 part of 'filtered_casks_bloc.dart';
 
 class FilteredCasksState extends Equatable {
-  final String filter;
+  final RegExp filter;
   final List<Cask> casks;
 
   FilteredCasksState({
