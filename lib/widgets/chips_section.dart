@@ -5,12 +5,14 @@ class ChipsSection extends StatelessWidget {
   final String header;
   final List<String> list;
   final void Function(String)? onChipTap;
+  final bool Function(String)? clickableIf;
 
   ChipsSection({
     Key? key,
     required this.header,
     required this.list,
     this.onChipTap,
+    this.clickableIf,
   }) : super(key: key);
 
   @override
@@ -36,17 +38,22 @@ class ChipsSection extends StatelessWidget {
           runSpacing: 5.0,
           children: List.generate(
             list.length,
-            (index) => onChipTap == null
-                ? Chip(
-                    label: Text(list[index]),
-                  )
-                : ActionChip(
+            (index) {
+              if (onChipTap != null) {
+                if (clickableIf == null || clickableIf!(list[index])) {
+                  return ActionChip(
                     label: Text(
                       list[index],
                       style: TextStyle(decoration: TextDecoration.underline),
                     ),
                     onPressed: () => onChipTap!(list[index]),
-                  ),
+                  );
+                }
+              }
+              return Chip(
+                label: Text(list[index]),
+              );
+            },
           ),
         ),
         SizedBox(
