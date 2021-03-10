@@ -31,13 +31,10 @@ class HomeScreen extends StatelessWidget {
           padding: EdgeInsets.all(20.0),
           children: [
             SizedBox(height: 20),
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: 200,
-              ),
-              child: SvgPicture.asset(
-                'icons/icon.svg',
-              ),
+            SvgPicture.asset(
+              'icons/icon.svg',
+              width: 200,
+              height: 200,
             ),
             SizedBox(height: 40),
             MaterialHero(
