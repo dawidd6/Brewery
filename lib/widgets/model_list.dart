@@ -6,7 +6,6 @@ class ModelList<T> extends StatelessWidget {
   final String Function(T) tileSubtitleBuilder;
   final String Function(T) tileTrailingBuilder;
   final void Function(T) onTileClick;
-  final void Function() onRefresh;
   final List<T> itemList;
   final RegExp? filter;
 
@@ -16,29 +15,22 @@ class ModelList<T> extends StatelessWidget {
     required this.tileSubtitleBuilder,
     required this.tileTrailingBuilder,
     required this.onTileClick,
-    required this.onRefresh,
     required this.itemList,
     this.filter,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        onRefresh();
-        return null;
-      },
-      child: Scrollbar(
-        child: ListView.builder(
-          itemCount: itemList.length,
-          itemExtent: 80.0,
-          itemBuilder: (context, index) => ModelTile(
-            filter: filter,
-            title: tileTitleBuilder(itemList[index]),
-            subtitle: tileSubtitleBuilder(itemList[index]),
-            trailing: tileTrailingBuilder(itemList[index]),
-            onTap: () => onTileClick(itemList[index]),
-          ),
+    return Scrollbar(
+      child: ListView.builder(
+        itemCount: itemList.length,
+        itemExtent: 80.0,
+        itemBuilder: (context, index) => ModelTile(
+          filter: filter,
+          title: tileTitleBuilder(itemList[index]),
+          subtitle: tileSubtitleBuilder(itemList[index]),
+          trailing: tileTrailingBuilder(itemList[index]),
+          onTap: () => onTileClick(itemList[index]),
         ),
       ),
     );
