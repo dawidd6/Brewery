@@ -13,7 +13,7 @@ class ApiService {
   final String formulaeEndpoint = '/formula.json';
   final String formulaeLinuxEndpoint = '/formula-linux.json';
   final String casksEndpoint = '/cask.json';
-  final Duration timeout = Duration(seconds: 15);
+  final Duration timeout = Duration(seconds: 10);
   final CacheService cache = CacheService();
 
   static List<Formula> parseFormulae(String body) {
@@ -42,6 +42,8 @@ class ApiService {
         return response.body;
       }
     } on SocketException {
+      return null;
+    } on TimeoutException {
       return null;
     }
     return null;
