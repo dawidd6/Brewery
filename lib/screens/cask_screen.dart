@@ -1,6 +1,15 @@
+import 'package:brewery/blocs/casks/casks_bloc.dart';
+import 'package:brewery/blocs/formulae/formulae_bloc.dart';
 import 'package:brewery/models/cask.dart';
+import 'package:brewery/models/formula.dart';
+import 'package:brewery/screens/formula_screen.dart';
+import 'package:brewery/widgets/center_switcher.dart';
+import 'package:brewery/widgets/chips_section.dart';
+import 'package:brewery/widgets/failure_text.dart';
+import 'package:brewery/widgets/loading_icon.dart';
 import 'package:brewery/widgets/text_section.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CaskScreen extends StatelessWidget {
   final Cask cask;
@@ -16,12 +25,95 @@ class CaskScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(cask.token),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(20.0),
-        children: [
-          TextSection(header: 'Description', body: cask.description),
-          TextSection(header: 'Version', body: cask.version),
-        ],
+      body: BlocBuilder<FormulaeBloc, FormulaeState>(
+        builder: (context, formulaeState) => BlocBuilder<CasksBloc, CasksState>(
+          builder: (context, casksState) => CenterSwitcher(
+            builder: (context) {
+              if (formulaeState is FormulaeLoadedState &&
+                  casksState is CasksLoadedState) {
+                return ListView(
+                  padding: EdgeInsets.all(20.0),
+                  children: [
+                    TextSection(header: 'Alias', body: cask.name),
+                    TextSection(header: 'Description', body: cask.description),
+                    TextSection(header: 'Homepage', body: cask.homepage),
+                    TextSection(header: 'Version', body: cask.version),
+                    TextSection(header: 'Caveats', body: cask.caveats),
+                    TextSection(
+                      header: 'Needs macOS',
+                      body: cask.dependsOnMacOS,
+                    ),
+                    ChipsSection(
+                      header: 'Formula dependencies',
+                      list: cask.dependsOnFormulae,
+                      onChipTap: (name) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FormulaScreen(
+                            formula:
+                                formulaeState.formulae.findFormulaByName(name),
+                          ),
+                        ),
+                      ),
+                    ),
+                    ChipsSection(
+                      header: 'Cask dependencies',
+                      list: cask.dependsOnCasks,
+                      clickableIf: casksState.casks.isCaskPresent,
+                      onChipTap: (token) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CaskScreen(
+                            cask: casksState.casks.findCaskByToken(token),
+                          ),
+                        ),
+                      ),
+                    ),
+                    ChipsSection(
+                      header: 'Formula conflicts',
+                      list: cask.conflictsWithFormulae,
+                      onChipTap: (name) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FormulaScreen(
+                            formula:
+                                formulaeState.formulae.findFormulaByName(name),
+                          ),
+                        ),
+                      ),
+                    ),
+                    ChipsSection(
+                      header: 'Cask conflicts',
+                      list: cask.conflictsWithCasks,
+                      clickableIf: casksState.casks.isCaskPresent,
+                      onChipTap: (token) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CaskScreen(
+                            cask: casksState.casks.findCaskByToken(token),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              } else if (formulaeState is FormulaeErrorState ||
+                  casksState is CasksErrorState) {
+                final error = formulaeState is FormulaeErrorState
+                    ? formulaeState.error
+                    : (casksState as CasksErrorState).error;
+                return FailureText(
+                  message: error.toString(),
+                );
+              } else if (formulaeState is FormulaeLoadingState ||
+                  casksState is CasksLoadingState) {
+                return LoadingIcon();
+              } else {
+                return Container();
+              }
+            },
+          ),
+        ),
       ),
     );
   }

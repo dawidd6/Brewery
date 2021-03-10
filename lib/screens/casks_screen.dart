@@ -5,6 +5,7 @@ import 'package:brewery/screens/cask_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
+import 'package:brewery/widgets/material_hero.dart';
 import 'package:brewery/widgets/model_list.dart';
 import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
@@ -19,31 +20,48 @@ class CasksScreen extends StatefulWidget {
 
 class _CasksScreenState extends State<CasksScreen> {
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<FilteredCasksBloc>(context).add(
+      FilteredCasksFilterEvent(filter: ''),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     final filteredBloc = BlocProvider.of<FilteredCasksBloc>(context);
 
-    return BlocBuilder<CasksBloc, CasksState>(
-      builder: (context, state) => Scaffold(
-        appBar: state is CasksLoadedState
-            ? AppBar(
-                title: BlocBuilder<FilteredCasksBloc, FilteredCasksState>(
-                  builder: (context, state) => RegexpFilter(
-                    title: 'Search casks',
-                    onChanged: (filter) => filteredBloc.add(
-                      FilteredCasksFilterEvent(filter: filter),
-                    ),
-                  ),
-                ),
-              )
-            : null,
-        body: CenterSwitcher(
+    return Scaffold(
+      appBar: AppBar(
+        title: MaterialHero(
+          tag: 'search',
+          child: RegexpFilter(
+            title: 'Search casks',
+            onChanged: (filter) => filteredBloc.add(
+              FilteredCasksFilterEvent(filter: filter),
+            ),
+          ),
+        ),
+        actions: [
+          BlocBuilder<CasksBloc, CasksState>(builder: (context, state) {
+            if (state is CasksLoadingState) {
+              return Container();
+            }
+            return IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () => filteredBloc.bloc.add(CasksLoadEvent()),
+            );
+          }),
+        ],
+      ),
+      body: BlocBuilder<CasksBloc, CasksState>(
+        builder: (context, state) => CenterSwitcher(
           builder: (context) {
             if (state is CasksLoadedState) {
               return BlocBuilder<FilteredCasksBloc, FilteredCasksState>(
                 builder: (context, state) => ModelList<Cask>(
-                  filter: RegExp(state.filter),
+                  filter: state.filter,
                   itemList: state.casks,
-                  onRefresh: () => filteredBloc.bloc.add(CasksLoadEvent()),
                   onTileClick: (cask) => Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -53,14 +71,14 @@ class _CasksScreenState extends State<CasksScreen> {
                     ),
                   ),
                   tileTitleBuilder: (cask) => cask.token,
-                  tileSubtitleBuilder: (cask) => cask.description,
+                  tileSubtitleBuilder: (cask) =>
+                      cask.description.isEmpty ? cask.name : cask.description,
                   tileTrailingBuilder: (cask) => cask.version,
                 ),
               );
             } else if (state is CasksErrorState) {
               return FailureText(
                 message: state.error.toString(),
-                onRefresh: () => filteredBloc.bloc.add(CasksLoadEvent()),
               );
             } else if (state is CasksLoadingState) {
               return LoadingIcon();

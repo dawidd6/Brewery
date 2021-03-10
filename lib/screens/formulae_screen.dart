@@ -42,6 +42,17 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
             ),
           ),
         ),
+        actions: [
+          BlocBuilder<FormulaeBloc, FormulaeState>(builder: (context, state) {
+            if (state is FormulaeLoadingState) {
+              return Container();
+            }
+            return IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () => filteredBloc.bloc.add(FormulaeLoadEvent()),
+            );
+          }),
+        ],
       ),
       body: BlocBuilder<FormulaeBloc, FormulaeState>(
         builder: (context, state) => CenterSwitcher(
@@ -51,7 +62,6 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
                 builder: (context, state) => ModelList<Formula>(
                   filter: state.filter,
                   itemList: state.formulae,
-                  onRefresh: () => filteredBloc.bloc.add(FormulaeLoadEvent()),
                   onTileClick: (formula) => Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -68,7 +78,6 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
             } else if (state is FormulaeErrorState) {
               return FailureText(
                 message: state.error.toString(),
-                onRefresh: () => filteredBloc.bloc.add(FormulaeLoadEvent()),
               );
             } else if (state is FormulaeLoadingState) {
               return LoadingIcon();
