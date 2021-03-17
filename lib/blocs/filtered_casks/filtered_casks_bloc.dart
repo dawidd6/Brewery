@@ -28,13 +28,7 @@ class FilteredCasksBloc extends Bloc<FilteredCasksEvent, FilteredCasksState> {
   }
 
   List<Cask> _filterCasks(RegExp filter, List<Cask> casks) {
-    return casks
-        .where((cask) =>
-            filter.hasMatch(cask.token) ||
-            filter.hasMatch(
-              cask.description.isEmpty ? cask.name : cask.description,
-            ))
-        .toList();
+    return casks.where((cask) => filter.hasMatch(cask.token)).toList();
   }
 
   @override

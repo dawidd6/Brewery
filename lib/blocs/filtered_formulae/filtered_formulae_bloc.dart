@@ -29,11 +29,7 @@ class FilteredFormulaeBloc
   }
 
   List<Formula> _filterFormulae(RegExp filter, List<Formula> formulae) {
-    return formulae
-        .where((formula) =>
-            filter.hasMatch(formula.name) ||
-            filter.hasMatch(formula.description))
-        .toList();
+    return formulae.where((formula) => filter.hasMatch(formula.name)).toList();
   }
 
   @override
