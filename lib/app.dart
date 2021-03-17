@@ -7,6 +7,7 @@ import 'package:brewery/repositories/api_repository.dart';
 import 'package:brewery/screens/cask_screen.dart';
 import 'package:brewery/screens/casks_screen.dart';
 import 'package:brewery/screens/formula_screen.dart';
+import 'package:brewery/screens/formulae_casks_screen.dart';
 import 'package:brewery/screens/formulae_screen.dart';
 import 'package:brewery/screens/home_screen.dart';
 import 'package:brewery/screens/settings_screen.dart';
@@ -22,6 +23,20 @@ class App extends StatelessWidget {
           path: '/',
           widget: HomeScreen(),
           subroutes: [
+            VStacked(
+              path: '/formulae_casks',
+              widget: FormulaeCasksScreen(),
+              subroutes: [
+                VStacked(
+                  path: '/formula/:name',
+                  widget: FormulaScreen(),
+                ),
+                VStacked(
+                  path: '/cask/:token',
+                  widget: CaskScreen(),
+                ),
+              ],
+            ),
             VStacked(
               path: '/formulae',
               widget: FormulaeScreen(),
