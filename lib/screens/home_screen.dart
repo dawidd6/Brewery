@@ -35,6 +35,7 @@ class HomeScreen extends StatelessWidget {
               child: RegexpFilter(
                 title: 'Search formulae and casks',
                 onChanged: (filter) {},
+                onTap: () => VRouterData.of(context).push('/formulae_casks'),
               ),
             ),
             SizedBox(height: 20),
