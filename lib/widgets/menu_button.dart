@@ -2,23 +2,18 @@ import 'package:flutter/material.dart';
 
 class MenuButton extends StatelessWidget {
   final String label;
-  final Widget Function(BuildContext) pageBuilder;
+  final void Function() onClick;
 
   MenuButton({
     Key? key,
     required this.label,
-    required this.pageBuilder,
+    required this.onClick,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: pageBuilder,
-        ),
-      ),
+      onPressed: onClick,
       child: Padding(
         padding: EdgeInsets.all(20.0),
         child: Center(
