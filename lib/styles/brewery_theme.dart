@@ -46,7 +46,7 @@ class BreweryTheme {
       color: BreweryColors.brown,
     ),
     iconTheme: IconThemeData(
-      color: BreweryColors.brownDark,
+      color: BreweryColors.goldDark,
     ),
     scrollbarTheme: ScrollbarThemeData(
       thumbColor: MaterialStateProperty.all(BreweryColors.goldDark),
