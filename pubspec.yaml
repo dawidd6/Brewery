@@ -21,7 +21,7 @@ dependencies:
   rxdart: ^0.26.0
   keyboard_dismisser: ^2.0.0
   flutter_linkify: ^5.0.0
-  vrouter: ^1.0.0-nullsafety.11
+  url_strategy: ^0.2.0
 
 dev_dependencies:
   flutter_test:
