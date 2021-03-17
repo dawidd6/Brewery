@@ -2,13 +2,17 @@ import 'package:brewery/widgets/conditional_widget.dart';
 import 'package:flutter/material.dart';
 
 class RegexpFilter extends StatefulWidget {
+  final void Function()? onTap;
   final void Function(String) onChanged;
   final String title;
+  final bool focus;
 
   RegexpFilter({
     Key? key,
     required this.title,
     required this.onChanged,
+    this.onTap,
+    this.focus = false,
   });
 
   @override
@@ -38,8 +42,10 @@ class _RegexpFilterState extends State<RegexpFilter> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      autofocus: widget.focus,
       controller: _controller,
       onChanged: onInput,
+      onTap: widget.onTap,
       decoration: InputDecoration(
         labelText: widget.title,
         prefixIcon: Icon(
