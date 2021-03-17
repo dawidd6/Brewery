@@ -16,7 +16,9 @@ class SettingTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return SwitchListTile(
+      value: toggled,
+      onChanged: onChanged,
       title: Padding(
         padding: EdgeInsets.only(bottom: 10.0),
         child: Text(
@@ -27,10 +29,6 @@ class SettingTile extends StatelessWidget {
       subtitle: Text(
         subtitle,
         style: Theme.of(context).textTheme.headline2,
-      ),
-      trailing: Switch(
-        value: toggled,
-        onChanged: onChanged,
       ),
     );
   }
