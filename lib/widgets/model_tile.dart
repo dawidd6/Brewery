@@ -6,6 +6,7 @@ class ModelTile extends StatefulWidget {
   final String title;
   final String subtitle;
   final String trailing;
+  final Widget? leading;
   final RegExp? filter;
   final void Function() onTap;
 
@@ -16,6 +17,7 @@ class ModelTile extends StatefulWidget {
     required this.trailing,
     required this.onTap,
     this.filter,
+    this.leading,
   }) : super(key: key);
 
   @override
@@ -71,6 +73,7 @@ class _ModelTileState extends State<ModelTile>
           widget.trailing,
           style: Theme.of(context).textTheme.headline3,
         ),
+        leading: widget.leading,
       ),
     );
   }
