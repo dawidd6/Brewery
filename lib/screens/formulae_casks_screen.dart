@@ -98,7 +98,7 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
                       ],
                       onTileClick: (obj) {
                         if (obj is Formula) {
-                          VRouterData.of(context).push('/cask/${obj.name}');
+                          VRouterData.of(context).push('/formula/${obj.name}');
                         } else if (obj is Cask) {
                           VRouterData.of(context).push('/cask/${obj.token}');
                         }
