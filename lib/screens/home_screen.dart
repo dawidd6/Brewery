@@ -1,12 +1,10 @@
-import 'package:brewery/screens/casks_screen.dart';
-import 'package:brewery/screens/formulae_screen.dart';
-import 'package:brewery/screens/settings_screen.dart';
 import 'package:brewery/widgets/material_hero.dart';
 import 'package:brewery/widgets/menu_button.dart';
 import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vrouter/vrouter.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -17,12 +15,7 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.settings),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SettingsScreen(),
-              ),
-            ),
+            onPressed: () => VRouterData.of(context).push('/settings'),
           ),
         ],
       ),
@@ -47,12 +40,12 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 20),
             MenuButton(
               label: 'Formulae',
-              pageBuilder: (context) => FormulaeScreen(),
+              onClick: () => VRouterData.of(context).push('/formulae'),
             ),
             SizedBox(height: 20),
             MenuButton(
               label: 'Casks',
-              pageBuilder: (context) => CasksScreen(),
+              onClick: () => VRouterData.of(context).push('/casks'),
             ),
             SizedBox(height: 20),
           ],

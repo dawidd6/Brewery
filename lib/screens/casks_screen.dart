@@ -1,7 +1,6 @@
 import 'package:brewery/blocs/casks/casks_bloc.dart';
 import 'package:brewery/blocs/filtered_casks/filtered_casks_bloc.dart';
 import 'package:brewery/models/cask.dart';
-import 'package:brewery/screens/cask_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
@@ -10,6 +9,7 @@ import 'package:brewery/widgets/model_list.dart';
 import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vrouter/vrouter.dart';
 
 class CasksScreen extends StatefulWidget {
   CasksScreen({Key? key});
@@ -62,14 +62,8 @@ class _CasksScreenState extends State<CasksScreen> {
                 builder: (context, state) => ModelList<Cask>(
                   filter: state.filter,
                   itemList: state.casks,
-                  onTileClick: (cask) => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CaskScreen(
-                        token: cask.token,
-                      ),
-                    ),
-                  ),
+                  onTileClick: (cask) =>
+                      VRouterData.of(context).push('/cask/${cask.token}'),
                   tileTitleBuilder: (cask) => cask.token,
                   tileSubtitleBuilder: (cask) =>
                       cask.description.isEmpty ? cask.name : cask.description,

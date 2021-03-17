@@ -1,7 +1,6 @@
 import 'package:brewery/blocs/casks/casks_bloc.dart';
 import 'package:brewery/blocs/formulae/formulae_bloc.dart';
 import 'package:brewery/models/cask.dart';
-import 'package:brewery/screens/formula_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/chips_section.dart';
 import 'package:brewery/widgets/failure_text.dart';
@@ -9,17 +8,14 @@ import 'package:brewery/widgets/loading_icon.dart';
 import 'package:brewery/widgets/text_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vrouter/vrouter.dart';
 
 class CaskScreen extends StatelessWidget {
-  final String token;
-
-  CaskScreen({
-    Key? key,
-    required this.token,
-  }) : super(key: key);
+  CaskScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final token = VRouteElementData.of(context).pathParameters['token']!;
     final bloc = BlocProvider.of<CasksBloc>(context);
     final casks = (bloc.state as CasksLoadedState).casks;
     final cask = casks.findCaskByToken(token);
@@ -49,52 +45,28 @@ class CaskScreen extends StatelessWidget {
                     ChipsSection(
                       header: 'Formula dependencies',
                       list: cask.dependsOnFormulae,
-                      onChipTap: (name) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FormulaScreen(
-                            name: name,
-                          ),
-                        ),
-                      ),
+                      onChipTap: (name) =>
+                          VRouterData.of(context).push('/formula/$name'),
                     ),
                     ChipsSection(
                       header: 'Cask dependencies',
                       list: cask.dependsOnCasks,
                       clickableIf: casksState.casks.isCaskPresent,
-                      onChipTap: (token) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CaskScreen(
-                            token: token,
-                          ),
-                        ),
-                      ),
+                      onChipTap: (token) =>
+                          VRouterData.of(context).push('/cask/$token'),
                     ),
                     ChipsSection(
                       header: 'Formula conflicts',
                       list: cask.conflictsWithFormulae,
-                      onChipTap: (name) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FormulaScreen(
-                            name: name,
-                          ),
-                        ),
-                      ),
+                      onChipTap: (name) =>
+                          VRouterData.of(context).push('/formula/$name'),
                     ),
                     ChipsSection(
                       header: 'Cask conflicts',
                       list: cask.conflictsWithCasks,
                       clickableIf: casksState.casks.isCaskPresent,
-                      onChipTap: (token) => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CaskScreen(
-                            token: token,
-                          ),
-                        ),
-                      ),
+                      onChipTap: (token) =>
+                          VRouterData.of(context).push('/cask/$token'),
                     ),
                   ],
                 );

@@ -4,17 +4,14 @@ import 'package:brewery/widgets/chips_section.dart';
 import 'package:brewery/widgets/text_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vrouter/vrouter.dart';
 
 class FormulaScreen extends StatelessWidget {
-  final String name;
-
-  FormulaScreen({
-    Key? key,
-    required this.name,
-  }) : super(key: key);
+  FormulaScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final name = VRouteElementData.of(context).pathParameters['name']!;
     final bloc = BlocProvider.of<FormulaeBloc>(context);
     final formulae = (bloc.state as FormulaeLoadedState).formulae;
     final formula = formulae.findFormulaByName(name);
@@ -38,38 +35,17 @@ class FormulaScreen extends StatelessWidget {
           ChipsSection(
             header: 'Build dependencies',
             list: formula.buildDependencies,
-            onChipTap: (name) => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => FormulaScreen(
-                  name: name,
-                ),
-              ),
-            ),
+            onChipTap: (name) => VRouterData.of(context).push('/formula/$name'),
           ),
           ChipsSection(
             header: 'Dependencies',
             list: formula.dependencies,
-            onChipTap: (name) => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => FormulaScreen(
-                  name: name,
-                ),
-              ),
-            ),
+            onChipTap: (name) => VRouterData.of(context).push('/formula/$name'),
           ),
           ChipsSection(
             header: 'Conflicts',
             list: formula.conflictsWith,
-            onChipTap: (name) => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => FormulaScreen(
-                  name: name,
-                ),
-              ),
-            ),
+            onChipTap: (name) => VRouterData.of(context).push('/formula/$name'),
           ),
         ],
       ),
