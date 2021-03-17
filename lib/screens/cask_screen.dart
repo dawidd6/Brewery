@@ -8,14 +8,17 @@ import 'package:brewery/widgets/loading_icon.dart';
 import 'package:brewery/widgets/text_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vrouter/vrouter.dart';
 
 class CaskScreen extends StatelessWidget {
-  CaskScreen({Key? key}) : super(key: key);
+  final String token;
+
+  CaskScreen({
+    Key? key,
+    required this.token,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final token = VRouteElementData.of(context).pathParameters['token']!;
     final bloc = BlocProvider.of<CasksBloc>(context);
     final casks = (bloc.state as CasksLoadedState).casks;
     final cask = casks.findCaskByToken(token);
@@ -46,27 +49,27 @@ class CaskScreen extends StatelessWidget {
                       header: 'Formula dependencies',
                       list: cask.dependsOnFormulae,
                       onChipTap: (name) =>
-                          VRouterData.of(context).push('/formula/$name'),
+                          Navigator.of(context).pushNamed('/formula/$name'),
                     ),
                     ChipsSection(
                       header: 'Cask dependencies',
                       list: cask.dependsOnCasks,
                       clickableIf: casksState.casks.isCaskPresent,
                       onChipTap: (token) =>
-                          VRouterData.of(context).push('/cask/$token'),
+                          Navigator.of(context).pushNamed('/cask/$token'),
                     ),
                     ChipsSection(
                       header: 'Formula conflicts',
                       list: cask.conflictsWithFormulae,
                       onChipTap: (name) =>
-                          VRouterData.of(context).push('/formula/$name'),
+                          Navigator.of(context).pushNamed('/formula/$name'),
                     ),
                     ChipsSection(
                       header: 'Cask conflicts',
                       list: cask.conflictsWithCasks,
                       clickableIf: casksState.casks.isCaskPresent,
                       onChipTap: (token) =>
-                          VRouterData.of(context).push('/cask/$token'),
+                          Navigator.of(context).pushNamed('/cask/$token'),
                     ),
                   ],
                 );

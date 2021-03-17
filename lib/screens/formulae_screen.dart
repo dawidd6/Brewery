@@ -9,7 +9,6 @@ import 'package:brewery/widgets/model_list.dart';
 import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vrouter/vrouter.dart';
 
 class FormulaeScreen extends StatefulWidget {
   FormulaeScreen({Key? key});
@@ -62,8 +61,8 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
                 builder: (context, state) => ModelList<Formula>(
                   filter: state.filter,
                   itemList: state.formulae,
-                  onTileClick: (formula) =>
-                      VRouterData.of(context).push('/formula/${formula.name}'),
+                  onTileClick: (formula) => Navigator.of(context)
+                      .pushNamed('/formula/${formula.name}'),
                   tileTitleBuilder: (formula) => formula.name,
                   tileSubtitleBuilder: (formula) => formula.description,
                   tileTrailingBuilder: (formula) => formula.version,

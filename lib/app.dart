@@ -15,69 +15,8 @@ import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-import 'package:vrouter/vrouter.dart';
 
 class App extends StatelessWidget {
-  List<VRouteElement> get routes => [
-        VStacked(
-          path: '/',
-          widget: HomeScreen(),
-          subroutes: [
-            VStacked(
-              path: '/formulae_casks',
-              widget: FormulaeCasksScreen(),
-              subroutes: [
-                VStacked(
-                  path: '/formula/:name',
-                  widget: FormulaScreen(),
-                ),
-                VStacked(
-                  path: '/cask/:token',
-                  widget: CaskScreen(),
-                ),
-              ],
-            ),
-            VStacked(
-              path: '/formulae',
-              widget: FormulaeScreen(),
-              subroutes: [
-                VStacked(
-                  path: '/formula/:name',
-                  widget: FormulaScreen(),
-                ),
-              ],
-            ),
-            VStacked(
-              path: '/casks',
-              widget: CasksScreen(),
-              subroutes: [
-                VStacked(
-                  path: '/cask/:token',
-                  widget: CaskScreen(),
-                ),
-              ],
-            ),
-            VStacked(
-              path: '/settings',
-              widget: SettingsScreen(),
-            ),
-          ],
-        ),
-      ];
-
-  AnimatedWidget pageTransition(
-    Animation<double> animation,
-    Animation<double> secondAnimation,
-    Widget child,
-  ) =>
-      SlideTransition(
-        position: Tween(
-          begin: Offset(0.0, 1.0),
-          end: Offset.zero,
-        ).animate(animation),
-        child: child,
-      );
-
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
@@ -112,12 +51,58 @@ class App extends StatelessWidget {
             ),
           ],
           child: KeyboardDismisser(
-            child: VRouter(
+            child: MaterialApp(
               title: 'Brewery',
               theme: BreweryTheme.data,
-              mode: VRouterModes.history,
-              routes: routes,
-              buildTransition: pageTransition,
+              initialRoute: '/',
+              onGenerateRoute: (settings) {
+                if (settings.name == null || settings.name == '/') {
+                  return MaterialPageRoute(
+                    builder: (context) => HomeScreen(),
+                    settings: settings,
+                  );
+                } else if (settings.name == '/settings') {
+                  return MaterialPageRoute(
+                    builder: (context) => SettingsScreen(),
+                    settings: settings,
+                  );
+                } else if (settings.name == '/formulae_casks') {
+                  return MaterialPageRoute(
+                    builder: (context) => FormulaeCasksScreen(),
+                    settings: settings,
+                  );
+                } else if (settings.name == '/formulae') {
+                  return MaterialPageRoute(
+                    builder: (context) => FormulaeScreen(),
+                    settings: settings,
+                  );
+                } else if (settings.name == '/casks') {
+                  return MaterialPageRoute(
+                    builder: (context) => CasksScreen(),
+                    settings: settings,
+                  );
+                } else if (settings.name!.startsWith('/formula/')) {
+                  final uri = Uri.parse(settings.name!);
+                  if (uri.pathSegments.length == 2) {
+                    return MaterialPageRoute(
+                      builder: (context) => FormulaScreen(
+                        name: uri.pathSegments.last,
+                      ),
+                      settings: settings,
+                    );
+                  }
+                } else if (settings.name!.startsWith('/cask/')) {
+                  final uri = Uri.parse(settings.name!);
+                  if (uri.pathSegments.length == 2) {
+                    return MaterialPageRoute(
+                      builder: (context) => CaskScreen(
+                        token: uri.pathSegments.last,
+                      ),
+                      settings: settings,
+                    );
+                  }
+                }
+              },
             ),
           ),
         ),

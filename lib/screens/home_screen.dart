@@ -4,7 +4,6 @@ import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vrouter/vrouter.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -15,7 +14,7 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.settings),
-            onPressed: () => VRouterData.of(context).push('/settings'),
+            onPressed: () => Navigator.of(context).pushNamed('/settings'),
           ),
         ],
       ),
@@ -35,18 +34,18 @@ class HomeScreen extends StatelessWidget {
               child: RegexpFilter(
                 title: 'Search formulae and casks',
                 onChanged: (filter) {},
-                onTap: () => VRouterData.of(context).push('/formulae_casks'),
+                onTap: () => Navigator.of(context).pushNamed('/formulae_casks'),
               ),
             ),
             SizedBox(height: 20),
             MenuButton(
               label: 'Formulae',
-              onClick: () => VRouterData.of(context).push('/formulae'),
+              onClick: () => Navigator.of(context).pushNamed('/formulae'),
             ),
             SizedBox(height: 20),
             MenuButton(
               label: 'Casks',
-              onClick: () => VRouterData.of(context).push('/casks'),
+              onClick: () => Navigator.of(context).pushNamed('/casks'),
             ),
             SizedBox(height: 20),
           ],

@@ -13,7 +13,6 @@ import 'package:brewery/widgets/model_list.dart';
 import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vrouter/vrouter.dart';
 
 class FormulaeCasksScreen extends StatefulWidget {
   FormulaeCasksScreen({Key? key});
@@ -98,9 +97,10 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
                       ],
                       onTileClick: (obj) {
                         if (obj is Formula) {
-                          VRouterData.of(context).push('/formula/${obj.name}');
+                          Navigator.of(context)
+                              .pushNamed('/formula/${obj.name}');
                         } else if (obj is Cask) {
-                          VRouterData.of(context).push('/cask/${obj.token}');
+                          Navigator.of(context).pushNamed('/cask/${obj.token}');
                         }
                       },
                       tileTitleBuilder: (obj) {
