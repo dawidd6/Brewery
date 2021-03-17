@@ -6,17 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FormulaScreen extends StatelessWidget {
-  final Formula formula;
+  final String name;
 
   FormulaScreen({
     Key? key,
-    required this.formula,
+    required this.name,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<FormulaeBloc>(context);
     final formulae = (bloc.state as FormulaeLoadedState).formulae;
+    final formula = formulae.findFormulaByName(name);
 
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +42,7 @@ class FormulaScreen extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => FormulaScreen(
-                  formula: formulae.findFormulaByName(name),
+                  name: name,
                 ),
               ),
             ),
@@ -53,7 +54,7 @@ class FormulaScreen extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => FormulaScreen(
-                  formula: formulae.findFormulaByName(name),
+                  name: name,
                 ),
               ),
             ),
@@ -65,7 +66,7 @@ class FormulaScreen extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => FormulaScreen(
-                  formula: formulae.findFormulaByName(name),
+                  name: name,
                 ),
               ),
             ),

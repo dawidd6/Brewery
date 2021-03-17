@@ -66,7 +66,7 @@ class _CasksScreenState extends State<CasksScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => CaskScreen(
-                        cask: cask,
+                        token: cask.token,
                       ),
                     ),
                   ),

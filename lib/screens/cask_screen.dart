@@ -1,7 +1,6 @@
 import 'package:brewery/blocs/casks/casks_bloc.dart';
 import 'package:brewery/blocs/formulae/formulae_bloc.dart';
 import 'package:brewery/models/cask.dart';
-import 'package:brewery/models/formula.dart';
 import 'package:brewery/screens/formula_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/chips_section.dart';
@@ -12,15 +11,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CaskScreen extends StatelessWidget {
-  final Cask cask;
+  final String token;
 
   CaskScreen({
     Key? key,
-    required this.cask,
+    required this.token,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<CasksBloc>(context);
+    final casks = (bloc.state as CasksLoadedState).casks;
+    final cask = casks.findCaskByToken(token);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(cask.token),
@@ -50,8 +53,7 @@ class CaskScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => FormulaScreen(
-                            formula:
-                                formulaeState.formulae.findFormulaByName(name),
+                            name: name,
                           ),
                         ),
                       ),
@@ -64,7 +66,7 @@ class CaskScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => CaskScreen(
-                            cask: casksState.casks.findCaskByToken(token),
+                            token: token,
                           ),
                         ),
                       ),
@@ -76,8 +78,7 @@ class CaskScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => FormulaScreen(
-                            formula:
-                                formulaeState.formulae.findFormulaByName(name),
+                            name: name,
                           ),
                         ),
                       ),
@@ -90,7 +91,7 @@ class CaskScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => CaskScreen(
-                            cask: casksState.casks.findCaskByToken(token),
+                            token: token,
                           ),
                         ),
                       ),

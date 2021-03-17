@@ -66,7 +66,7 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => FormulaScreen(
-                        formula: formula,
+                        name: formula.name,
                       ),
                     ),
                   ),
