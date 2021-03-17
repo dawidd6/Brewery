@@ -415,6 +415,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  path_to_regexp:
+    dependency: transitive
+    description:
+      name: path_to_regexp
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
   pedantic:
     dependency: "direct dev"
     description:
@@ -545,6 +552,13 @@ packages:
     dependency: transitive
     description:
       name: shelf_web_socket
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  simple_url_handler:
+    dependency: transitive
+    description:
+      name: simple_url_handler
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
@@ -679,6 +693,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  url_strategy:
+    dependency: transitive
+    description:
+      name: url_strategy
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   vector_math:
     dependency: transitive
     description:
@@ -693,6 +714,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.0+1"
+  vrouter:
+    dependency: "direct main"
+    description:
+      name: vrouter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0-nullsafety.11"
   watcher:
     dependency: transitive
     description:
