@@ -4,6 +4,8 @@ import 'package:brewery/blocs/filtered_formulae/filtered_formulae_bloc.dart';
 import 'package:brewery/blocs/formulae/formulae_bloc.dart';
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/models/formula.dart';
+import 'package:brewery/screens/cask_screen.dart';
+import 'package:brewery/screens/formula_screen.dart';
 import 'package:brewery/styles/brewery_icons.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
@@ -15,6 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FormulaeCasksScreen extends StatefulWidget {
+  static const route = '/formulae-casks';
+
   FormulaeCasksScreen({Key? key});
 
   @override
@@ -97,10 +101,13 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
                       ],
                       onTileClick: (obj) {
                         if (obj is Formula) {
-                          Navigator.of(context)
-                              .pushNamed('/formula/${obj.name}');
+                          Navigator.of(context).pushNamed(
+                            FormulaScreen.routeWith(obj.name),
+                          );
                         } else if (obj is Cask) {
-                          Navigator.of(context).pushNamed('/cask/${obj.token}');
+                          Navigator.of(context).pushNamed(
+                            CaskScreen.routeWith(obj.token),
+                          );
                         }
                       },
                       tileTitleBuilder: (obj) {

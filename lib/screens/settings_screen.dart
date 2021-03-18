@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsScreen extends StatelessWidget {
+  static const route = '/settings';
+
   SettingsScreen({Key? key}) : super(key: key);
 
   @override

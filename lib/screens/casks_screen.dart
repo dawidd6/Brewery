@@ -1,6 +1,7 @@
 import 'package:brewery/blocs/casks/casks_bloc.dart';
 import 'package:brewery/blocs/filtered_casks/filtered_casks_bloc.dart';
 import 'package:brewery/models/cask.dart';
+import 'package:brewery/screens/cask_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
@@ -11,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CasksScreen extends StatefulWidget {
+  static const route = '/casks';
+
   CasksScreen({Key? key});
 
   @override
@@ -61,8 +64,9 @@ class _CasksScreenState extends State<CasksScreen> {
                 builder: (context, state) => ModelList<Cask>(
                   filter: state.filter,
                   itemList: state.casks,
-                  onTileClick: (cask) =>
-                      Navigator.of(context).pushNamed('/cask/${cask.token}'),
+                  onTileClick: (cask) => Navigator.of(context).pushNamed(
+                    CaskScreen.routeWith(cask.token),
+                  ),
                   tileTitleBuilder: (cask) => cask.token,
                   tileSubtitleBuilder: (cask) =>
                       cask.description.isEmpty ? cask.name : cask.description,

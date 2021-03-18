@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FormulaScreen extends StatelessWidget {
+  static const route = '/formula';
   final String name;
+
+  static String routeWith(String name) => '$route/$name';
 
   FormulaScreen({
     Key? key,
@@ -38,20 +41,23 @@ class FormulaScreen extends StatelessWidget {
           ChipsSection(
             header: 'Build dependencies',
             list: formula.buildDependencies,
-            onChipTap: (name) =>
-                Navigator.of(context).pushNamed('/formula/$name'),
+            onChipTap: (name) => Navigator.of(context).pushNamed(
+              FormulaScreen.routeWith(name),
+            ),
           ),
           ChipsSection(
             header: 'Dependencies',
             list: formula.dependencies,
-            onChipTap: (name) =>
-                Navigator.of(context).pushNamed('/formula/$name'),
+            onChipTap: (name) => Navigator.of(context).pushNamed(
+              FormulaScreen.routeWith(name),
+            ),
           ),
           ChipsSection(
             header: 'Conflicts',
             list: formula.conflictsWith,
-            onChipTap: (name) =>
-                Navigator.of(context).pushNamed('/formula/$name'),
+            onChipTap: (name) => Navigator.of(context).pushNamed(
+              FormulaScreen.routeWith(name),
+            ),
           ),
         ],
       ),

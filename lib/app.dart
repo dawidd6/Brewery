@@ -56,32 +56,32 @@ class App extends StatelessWidget {
               theme: BreweryTheme.data,
               initialRoute: '/',
               onGenerateRoute: (settings) {
-                if (settings.name == null || settings.name == '/') {
+                if (settings.name == HomeScreen.route) {
                   return MaterialPageRoute(
                     builder: (context) => HomeScreen(),
                     settings: settings,
                   );
-                } else if (settings.name == '/settings') {
+                } else if (settings.name == SettingsScreen.route) {
                   return MaterialPageRoute(
                     builder: (context) => SettingsScreen(),
                     settings: settings,
                   );
-                } else if (settings.name == '/formulae_casks') {
+                } else if (settings.name == FormulaeCasksScreen.route) {
                   return MaterialPageRoute(
                     builder: (context) => FormulaeCasksScreen(),
                     settings: settings,
                   );
-                } else if (settings.name == '/formulae') {
+                } else if (settings.name == FormulaeScreen.route) {
                   return MaterialPageRoute(
                     builder: (context) => FormulaeScreen(),
                     settings: settings,
                   );
-                } else if (settings.name == '/casks') {
+                } else if (settings.name == CasksScreen.route) {
                   return MaterialPageRoute(
                     builder: (context) => CasksScreen(),
                     settings: settings,
                   );
-                } else if (settings.name!.startsWith('/formula/')) {
+                } else if (settings.name!.startsWith(FormulaScreen.route)) {
                   final uri = Uri.parse(settings.name!);
                   if (uri.pathSegments.length == 2) {
                     return MaterialPageRoute(
@@ -91,7 +91,7 @@ class App extends StatelessWidget {
                       settings: settings,
                     );
                   }
-                } else if (settings.name!.startsWith('/cask/')) {
+                } else if (settings.name!.startsWith(CaskScreen.route)) {
                   final uri = Uri.parse(settings.name!);
                   if (uri.pathSegments.length == 2) {
                     return MaterialPageRoute(

@@ -1,6 +1,7 @@
 import 'package:brewery/blocs/filtered_formulae/filtered_formulae_bloc.dart';
 import 'package:brewery/blocs/formulae/formulae_bloc.dart';
 import 'package:brewery/models/formula.dart';
+import 'package:brewery/screens/formula_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
@@ -11,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FormulaeScreen extends StatefulWidget {
+  static const route = '/formulae';
+
   FormulaeScreen({Key? key});
 
   @override
@@ -61,8 +64,9 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
                 builder: (context, state) => ModelList<Formula>(
                   filter: state.filter,
                   itemList: state.formulae,
-                  onTileClick: (formula) => Navigator.of(context)
-                      .pushNamed('/formula/${formula.name}'),
+                  onTileClick: (formula) => Navigator.of(context).pushNamed(
+                    FormulaScreen.routeWith(formula.name),
+                  ),
                   tileTitleBuilder: (formula) => formula.name,
                   tileSubtitleBuilder: (formula) => formula.description,
                   tileTrailingBuilder: (formula) => formula.version,

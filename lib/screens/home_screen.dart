@@ -1,3 +1,7 @@
+import 'package:brewery/screens/casks_screen.dart';
+import 'package:brewery/screens/formulae_casks_screen.dart';
+import 'package:brewery/screens/formulae_screen.dart';
+import 'package:brewery/screens/settings_screen.dart';
 import 'package:brewery/widgets/material_hero.dart';
 import 'package:brewery/widgets/menu_button.dart';
 import 'package:brewery/widgets/regexp_filter.dart';
@@ -6,6 +10,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const route = '/';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +20,9 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.settings),
-            onPressed: () => Navigator.of(context).pushNamed('/settings'),
+            onPressed: () => Navigator.of(context).pushNamed(
+              SettingsScreen.route,
+            ),
           ),
         ],
       ),
@@ -39,19 +47,24 @@ class HomeScreen extends StatelessWidget {
                   child: RegexpFilter(
                     title: 'Search formulae and casks',
                     onChanged: (filter) {},
-                    onTap: () =>
-                        Navigator.of(context).pushNamed('/formulae_casks'),
+                    onTap: () => Navigator.of(context).pushNamed(
+                      FormulaeCasksScreen.route,
+                    ),
                   ),
                 ),
                 SizedBox(height: 40),
                 MenuButton(
                   label: 'Formulae',
-                  onClick: () => Navigator.of(context).pushNamed('/formulae'),
+                  onClick: () => Navigator.of(context).pushNamed(
+                    FormulaeScreen.route,
+                  ),
                 ),
                 SizedBox(height: 20),
                 MenuButton(
                   label: 'Casks',
-                  onClick: () => Navigator.of(context).pushNamed('/casks'),
+                  onClick: () => Navigator.of(context).pushNamed(
+                    CasksScreen.route,
+                  ),
                 ),
                 SizedBox(height: 20),
               ],

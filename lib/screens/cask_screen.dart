@@ -1,6 +1,7 @@
 import 'package:brewery/blocs/casks/casks_bloc.dart';
 import 'package:brewery/blocs/formulae/formulae_bloc.dart';
 import 'package:brewery/models/cask.dart';
+import 'package:brewery/screens/formula_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/chips_section.dart';
 import 'package:brewery/widgets/failure_text.dart';
@@ -10,7 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CaskScreen extends StatelessWidget {
+  static const route = '/cask';
   final String token;
+
+  static String routeWith(String token) => '$route/$token';
 
   CaskScreen({
     Key? key,
@@ -48,28 +52,32 @@ class CaskScreen extends StatelessWidget {
                     ChipsSection(
                       header: 'Formula dependencies',
                       list: cask.dependsOnFormulae,
-                      onChipTap: (name) =>
-                          Navigator.of(context).pushNamed('/formula/$name'),
+                      onChipTap: (name) => Navigator.of(context).pushNamed(
+                        FormulaScreen.routeWith(name),
+                      ),
                     ),
                     ChipsSection(
                       header: 'Cask dependencies',
                       list: cask.dependsOnCasks,
                       clickableIf: casksState.casks.isCaskPresent,
-                      onChipTap: (token) =>
-                          Navigator.of(context).pushNamed('/cask/$token'),
+                      onChipTap: (token) => Navigator.of(context).pushNamed(
+                        CaskScreen.routeWith(token),
+                      ),
                     ),
                     ChipsSection(
                       header: 'Formula conflicts',
                       list: cask.conflictsWithFormulae,
-                      onChipTap: (name) =>
-                          Navigator.of(context).pushNamed('/formula/$name'),
+                      onChipTap: (name) => Navigator.of(context).pushNamed(
+                        FormulaScreen.routeWith(name),
+                      ),
                     ),
                     ChipsSection(
                       header: 'Cask conflicts',
                       list: cask.conflictsWithCasks,
                       clickableIf: casksState.casks.isCaskPresent,
-                      onChipTap: (token) =>
-                          Navigator.of(context).pushNamed('/cask/$token'),
+                      onChipTap: (token) => Navigator.of(context).pushNamed(
+                        CaskScreen.routeWith(token),
+                      ),
                     ),
                   ],
                 );
