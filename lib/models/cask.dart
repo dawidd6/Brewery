@@ -13,7 +13,7 @@ class Cask {
   //final bool autoUpdates;
 
   String get coreTapURL =>
-      'https://github.com/Homebrew/homebrew-cask/blob/HEAD/Cask/$token.rb';
+      'https://github.com/Homebrew/homebrew-cask/blob/HEAD/Casks/$token.rb';
 
   Cask({
     required this.token,
