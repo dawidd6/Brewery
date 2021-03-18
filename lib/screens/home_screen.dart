@@ -2,6 +2,7 @@ import 'package:brewery/screens/casks_screen.dart';
 import 'package:brewery/screens/formulae_casks_screen.dart';
 import 'package:brewery/screens/formulae_screen.dart';
 import 'package:brewery/screens/settings_screen.dart';
+import 'package:brewery/styles/brewery_images.dart';
 import 'package:brewery/widgets/material_hero.dart';
 import 'package:brewery/widgets/menu_button.dart';
 import 'package:brewery/widgets/regexp_filter.dart';
@@ -37,7 +38,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 SizedBox(height: 20),
                 SvgPicture.asset(
-                  'icons/icon.svg',
+                  BreweryImages.iconPath,
                   width: 200,
                   height: 200,
                 ),
