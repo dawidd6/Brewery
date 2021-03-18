@@ -143,7 +143,6 @@ class BreweryTheme {
       );
 
   static TextStyle get sectionBodyLink => sectionBody.copyWith(
-        fontStyle: FontStyle.italic,
         decoration: TextDecoration.underline,
       );
 
