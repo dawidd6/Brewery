@@ -98,10 +98,13 @@ class BreweryTheme {
         cursorColor: BreweryColors.goldDark,
         selectionColor: BreweryColors.goldDark,
       ),
-      textTheme: TextTheme(
-        // Search bar input text
-        subtitle1: listTileSubtitle,
-      ));
+      );
+
+  static TextStyle get searchBarText => TextStyle(
+        color: BreweryColors.goldLight,
+        fontSize: 15.0,
+        fontWeight: FontWeight.w400,
+      );
 
   static TextStyle get listTileTitle => TextStyle(
         color: BreweryColors.goldDark,
