@@ -1,4 +1,5 @@
 import 'package:brewery/widgets/conditional_widget.dart';
+import 'package:brewery/styles/brewery_theme.dart
 import 'package:flutter/material.dart';
 
 class RegexpFilter extends StatefulWidget {
@@ -46,6 +47,7 @@ class _RegexpFilterState extends State<RegexpFilter> {
       controller: _controller,
       onChanged: onInput,
       onTap: widget.onTap,
+      style: BreweryTheme.searchBarText,
       decoration: InputDecoration(
         labelText: widget.title,
         prefixIcon: Icon(
