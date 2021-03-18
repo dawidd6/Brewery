@@ -1,3 +1,4 @@
+import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ class ChipsSection extends StatelessWidget {
       children: [
         Text(
           header,
-          style: Theme.of(context).textTheme.headline4,
+          style: BreweryTheme.sectionHeader,
         ),
         Padding(
           padding: EdgeInsets.only(top: 10.0, bottom: 10.0),

@@ -1,3 +1,4 @@
+import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/material.dart';
 
 class SettingTile extends StatelessWidget {
@@ -23,12 +24,12 @@ class SettingTile extends StatelessWidget {
         padding: EdgeInsets.only(bottom: 10.0),
         child: Text(
           title,
-          style: Theme.of(context).textTheme.headline1,
+          style: BreweryTheme.listTileTitle,
         ),
       ),
       subtitle: Text(
         subtitle,
-        style: Theme.of(context).textTheme.headline2,
+        style: BreweryTheme.listTileSubtitle,
       ),
     );
   }

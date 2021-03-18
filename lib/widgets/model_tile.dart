@@ -1,3 +1,4 @@
+import 'package:brewery/styles/brewery_theme.dart';
 import 'package:brewery/widgets/highlighted_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -55,8 +56,8 @@ class _ModelTileState extends State<ModelTile>
           child: HighlightedText(
             text: widget.title,
             filter: widget.filter,
-            style: Theme.of(context).textTheme.headline1,
-            highlightStyle: Theme.of(context).textTheme.headline6,
+            style: BreweryTheme.listTileTitle,
+            highlightStyle: BreweryTheme.listTileTitleHighlighted,
             overflow: TextOverflow.fade,
             softWrap: false,
             maxLines: 1,
@@ -64,14 +65,14 @@ class _ModelTileState extends State<ModelTile>
         ),
         subtitle: Text(
           widget.subtitle,
-          style: Theme.of(context).textTheme.headline2,
+          style: BreweryTheme.listTileSubtitle,
           overflow: TextOverflow.fade,
           softWrap: false,
           maxLines: 1,
         ),
         trailing: Text(
           widget.trailing,
-          style: Theme.of(context).textTheme.headline3,
+          style: BreweryTheme.listTileTrailing,
         ),
         leading: widget.leading,
       ),

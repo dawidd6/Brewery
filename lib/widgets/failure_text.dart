@@ -1,3 +1,4 @@
+import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/material.dart';
 
 class FailureText extends StatelessWidget {
@@ -13,7 +14,7 @@ class FailureText extends StatelessWidget {
     return Center(
       child: Text(
         message,
-        style: Theme.of(context).textTheme.bodyText1,
+        style: BreweryTheme.failureText,
       ),
     );
   }

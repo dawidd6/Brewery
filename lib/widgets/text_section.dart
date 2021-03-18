@@ -1,3 +1,4 @@
+import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -34,7 +35,7 @@ class TextSection extends StatelessWidget {
       children: [
         Text(
           header,
-          style: Theme.of(context).textTheme.headline4,
+          style: BreweryTheme.sectionHeader,
         ),
         Padding(
           padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -42,8 +43,8 @@ class TextSection extends StatelessWidget {
         ),
         Linkify(
           text: body,
-          style: Theme.of(context).textTheme.headline2,
-          linkStyle: Theme.of(context).textTheme.subtitle2,
+          style: BreweryTheme.sectionBody,
+          linkStyle: BreweryTheme.sectionBodyLink,
           options: LinkifyOptions(humanize: false),
           onOpen: _onLinkClick,
         ),
