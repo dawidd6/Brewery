@@ -60,6 +60,31 @@ class Cask {
       autoUpdates: json['auto_updates'] ?? false,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'token': token,
+      'name': [name],
+      'desc': description,
+      'homepage': homepage,
+      'version': version,
+      'caveats': caveats,
+      'depends_on': {
+        'macos': {
+          dependsOnMacOS.split(' ').first: {
+            dependsOnMacOS.split(' ').last,
+          },
+        },
+        'cask': dependsOnCasks,
+        'formula': dependsOnFormulae,
+      },
+      'conflicts_with': {
+        'cask': conflictsWithCasks,
+        'formula': conflictsWithFormulae,
+      },
+      'auto_updates': autoUpdates,
+    };
+  }
 }
 
 extension CaskListExtension on List<Cask> {

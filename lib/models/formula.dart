@@ -66,11 +66,42 @@ class Formula {
       disabled: json['disabled'],
       bottles: json['bottle'].isEmpty
           ? []
-          : json['bottle']['stable']['files'].keys.toList(),
+          : List<String>.from(json['bottle']['stable']['files'].keys),
       buildDependencies: List<String>.from(json['build_dependencies']),
       dependencies: List<String>.from(json['dependencies']),
       conflictsWith: List<String>.from(json['conflicts_with']),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'versions': {
+        'stable': version,
+      },
+      'desc': description,
+      'license': license,
+      'homepage': homepage,
+      'caveats': caveats,
+      'deprecate_date': deprecateDate,
+      'deprecate_reason': deprecateReason,
+      'disable_date': disableDate,
+      'disable_reason': disableReason,
+      'version_scheme': versionScheme,
+      'revision': revision,
+      'bottle_disabled': bottleDisabled,
+      'keg_only': kegOnly,
+      'deprecated': deprecated,
+      'disabled': disabled,
+      'bottle': {
+        'stable': {
+          'files': Map.fromIterable(bottles, value: (_) => {}),
+        },
+      },
+      'build_dependencies': buildDependencies,
+      'dependencies': dependencies,
+      'conflicts_with': conflictsWith,
+    };
   }
 }
 
