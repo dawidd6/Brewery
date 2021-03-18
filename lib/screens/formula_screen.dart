@@ -29,6 +29,7 @@ class FormulaScreen extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(20.0),
         children: [
+          TextSection(header: 'Formula', body: formula.coreTapURL),
           TextSection(header: 'Description', body: formula.description),
           TextSection(header: 'Version', body: formula.version),
           TextSection(header: 'Homepage', body: formula.homepage),

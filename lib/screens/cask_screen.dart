@@ -40,6 +40,7 @@ class CaskScreen extends StatelessWidget {
                 return ListView(
                   padding: EdgeInsets.all(20.0),
                   children: [
+                    TextSection(header: 'Cask', body: cask.coreTapURL),
                     TextSection(header: 'Alias', body: cask.name),
                     TextSection(header: 'Description', body: cask.description),
                     TextSection(header: 'Homepage', body: cask.homepage),

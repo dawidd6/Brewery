@@ -12,6 +12,9 @@ class Cask {
   final List<String> conflictsWithCasks;
   //final bool autoUpdates;
 
+  String get coreTapURL =>
+      'https://github.com/Homebrew/homebrew-cask/blob/HEAD/Cask/$token.rb';
+
   Cask({
     required this.token,
     required this.name,

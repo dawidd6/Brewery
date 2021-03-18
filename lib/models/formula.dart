@@ -43,6 +43,9 @@ class Formula {
     required this.conflictsWith,
   });
 
+  String get coreTapURL =>
+      'https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/$name.rb';
+
   factory Formula.fromJson(Map<String, dynamic> json) {
     return Formula(
       name: json['name'],
