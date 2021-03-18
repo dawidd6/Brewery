@@ -47,6 +47,10 @@ class CaskScreen extends StatelessWidget {
                     TextSection(header: 'Version', body: cask.version),
                     TextSection(header: 'Caveats', body: cask.caveats),
                     TextSection(
+                      header: 'Auto updates',
+                      body: cask.autoUpdates.toString(),
+                    ),
+                    TextSection(
                       header: 'Needs macOS',
                       body: cask.dependsOnMacOS,
                     ),

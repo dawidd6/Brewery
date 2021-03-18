@@ -10,7 +10,7 @@ class Cask {
   final List<String> dependsOnCasks;
   final List<String> conflictsWithFormulae;
   final List<String> conflictsWithCasks;
-  //final bool autoUpdates;
+  final bool autoUpdates;
 
   String get coreTapURL =>
       'https://github.com/Homebrew/homebrew-cask/blob/HEAD/Casks/$token.rb';
@@ -27,7 +27,7 @@ class Cask {
     required this.dependsOnCasks,
     required this.conflictsWithFormulae,
     required this.conflictsWithCasks,
-    //required this.autoUpdates,
+    required this.autoUpdates,
   });
 
   factory Cask.fromJson(Map<String, dynamic> json) {
@@ -57,7 +57,7 @@ class Cask {
               json['conflicts_with']['cask'] != null)
           ? List<String>.from(json['conflicts_with']['cask'])
           : [],
-      //autoUpdates: json['auto_updates'] ?? false,
+      autoUpdates: json['auto_updates'] ?? false,
     );
   }
 }
