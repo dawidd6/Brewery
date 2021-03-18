@@ -20,7 +20,7 @@ class FilteredCasksBloc extends Bloc<FilteredCasksEvent, FilteredCasksState> {
               ? (bloc.state as CasksLoadedState).casks
               : [],
         )) {
-    _subscription = bloc.listen((state) {
+    _subscription = bloc.stream.listen((state) {
       if (state is CasksLoadedState) {
         add(FilteredCasksUpdateEvent(casks: state.casks));
       }

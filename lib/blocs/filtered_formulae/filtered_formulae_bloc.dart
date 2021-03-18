@@ -21,7 +21,7 @@ class FilteredFormulaeBloc
               ? (bloc.state as FormulaeLoadedState).formulae
               : [],
         )) {
-    _subscription = bloc.listen((state) {
+    _subscription = bloc.stream.listen((state) {
       if (state is FormulaeLoadedState) {
         add(FilteredFormulaeUpdateEvent(formulae: state.formulae));
       }
