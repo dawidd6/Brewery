@@ -14,7 +14,7 @@ class TextSection extends StatelessWidget {
     required this.body,
   }) : super(key: key);
 
-  Future _onLinkClick(LinkableElement link) async {
+  void _onLinkClick(LinkableElement link) async {
     if (link is UrlElement) {
       if (await canLaunch(link.url)) {
         await launch(link.url);
