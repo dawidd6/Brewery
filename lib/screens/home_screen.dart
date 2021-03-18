@@ -18,37 +18,45 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: ListView(
-          padding: EdgeInsets.all(20.0),
-          children: [
-            SizedBox(height: 20),
-            SvgPicture.asset(
-              'icons/icon.svg',
-              width: 200,
-              height: 200,
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(20.0),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: 500,
             ),
-            SizedBox(height: 40),
-            MaterialHero(
-              tag: 'search',
-              child: RegexpFilter(
-                title: 'Search formulae and casks',
-                onChanged: (filter) {},
-                onTap: () => Navigator.of(context).pushNamed('/formulae_casks'),
-              ),
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                SvgPicture.asset(
+                  'icons/icon.svg',
+                  width: 200,
+                  height: 200,
+                ),
+                SizedBox(height: 40),
+                MaterialHero(
+                  tag: 'search',
+                  child: RegexpFilter(
+                    title: 'Search formulae and casks',
+                    onChanged: (filter) {},
+                    onTap: () =>
+                        Navigator.of(context).pushNamed('/formulae_casks'),
+                  ),
+                ),
+                SizedBox(height: 40),
+                MenuButton(
+                  label: 'Formulae',
+                  onClick: () => Navigator.of(context).pushNamed('/formulae'),
+                ),
+                SizedBox(height: 20),
+                MenuButton(
+                  label: 'Casks',
+                  onClick: () => Navigator.of(context).pushNamed('/casks'),
+                ),
+                SizedBox(height: 20),
+              ],
             ),
-            SizedBox(height: 20),
-            MenuButton(
-              label: 'Formulae',
-              onClick: () => Navigator.of(context).pushNamed('/formulae'),
-            ),
-            SizedBox(height: 20),
-            MenuButton(
-              label: 'Casks',
-              onClick: () => Navigator.of(context).pushNamed('/casks'),
-            ),
-            SizedBox(height: 20),
-          ],
+          ),
         ),
       ),
     );
