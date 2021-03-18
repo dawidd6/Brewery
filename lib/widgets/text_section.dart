@@ -26,32 +26,32 @@ class TextSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (body.isEmpty) {
-      return Container();
-    }
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          header,
-          style: BreweryTheme.sectionHeader,
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-          child: Divider(),
-        ),
-        Linkify(
-          text: body,
-          style: BreweryTheme.sectionBody,
-          linkStyle: BreweryTheme.sectionBodyLink,
-          options: LinkifyOptions(humanize: false),
-          onOpen: _onLinkClick,
-        ),
-        SizedBox(
-          height: 40.0,
-        ),
-      ],
+    return Visibility(
+      visible: body.isNotEmpty,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            header,
+            style: BreweryTheme.sectionHeader,
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+            child: Divider(),
+          ),
+          Linkify(
+            text: body,
+            style: BreweryTheme.sectionBody,
+            linkStyle: BreweryTheme.sectionBodyLink,
+            options: LinkifyOptions(humanize: false),
+            onOpen: _onLinkClick,
+          ),
+          SizedBox(
+            height: 40.0,
+          ),
+        ],
+      ),
     );
   }
 }

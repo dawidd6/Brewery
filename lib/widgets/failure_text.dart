@@ -11,11 +11,9 @@ class FailureText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        message,
-        style: BreweryTheme.failureText,
-      ),
+    return Text(
+      message,
+      style: BreweryTheme.failureText,
     );
   }
 }

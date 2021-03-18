@@ -33,7 +33,7 @@ class _LoadingIconState extends State<LoadingIcon>
       turns: _controller,
       child: Icon(
         Icons.refresh,
-        size: MediaQuery.of(context).size.shortestSide * 0.4,
+        size: MediaQuery.of(context).size.shortestSide * 0.3,
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:brewery/widgets/conditional_widget.dart';
 import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -55,9 +54,9 @@ class _RegexpFilterState extends State<RegexpFilter> {
           size: 24.0,
           color: Theme.of(context).inputDecorationTheme.labelStyle!.color,
         ),
-        suffixIcon: ConditionalWidget.nullable(
-          condition: _controller.text.isNotEmpty,
-          widgetIfTrue: IconButton(
+        suffixIcon: Visibility(
+          visible: _controller.text.isNotEmpty,
+          child: IconButton(
             onPressed: onClear,
             hoverColor: Colors.transparent,
             icon: Icon(
