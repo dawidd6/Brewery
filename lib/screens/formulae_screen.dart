@@ -3,6 +3,7 @@ import 'package:brewery/blocs/formulae/formulae_bloc.dart';
 import 'package:brewery/models/formula.dart';
 import 'package:brewery/screens/formula_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
+import 'package:brewery/widgets/empty_text.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
 import 'package:brewery/widgets/material_hero.dart';
@@ -61,16 +62,22 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
           builder: (context) {
             if (state is FormulaeLoadedState) {
               return BlocBuilder<FilteredFormulaeBloc, FilteredFormulaeState>(
-                builder: (context, state) => ModelList<Formula>(
-                  filter: state.filter,
-                  itemList: state.formulae,
-                  onTileClick: (formula) => Navigator.of(context).pushNamed(
-                    FormulaScreen.routeWith(formula.name),
-                  ),
-                  tileTitleBuilder: (formula) => formula.name,
-                  tileSubtitleBuilder: (formula) => formula.description,
-                  tileTrailingBuilder: (formula) => formula.version,
-                ),
+                builder: (context, state) {
+                  if (state.formulae.isEmpty &&
+                      state.filter.pattern.isNotEmpty) {
+                    return EmptyText();
+                  }
+                  return ModelList<Formula>(
+                    filter: state.filter,
+                    itemList: state.formulae,
+                    onTileClick: (formula) => Navigator.of(context).pushNamed(
+                      FormulaScreen.routeWith(formula.name),
+                    ),
+                    tileTitleBuilder: (formula) => formula.name,
+                    tileSubtitleBuilder: (formula) => formula.description,
+                    tileTrailingBuilder: (formula) => formula.version,
+                  );
+                },
               );
             } else if (state is FormulaeErrorState) {
               return FailureText(
@@ -78,9 +85,8 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
               );
             } else if (state is FormulaeLoadingState) {
               return LoadingIcon();
-            } else {
-              return Container();
             }
+            return Container();
           },
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:brewery/screens/cask_screen.dart';
 import 'package:brewery/screens/formula_screen.dart';
 import 'package:brewery/styles/brewery_icons.dart';
 import 'package:brewery/widgets/center_switcher.dart';
+import 'package:brewery/widgets/empty_text.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
 import 'package:brewery/widgets/material_hero.dart';
@@ -93,57 +94,64 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
                 return BlocBuilder<FilteredFormulaeBloc, FilteredFormulaeState>(
                   builder: (context, filteredFormulaeState) =>
                       BlocBuilder<FilteredCasksBloc, FilteredCasksState>(
-                    builder: (context, filteredCasksState) => ModelList<Object>(
-                      filter: filteredFormulaeState.filter,
-                      itemList: [
-                        ...filteredFormulaeState.formulae,
-                        ...filteredCasksState.casks,
-                      ],
-                      onTileClick: (obj) {
-                        if (obj is Formula) {
-                          Navigator.of(context).pushNamed(
-                            FormulaScreen.routeWith(obj.name),
-                          );
-                        } else if (obj is Cask) {
-                          Navigator.of(context).pushNamed(
-                            CaskScreen.routeWith(obj.token),
-                          );
-                        }
-                      },
-                      tileTitleBuilder: (obj) {
-                        if (obj is Formula) {
-                          return obj.name;
-                        } else if (obj is Cask) {
-                          return obj.token;
-                        }
-                        return '';
-                      },
-                      tileSubtitleBuilder: (obj) {
-                        if (obj is Formula) {
-                          return obj.description;
-                        } else if (obj is Cask) {
-                          return obj.description.isEmpty
-                              ? obj.name
-                              : obj.description;
-                        }
-                        return '';
-                      },
-                      tileTrailingBuilder: (obj) {
-                        if (obj is Formula) {
-                          return obj.version;
-                        } else if (obj is Cask) {
-                          return obj.version;
-                        }
-                        return '';
-                      },
-                      tileLeadingBuilder: (obj) {
-                        if (obj is Formula) {
-                          return Icon(BreweryIcons.recipe_book);
-                        } else if (obj is Cask) {
-                          return Icon(BreweryIcons.wine_cask);
-                        }
-                      },
-                    ),
+                    builder: (context, filteredCasksState) {
+                      if (filteredFormulaeState.formulae.isEmpty &&
+                          filteredCasksState.casks.isEmpty &&
+                          filteredFormulaeState.filter.pattern.isNotEmpty) {
+                        return EmptyText();
+                      }
+                      return ModelList<Object>(
+                        filter: filteredFormulaeState.filter,
+                        itemList: [
+                          ...filteredFormulaeState.formulae,
+                          ...filteredCasksState.casks,
+                        ],
+                        onTileClick: (obj) {
+                          if (obj is Formula) {
+                            Navigator.of(context).pushNamed(
+                              FormulaScreen.routeWith(obj.name),
+                            );
+                          } else if (obj is Cask) {
+                            Navigator.of(context).pushNamed(
+                              CaskScreen.routeWith(obj.token),
+                            );
+                          }
+                        },
+                        tileTitleBuilder: (obj) {
+                          if (obj is Formula) {
+                            return obj.name;
+                          } else if (obj is Cask) {
+                            return obj.token;
+                          }
+                          return '';
+                        },
+                        tileSubtitleBuilder: (obj) {
+                          if (obj is Formula) {
+                            return obj.description;
+                          } else if (obj is Cask) {
+                            return obj.description.isEmpty
+                                ? obj.name
+                                : obj.description;
+                          }
+                          return '';
+                        },
+                        tileTrailingBuilder: (obj) {
+                          if (obj is Formula) {
+                            return obj.version;
+                          } else if (obj is Cask) {
+                            return obj.version;
+                          }
+                          return '';
+                        },
+                        tileLeadingBuilder: (obj) {
+                          if (obj is Formula) {
+                            return Icon(BreweryIcons.recipe_book);
+                          } else if (obj is Cask) {
+                            return Icon(BreweryIcons.wine_cask);
+                          }
+                        },
+                      );
+                    },
                   ),
                 );
               } else if (formulaeState is FormulaeErrorState ||
@@ -157,9 +165,8 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
               } else if (formulaeState is FormulaeLoadingState ||
                   casksState is CasksLoadingState) {
                 return LoadingIcon();
-              } else {
-                return Container();
               }
+              return Container();
             },
           ),
         ),

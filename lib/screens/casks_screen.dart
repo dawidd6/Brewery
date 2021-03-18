@@ -3,6 +3,7 @@ import 'package:brewery/blocs/filtered_casks/filtered_casks_bloc.dart';
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/screens/cask_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
+import 'package:brewery/widgets/empty_text.dart';
 import 'package:brewery/widgets/failure_text.dart';
 import 'package:brewery/widgets/loading_icon.dart';
 import 'package:brewery/widgets/material_hero.dart';
@@ -61,17 +62,22 @@ class _CasksScreenState extends State<CasksScreen> {
           builder: (context) {
             if (state is CasksLoadedState) {
               return BlocBuilder<FilteredCasksBloc, FilteredCasksState>(
-                builder: (context, state) => ModelList<Cask>(
-                  filter: state.filter,
-                  itemList: state.casks,
-                  onTileClick: (cask) => Navigator.of(context).pushNamed(
-                    CaskScreen.routeWith(cask.token),
-                  ),
-                  tileTitleBuilder: (cask) => cask.token,
-                  tileSubtitleBuilder: (cask) =>
-                      cask.description.isEmpty ? cask.name : cask.description,
-                  tileTrailingBuilder: (cask) => cask.version,
-                ),
+                builder: (context, state) {
+                  if (state.casks.isEmpty && state.filter.pattern.isNotEmpty) {
+                    return EmptyText();
+                  }
+                  return ModelList<Cask>(
+                    filter: state.filter,
+                    itemList: state.casks,
+                    onTileClick: (cask) => Navigator.of(context).pushNamed(
+                      CaskScreen.routeWith(cask.token),
+                    ),
+                    tileTitleBuilder: (cask) => cask.token,
+                    tileSubtitleBuilder: (cask) =>
+                        cask.description.isEmpty ? cask.name : cask.description,
+                    tileTrailingBuilder: (cask) => cask.version,
+                  );
+                },
               );
             } else if (state is CasksErrorState) {
               return FailureText(
@@ -79,9 +85,8 @@ class _CasksScreenState extends State<CasksScreen> {
               );
             } else if (state is CasksLoadingState) {
               return LoadingIcon();
-            } else {
-              return Container();
             }
+            return Container();
           },
         ),
       ),
