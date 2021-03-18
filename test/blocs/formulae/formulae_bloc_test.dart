@@ -1,50 +1,43 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:brewery/blocs/formulae/formulae_bloc.dart';
-import 'package:brewery/models/cask.dart';
-import 'package:brewery/models/formula.dart';
 import 'package:brewery/repositories/api_repository.dart';
-import 'package:mockito/mockito.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
-class MockApiRepository extends Mock implements ApiRepository {
-  @override
-  Future<List<Formula>> getFormulae() async {
-    return [];
-  }
-
-  @override
-  Future<List<Cask>> getCasks() async {
-    return [];
-  }
-}
-
-class MockApiRepositoryError extends Mock implements ApiRepository {
-  @override
-  Future<List<Formula>> getFormulae() async {
-    throw 'e';
-  }
-
-  @override
-  Future<List<Cask>> getCasks() async {
-    throw 'e';
-  }
-}
+class MockApiRepository extends Mock implements ApiRepository {}
 
 void main() {
-  blocTest(
-    'loading loaded',
-    build: () => FormulaeBloc(repository: MockApiRepository()),
-    expect: () => [
-      FormulaeLoadingState(),
-      FormulaeLoadedState(formulae: []),
-    ],
-  );
+  late ApiRepository repository;
 
-  blocTest(
-    'loading error',
-    build: () => FormulaeBloc(repository: MockApiRepositoryError()),
-    expect: () => [
-      FormulaeLoadingState(),
-      FormulaeErrorState('e'),
-    ],
-  );
+  group('returns empty list', () {
+    setUp(() {
+      repository = MockApiRepository();
+      when(() => repository.getFormulae()).thenAnswer((_) async => []);
+    });
+
+    blocTest(
+      'loading loaded',
+      build: () => FormulaeBloc(repository: repository),
+      expect: () => [
+        FormulaeLoadingState(),
+        FormulaeLoadedState(formulae: []),
+      ],
+    );
+  });
+
+  group('throws error', () {
+    setUp(() {
+      repository = MockApiRepository();
+      when(() => repository.getFormulae()).thenThrow('e');
+    });
+
+    blocTest(
+      'loading error',
+      build: () => FormulaeBloc(repository: repository),
+      expect: () => [
+        FormulaeLoadingState(),
+        FormulaeErrorState('e'),
+      ],
+    );
+  });
 }
