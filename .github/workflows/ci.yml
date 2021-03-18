@@ -17,11 +17,6 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: stable
-      - uses: actions/cache@v2
-        with:
-          path: ${{env.FLUTTER_HOME}}/.pub-cache
-          key: ${{runner.os}}-pub-${{hashFiles('**/pubspec.lock')}}
-          restore-keys: ${{runner.os}}-pub-
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
