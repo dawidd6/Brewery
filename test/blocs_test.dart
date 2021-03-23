@@ -20,7 +20,7 @@ void main() {
       build: () => FormulaeBloc(repository: repository),
       expect: () => [
         FormulaeLoadingState(),
-        FormulaeLoadedState(formulae: []),
+        FormulaeLoadedState(formulae: [], cached: false),
       ],
     );
   });
