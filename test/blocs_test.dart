@@ -1,42 +1,146 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:brewery/blocs/casks/casks_bloc.dart';
 import 'package:brewery/blocs/formulae/formulae_bloc.dart';
+import 'package:brewery/models/cask.dart';
+import 'package:brewery/models/formula.dart';
 import 'package:brewery/repositories/api_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockApiRepository extends Mock implements ApiRepository {}
 
-void main() {
-  late ApiRepository repository;
+class MockFormula extends Mock implements Formula {}
 
-  group('returns empty list', () {
-    setUp(() {
-      repository = MockApiRepository();
-      when(() => repository.getFormulae()).thenAnswer((_) async => []);
-    });
+class MockCask extends Mock implements Cask {}
+
+void main() {
+  group('returns empty cached data', () {
+    final repository = MockApiRepository();
+    when(() => repository.getCachedFormulae()).thenAnswer((_) async => []);
+    when(() => repository.getCachedCasks()).thenAnswer((_) async => []);
 
     blocTest(
-      'loading loaded',
+      'empty cached formulae results loading loaded',
+      build: () => FormulaeBloc(repository: repository),
+      expect: () => [
+        FormulaeLoadingState(),
+        FormulaeLoadedState(formulae: [], cached: true),
+      ],
+    );
+
+    blocTest(
+      'empty cached casks results loading loaded',
+      build: () => CasksBloc(repository: repository),
+      expect: () => [
+        CasksLoadingState(),
+        CasksLoadedState(casks: [], cached: true),
+      ],
+    );
+  });
+
+  group('returns empty data', () {
+    final repository = MockApiRepository();
+    when(() => repository.getCachedFormulae()).thenThrow('');
+    when(() => repository.getCachedCasks()).thenThrow('');
+    when(() => repository.getFormulae()).thenAnswer((_) async => []);
+    when(() => repository.getCasks()).thenAnswer((_) async => []);
+
+    blocTest(
+      'empty formulae results loading loaded',
       build: () => FormulaeBloc(repository: repository),
       expect: () => [
         FormulaeLoadingState(),
         FormulaeLoadedState(formulae: [], cached: false),
       ],
     );
+
+    blocTest(
+      'empty casks results loading loaded',
+      build: () => CasksBloc(repository: repository),
+      expect: () => [
+        CasksLoadingState(),
+        CasksLoadedState(casks: [], cached: false),
+      ],
+    );
+  });
+
+  group('returns cached data', () {
+    final formula = MockFormula();
+    final cask = MockCask();
+    final repository = MockApiRepository();
+    when(() => repository.getCachedFormulae())
+        .thenAnswer((_) async => [formula]);
+    when(() => repository.getCachedCasks()).thenAnswer((_) async => [cask]);
+
+    blocTest(
+      'cached formulae results loading loaded',
+      build: () => FormulaeBloc(repository: repository),
+      expect: () => [
+        FormulaeLoadingState(),
+        FormulaeLoadedState(formulae: [formula], cached: true),
+      ],
+    );
+
+    blocTest(
+      'cached casks results loading loaded',
+      build: () => CasksBloc(repository: repository),
+      expect: () => [
+        CasksLoadingState(),
+        CasksLoadedState(casks: [cask], cached: true),
+      ],
+    );
+  });
+
+  group('returns data', () {
+    final formula = MockFormula();
+    final cask = MockCask();
+    final repository = MockApiRepository();
+    when(() => repository.getCachedFormulae()).thenThrow('');
+    when(() => repository.getCachedCasks()).thenThrow('');
+    when(() => repository.getFormulae()).thenAnswer((_) async => [formula]);
+    when(() => repository.getCasks()).thenAnswer((_) async => [cask]);
+
+    blocTest(
+      'formulae results loading loaded',
+      build: () => FormulaeBloc(repository: repository),
+      expect: () => [
+        FormulaeLoadingState(),
+        FormulaeLoadedState(formulae: [formula], cached: false),
+      ],
+    );
+
+    blocTest(
+      'casks results loading loaded',
+      build: () => CasksBloc(repository: repository),
+      expect: () => [
+        CasksLoadingState(),
+        CasksLoadedState(casks: [cask], cached: false),
+      ],
+    );
   });
 
   group('throws error', () {
-    setUp(() {
-      repository = MockApiRepository();
-      when(() => repository.getFormulae()).thenThrow('e');
-    });
+    final repository = MockApiRepository();
+    when(() => repository.getCachedFormulae()).thenThrow('');
+    when(() => repository.getCachedCasks()).thenThrow('');
+    when(() => repository.getFormulae()).thenThrow('e');
+    when(() => repository.getCasks()).thenThrow('e');
 
     blocTest(
-      'loading error',
+      'formulae loading error',
       build: () => FormulaeBloc(repository: repository),
       expect: () => [
         FormulaeLoadingState(),
         FormulaeErrorState('e'),
+      ],
+    );
+
+    blocTest(
+      'casks loading error',
+      build: () => CasksBloc(repository: repository),
+      expect: () => [
+        CasksLoadingState(),
+        CasksErrorState('e'),
       ],
     );
   });
