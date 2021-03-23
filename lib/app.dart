@@ -13,7 +13,9 @@ import 'package:brewery/screens/home_screen.dart';
 import 'package:brewery/screens/settings_screen.dart';
 import 'package:brewery/services/api_service.dart';
 import 'package:brewery/services/cache_service.dart';
+import 'package:brewery/services/cache_service_web.dart';
 import 'package:brewery/styles/brewery_theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -24,7 +26,7 @@ class App extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => ApiRepository(
         api: ApiService(),
-        cache: CacheService(),
+        cache: kIsWeb ? CacheServiceWeb() : CacheService(),
       ),
       child: MultiBlocProvider(
         providers: [
