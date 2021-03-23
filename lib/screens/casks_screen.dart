@@ -68,6 +68,7 @@ class _CasksScreenState extends State<CasksScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Cached casks data loaded'),
+            duration: Duration(seconds: 2),
           ),
         ),
         builder: (context, state) => CenterSwitcher(

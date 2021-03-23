@@ -92,6 +92,7 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Cached formulae data loaded'),
+            duration: Duration(seconds: 2),
           ),
         ),
         builder: (context, formulaeState) =>
@@ -102,6 +103,7 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
               ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Cached casks data loaded'),
+              duration: Duration(seconds: 2),
             ),
           ),
           builder: (context, casksState) => CenterSwitcher(
