@@ -5,7 +5,7 @@ class ModelList<T> extends StatelessWidget {
   final String Function(T) tileTitleBuilder;
   final String Function(T) tileSubtitleBuilder;
   final String Function(T) tileTrailingBuilder;
-  final Widget? Function(T)? tileLeadingBuilder;
+  final String Function(T) tileLeadingBuilder;
   final void Function(T) onTileClick;
   final List<T> itemList;
   final RegExp? filter;
@@ -15,10 +15,10 @@ class ModelList<T> extends StatelessWidget {
     required this.tileTitleBuilder,
     required this.tileSubtitleBuilder,
     required this.tileTrailingBuilder,
+    required this.tileLeadingBuilder,
     required this.onTileClick,
     required this.itemList,
     this.filter,
-    this.tileLeadingBuilder,
   }) : super(key: key);
 
   @override
@@ -32,9 +32,7 @@ class ModelList<T> extends StatelessWidget {
           title: tileTitleBuilder(itemList[index]),
           subtitle: tileSubtitleBuilder(itemList[index]),
           trailing: tileTrailingBuilder(itemList[index]),
-          leading: tileLeadingBuilder != null
-              ? tileLeadingBuilder!(itemList[index])
-              : null,
+          leading: tileLeadingBuilder(itemList[index]),
           onTap: () => onTileClick(itemList[index]),
         ),
       ),

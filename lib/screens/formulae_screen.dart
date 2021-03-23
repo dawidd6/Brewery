@@ -76,6 +76,7 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
                     tileTitleBuilder: (formula) => formula.name,
                     tileSubtitleBuilder: (formula) => formula.description,
                     tileTrailingBuilder: (formula) => formula.version,
+                    tileLeadingBuilder: (formula) => '',
                   );
                 },
               );

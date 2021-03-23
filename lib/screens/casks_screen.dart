@@ -76,6 +76,7 @@ class _CasksScreenState extends State<CasksScreen> {
                     tileSubtitleBuilder: (cask) =>
                         cask.description.isEmpty ? cask.name : cask.description,
                     tileTrailingBuilder: (cask) => cask.version,
+                    tileLeadingBuilder: (cask) => '',
                   );
                 },
               );

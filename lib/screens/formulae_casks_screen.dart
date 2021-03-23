@@ -6,7 +6,6 @@ import 'package:brewery/models/cask.dart';
 import 'package:brewery/models/formula.dart';
 import 'package:brewery/screens/cask_screen.dart';
 import 'package:brewery/screens/formula_screen.dart';
-import 'package:brewery/styles/brewery_icons.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/empty_text.dart';
 import 'package:brewery/widgets/failure_text.dart';
@@ -145,10 +144,11 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
                         },
                         tileLeadingBuilder: (obj) {
                           if (obj is Formula) {
-                            return Icon(BreweryIcons.recipe_book);
+                            return 'Formula';
                           } else if (obj is Cask) {
-                            return Icon(BreweryIcons.wine_cask);
+                            return 'Cask';
                           }
+                          return '';
                         },
                       );
                     },

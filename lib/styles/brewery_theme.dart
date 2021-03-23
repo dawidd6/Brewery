@@ -130,6 +130,12 @@ class BreweryTheme {
         fontStyle: FontStyle.italic,
       );
 
+  static TextStyle get listTileLeading => TextStyle(
+        color: BreweryColors.goldLight,
+        fontSize: 14.0,
+        fontWeight: FontWeight.w500,
+      );
+
   static TextStyle get sectionHeader => TextStyle(
         color: BreweryColors.goldDark,
         fontSize: 18.0,
