@@ -52,7 +52,3 @@ flutter:
   uses-material-design: true
   assets:
     - icons/icon.svg
-  fonts:
-    - family:  BreweryIcons
-      fonts:
-        - asset: fonts/BreweryIcons.ttf
