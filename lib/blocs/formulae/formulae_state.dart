@@ -17,7 +17,7 @@ class FormulaeLoadedState extends FormulaeState {
   });
 
   @override
-  List<Object?> get props => [formulae];
+  List<Object?> get props => [formulae, cached];
 }
 
 class FormulaeErrorState extends FormulaeState {

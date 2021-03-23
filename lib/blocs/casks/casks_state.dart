@@ -17,7 +17,7 @@ class CasksLoadedState extends CasksState {
   });
 
   @override
-  List<Object?> get props => [casks];
+  List<Object?> get props => [casks, cached];
 }
 
 class CasksErrorState extends CasksState {
