@@ -22,18 +22,22 @@ class FormulaeScreen extends StatefulWidget {
 }
 
 class _FormulaeScreenState extends State<FormulaeScreen> {
+  late final FilteredFormulaeBloc filteredBloc;
+
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<FilteredFormulaeBloc>(context).add(
-      FilteredFormulaeFilterEvent(filter: ''),
-    );
+    filteredBloc = BlocProvider.of<FilteredFormulaeBloc>(context);
+  }
+
+  @override
+  void dispose() {
+    filteredBloc.add(FilteredFormulaeFilterEvent(filter: ''));
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final filteredBloc = BlocProvider.of<FilteredFormulaeBloc>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: MaterialHero(

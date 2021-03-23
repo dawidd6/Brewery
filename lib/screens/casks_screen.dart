@@ -22,18 +22,22 @@ class CasksScreen extends StatefulWidget {
 }
 
 class _CasksScreenState extends State<CasksScreen> {
+  late final FilteredCasksBloc filteredBloc;
+
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<FilteredCasksBloc>(context).add(
-      FilteredCasksFilterEvent(filter: ''),
-    );
+    filteredBloc = BlocProvider.of<FilteredCasksBloc>(context);
+  }
+
+  @override
+  void dispose() {
+    filteredBloc.add(FilteredCasksFilterEvent(filter: ''));
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final filteredBloc = BlocProvider.of<FilteredCasksBloc>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: MaterialHero(

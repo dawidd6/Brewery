@@ -26,22 +26,25 @@ class FormulaeCasksScreen extends StatefulWidget {
 }
 
 class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
+  late final FilteredFormulaeBloc filteredFormulaeBloc;
+  late final FilteredCasksBloc filteredCasksBloc;
+
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<FilteredFormulaeBloc>(context).add(
-      FilteredFormulaeFilterEvent(filter: ''),
-    );
-    BlocProvider.of<FilteredCasksBloc>(context).add(
-      FilteredCasksFilterEvent(filter: ''),
-    );
+    filteredFormulaeBloc = BlocProvider.of<FilteredFormulaeBloc>(context);
+    filteredCasksBloc = BlocProvider.of<FilteredCasksBloc>(context);
+  }
+
+  @override
+  void dispose() {
+    filteredFormulaeBloc.add(FilteredFormulaeFilterEvent(filter: ''));
+    filteredCasksBloc.add(FilteredCasksFilterEvent(filter: ''));
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final filteredFormulaeBloc = BlocProvider.of<FilteredFormulaeBloc>(context);
-    final filteredCasksBloc = BlocProvider.of<FilteredCasksBloc>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: MaterialHero(
