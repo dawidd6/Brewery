@@ -9,9 +9,11 @@ class FormulaeLoadingState extends FormulaeState {
 
 class FormulaeLoadedState extends FormulaeState {
   final List<Formula> formulae;
+  final bool cached;
 
   FormulaeLoadedState({
     required this.formulae,
+    required this.cached,
   });
 
   @override

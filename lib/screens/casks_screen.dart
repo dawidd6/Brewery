@@ -61,7 +61,15 @@ class _CasksScreenState extends State<CasksScreen> {
           }),
         ],
       ),
-      body: BlocBuilder<CasksBloc, CasksState>(
+      body: BlocConsumer<CasksBloc, CasksState>(
+        listenWhen: (context, state) =>
+            state is CasksLoadedState && state.cached,
+        listener: (context, state) =>
+            ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Cached casks data loaded'),
+          ),
+        ),
         builder: (context, state) => CenterSwitcher(
           builder: (context) {
             if (state is CasksLoadedState) {

@@ -61,7 +61,15 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
           }),
         ],
       ),
-      body: BlocBuilder<FormulaeBloc, FormulaeState>(
+      body: BlocConsumer<FormulaeBloc, FormulaeState>(
+        listenWhen: (context, state) =>
+            state is FormulaeLoadedState && state.cached,
+        listener: (context, state) =>
+            ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Cached formulae data loaded'),
+          ),
+        ),
         builder: (context, state) => CenterSwitcher(
           builder: (context) {
             if (state is FormulaeLoadedState) {
@@ -86,7 +94,7 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
               );
             } else if (state is FormulaeErrorState) {
               return FailureText(
-                message: state.error.toString(),
+                message: 'An error occurred while fetching data.',
               );
             } else if (state is FormulaeLoadingState) {
               return LoadingIcon();

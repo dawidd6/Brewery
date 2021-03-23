@@ -66,12 +66,10 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
           BlocBuilder<FormulaeBloc, FormulaeState>(
             builder: (context, formulaeState) =>
                 BlocBuilder<CasksBloc, CasksState>(
-              builder: (context, casksState) {
-                if (formulaeState is FormulaeLoadingState ||
-                    casksState is CasksLoadingState) {
-                  return Container();
-                }
-                return IconButton(
+              builder: (context, casksState) => Visibility(
+                visible: formulaeState is! FormulaeLoadingState &&
+                    casksState is! CasksLoadingState,
+                child: IconButton(
                   icon: Icon(Icons.refresh),
                   onPressed: () {
                     filteredFormulaeBloc.bloc.add(
@@ -81,14 +79,31 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
                       CasksLoadEvent(),
                     );
                   },
-                );
-              },
+                ),
+              ),
             ),
           ),
         ],
       ),
-      body: BlocBuilder<FormulaeBloc, FormulaeState>(
-        builder: (context, formulaeState) => BlocBuilder<CasksBloc, CasksState>(
+      body: BlocConsumer<FormulaeBloc, FormulaeState>(
+        listenWhen: (context, state) =>
+            state is FormulaeLoadedState && state.cached,
+        listener: (context, state) =>
+            ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Cached formulae data loaded'),
+          ),
+        ),
+        builder: (context, formulaeState) =>
+            BlocConsumer<CasksBloc, CasksState>(
+          listenWhen: (context, state) =>
+              state is CasksLoadedState && state.cached,
+          listener: (context, state) =>
+              ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Cached casks data loaded'),
+            ),
+          ),
           builder: (context, casksState) => CenterSwitcher(
             builder: (context) {
               if (formulaeState is FormulaeLoadedState &&

@@ -9,9 +9,11 @@ class CasksLoadingState extends CasksState {
 
 class CasksLoadedState extends CasksState {
   final List<Cask> casks;
+  final bool cached;
 
   CasksLoadedState({
     required this.casks,
+    required this.cached,
   });
 
   @override

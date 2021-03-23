@@ -78,6 +78,14 @@ class BreweryTheme {
             ),
           ),
         ),
+        snackBarTheme: SnackBarThemeData(
+          backgroundColor: BreweryColors.brownDark,
+          contentTextStyle: TextStyle(
+            color: BreweryColors.goldDark,
+            fontSize: 15.0,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: BreweryColors.brown,
           selectedItemColor: BreweryColors.goldLight,

@@ -18,10 +18,17 @@ class CasksBloc extends Bloc<CasksEvent, CasksState> {
     if (event is CasksLoadEvent) {
       try {
         yield CasksLoadingState();
-        final casks = await repository.getCasks();
-        yield CasksLoadedState(
-          casks: casks,
-        );
+        try {
+          yield CasksLoadedState(
+            casks: await repository.getCachedCasks(),
+            cached: true,
+          );
+        } catch (e) {
+          yield CasksLoadedState(
+            casks: await repository.getCasks(),
+            cached: false,
+          );
+        }
       } catch (e, s) {
         yield CasksErrorState(e);
         addError(e, s);

@@ -11,6 +11,8 @@ import 'package:brewery/screens/formulae_casks_screen.dart';
 import 'package:brewery/screens/formulae_screen.dart';
 import 'package:brewery/screens/home_screen.dart';
 import 'package:brewery/screens/settings_screen.dart';
+import 'package:brewery/services/api_service.dart';
+import 'package:brewery/services/cache_service.dart';
 import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +22,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => ApiRepository(),
+      create: (context) => ApiRepository(
+        api: ApiService(),
+        cache: CacheService(),
+      ),
       child: MultiBlocProvider(
         providers: [
           BlocProvider(

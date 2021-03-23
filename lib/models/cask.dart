@@ -71,9 +71,9 @@ class Cask {
       'caveats': caveats,
       'depends_on': {
         'macos': {
-          dependsOnMacOS.split(' ').first: {
+          dependsOnMacOS.split(' ').first: [
             dependsOnMacOS.split(' ').last,
-          },
+          ],
         },
         'cask': dependsOnCasks,
         'formula': dependsOnFormulae,
