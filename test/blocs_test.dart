@@ -50,7 +50,7 @@ void main() {
       build: () => FormulaeBloc(repository: repository),
       expect: () => [
         FormulaeLoadingState(),
-        FormulaeLoadedState(formulae: [], cached: false),
+        FormulaeLoadedState(formulae: []),
       ],
     );
 
@@ -59,7 +59,38 @@ void main() {
       build: () => CasksBloc(repository: repository),
       expect: () => [
         CasksLoadingState(),
-        CasksLoadedState(casks: [], cached: false),
+        CasksLoadedState(casks: []),
+      ],
+    );
+  });
+
+  group('returns old cached data', () {
+    final formula = MockFormula();
+    final cask = MockCask();
+    final repository = MockApiRepository();
+    when(() => repository.getCachedFormulae()).thenThrow('');
+    when(() => repository.getCachedCasks()).thenThrow('');
+    when(() => repository.getFormulae()).thenThrow('');
+    when(() => repository.getCasks()).thenThrow('');
+    when(() => repository.getOldCachedFormulae())
+        .thenAnswer((_) async => [formula]);
+    when(() => repository.getOldCachedCasks()).thenAnswer((_) async => [cask]);
+
+    blocTest(
+      'old cached formulae results loading loaded',
+      build: () => FormulaeBloc(repository: repository),
+      expect: () => [
+        FormulaeLoadingState(),
+        FormulaeLoadedState(formulae: [formula], cached: true, old: true),
+      ],
+    );
+
+    blocTest(
+      'old cached casks results loading loaded',
+      build: () => CasksBloc(repository: repository),
+      expect: () => [
+        CasksLoadingState(),
+        CasksLoadedState(casks: [cask], cached: true, old: true),
       ],
     );
   });
@@ -105,7 +136,7 @@ void main() {
       build: () => FormulaeBloc(repository: repository),
       expect: () => [
         FormulaeLoadingState(),
-        FormulaeLoadedState(formulae: [formula], cached: false),
+        FormulaeLoadedState(formulae: [formula]),
       ],
     );
 
@@ -114,7 +145,7 @@ void main() {
       build: () => CasksBloc(repository: repository),
       expect: () => [
         CasksLoadingState(),
-        CasksLoadedState(casks: [cask], cached: false),
+        CasksLoadedState(casks: [cask]),
       ],
     );
   });
