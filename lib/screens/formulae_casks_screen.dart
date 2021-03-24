@@ -180,7 +180,7 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
                     ? formulaeState.error
                     : (casksState as CasksErrorState).error;
                 return FailureText(
-                  message: error.toString(),
+                  error: error,
                 );
               } else if (formulaeState is FormulaeLoadingState ||
                   casksState is CasksLoadingState) {

@@ -9,7 +9,7 @@ class EmptyText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Nothing found',
+      'Nothing found.',
       style: BreweryTheme.nothingFound,
     );
   }

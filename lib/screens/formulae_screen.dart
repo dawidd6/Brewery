@@ -95,7 +95,7 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
               );
             } else if (state is FormulaeErrorState) {
               return FailureText(
-                message: 'An error occurred while fetching data.',
+                error: state.error,
               );
             } else if (state is FormulaeLoadingState) {
               return LoadingIcon();

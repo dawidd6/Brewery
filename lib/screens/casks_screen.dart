@@ -95,7 +95,7 @@ class _CasksScreenState extends State<CasksScreen> {
               );
             } else if (state is CasksErrorState) {
               return FailureText(
-                message: state.error.toString(),
+                error: state.error,
               );
             } else if (state is CasksLoadingState) {
               return LoadingIcon();

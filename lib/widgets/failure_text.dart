@@ -2,17 +2,17 @@ import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/material.dart';
 
 class FailureText extends StatelessWidget {
-  final String message;
+  final Object error;
 
   FailureText({
     Key? key,
-    required this.message,
+    required this.error,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      message,
+      'An error occurred while fetching data.',
       style: BreweryTheme.failureText,
     );
   }
