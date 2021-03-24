@@ -91,7 +91,11 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
         listener: (context, state) =>
             ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Cached formulae data loaded'),
+            content: Text(
+              (state as FormulaeLoadedState).old
+                  ? 'Old cached formulae data loaded'
+                  : 'Cached formulae data loaded',
+            ),
             duration: Duration(seconds: 2),
           ),
         ),
@@ -102,7 +106,11 @@ class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
           listener: (context, state) =>
               ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Cached casks data loaded'),
+              content: Text(
+                (state as CasksLoadedState).old
+                    ? 'Old cached casks data loaded'
+                    : 'Cached casks data loaded',
+              ),
               duration: Duration(seconds: 2),
             ),
           ),

@@ -67,7 +67,11 @@ class _CasksScreenState extends State<CasksScreen> {
         listener: (context, state) =>
             ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Cached casks data loaded'),
+            content: Text(
+              (state as CasksLoadedState).old
+                  ? 'Old cached casks data loaded'
+                  : 'Cached casks data loaded',
+            ),
             duration: Duration(seconds: 2),
           ),
         ),

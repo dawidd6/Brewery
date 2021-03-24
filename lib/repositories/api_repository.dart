@@ -12,6 +12,14 @@ class ApiRepository {
     required this.cache,
   });
 
+  Future<List<Formula>> getOldCachedFormulae() async {
+    return cache.loadOldFormulae();
+  }
+
+  Future<List<Cask>> getOldCachedCasks() async {
+    return cache.loadOldCasks();
+  }
+
   Future<List<Formula>> getCachedFormulae() async {
     return cache.loadFormulae();
   }

@@ -26,14 +26,30 @@ class CacheService {
     await file.writeAsString(data);
   }
 
-  Future<String> _read(String fileName) async {
+  Future<String> _read(String fileName, {bool old = false}) async {
     final file = await _file(fileName);
     final mod = file.lastModifiedSync();
     final diff = DateTime.now().difference(mod);
     if (diff > Duration(minutes: 10)) {
-      throw Exception('Cache too old');
+      if (!old) {
+        throw Exception('Cache too old');
+      }
     }
     return file.readAsString();
+  }
+
+  Future<List<Formula>> loadOldFormulae() async {
+    return compute(
+      ApiService.parseFormulae,
+      await _read('formulae.json', old: true),
+    );
+  }
+
+  Future<List<Cask>> loadOldCasks() async {
+    return compute(
+      ApiService.parseCasks,
+      await _read('casks.json', old: true),
+    );
   }
 
   Future<List<Formula>> loadFormulae() async {

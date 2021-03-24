@@ -10,14 +10,16 @@ class FormulaeLoadingState extends FormulaeState {
 class FormulaeLoadedState extends FormulaeState {
   final List<Formula> formulae;
   final bool cached;
+  final bool old;
 
   FormulaeLoadedState({
     required this.formulae,
-    required this.cached,
+    this.cached = false,
+    this.old = false,
   });
 
   @override
-  List<Object?> get props => [formulae, cached];
+  List<Object?> get props => [formulae, cached, old];
 }
 
 class FormulaeErrorState extends FormulaeState {

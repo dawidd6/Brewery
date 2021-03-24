@@ -10,14 +10,16 @@ class CasksLoadingState extends CasksState {
 class CasksLoadedState extends CasksState {
   final List<Cask> casks;
   final bool cached;
+  final bool old;
 
   CasksLoadedState({
     required this.casks,
-    required this.cached,
+    this.cached = false,
+    this.old = false,
   });
 
   @override
-  List<Object?> get props => [casks, cached];
+  List<Object?> get props => [casks, cached, old];
 }
 
 class CasksErrorState extends CasksState {

@@ -4,6 +4,16 @@ import 'package:brewery/services/cache_service.dart';
 
 class CacheServiceWeb implements CacheService {
   @override
+  Future<List<Cask>> loadOldCasks() async {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Formula>> loadOldFormulae() async {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<List<Cask>> loadCasks() async {
     throw UnimplementedError();
   }

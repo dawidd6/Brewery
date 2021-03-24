@@ -24,10 +24,17 @@ class FormulaeBloc extends Bloc<FormulaeEvent, FormulaeState> {
             cached: true,
           );
         } catch (e) {
-          yield FormulaeLoadedState(
-            formulae: await repository.getFormulae(),
-            cached: false,
-          );
+          try {
+            yield FormulaeLoadedState(
+              formulae: await repository.getFormulae(),
+            );
+          } catch (e) {
+            yield FormulaeLoadedState(
+              formulae: await repository.getOldCachedFormulae(),
+              cached: true,
+              old: true,
+            );
+          }
         }
       } catch (e, s) {
         yield FormulaeErrorState(e);

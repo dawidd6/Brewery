@@ -24,10 +24,17 @@ class CasksBloc extends Bloc<CasksEvent, CasksState> {
             cached: true,
           );
         } catch (e) {
-          yield CasksLoadedState(
-            casks: await repository.getCasks(),
-            cached: false,
-          );
+          try {
+            yield CasksLoadedState(
+              casks: await repository.getCasks(),
+            );
+          } catch (e) {
+            yield CasksLoadedState(
+              casks: await repository.getOldCachedCasks(),
+              cached: true,
+              old: true,
+            );
+          }
         }
       } catch (e, s) {
         yield CasksErrorState(e);
