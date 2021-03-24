@@ -39,4 +39,12 @@ class ApiRepository {
       await api.fetchCasks(),
     );
   }
+
+  Future<Formula> getFormula(String name) async {
+    return await api.fetchFormula(name);
+  }
+
+  Future<Cask> getCask(String token) async {
+    return await api.fetchCask(token);
+  }
 }
