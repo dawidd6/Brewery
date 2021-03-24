@@ -1,6 +1,5 @@
-import 'package:brewery/blocs/casks/casks_bloc.dart';
-import 'package:brewery/blocs/formulae/formulae_bloc.dart';
-import 'package:brewery/models/cask.dart';
+import 'package:brewery/blocs/cask/cask_bloc.dart';
+import 'package:brewery/repositories/api_repository.dart';
 import 'package:brewery/screens/formula_screen.dart';
 import 'package:brewery/widgets/center_switcher.dart';
 import 'package:brewery/widgets/chips_section.dart';
@@ -23,83 +22,74 @@ class CaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<CasksBloc>(context);
-    final casks = (bloc.state as CasksLoadedState).casks;
-    final cask = casks.findCaskByToken(token);
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(cask.token),
+        title: Text(token),
       ),
-      body: BlocBuilder<FormulaeBloc, FormulaeState>(
-        builder: (context, formulaeState) => BlocBuilder<CasksBloc, CasksState>(
-          builder: (context, casksState) => CenterSwitcher(
+      body: BlocProvider(
+        create: (context) => CaskBloc(
+          repository: RepositoryProvider.of<ApiRepository>(context),
+        )..add(CaskLoadEvent(token: token)),
+        child: BlocBuilder<CaskBloc, CaskState>(
+          builder: (context, state) => CenterSwitcher(
             builder: (context) {
-              if (formulaeState is FormulaeLoadedState &&
-                  casksState is CasksLoadedState) {
+              if (state is CaskLoadedState) {
                 return ListView(
                   padding: EdgeInsets.all(20.0),
                   children: [
-                    TextSection(header: 'Cask', body: cask.coreTapURL),
-                    TextSection(header: 'Alias', body: cask.name),
-                    TextSection(header: 'Description', body: cask.description),
-                    TextSection(header: 'Homepage', body: cask.homepage),
-                    TextSection(header: 'Version', body: cask.version),
-                    TextSection(header: 'Caveats', body: cask.caveats),
+                    TextSection(header: 'Cask', body: state.cask.coreTapURL),
+                    TextSection(header: 'Alias', body: state.cask.name),
+                    TextSection(
+                        header: 'Description', body: state.cask.description),
+                    TextSection(header: 'Homepage', body: state.cask.homepage),
+                    TextSection(header: 'Version', body: state.cask.version),
+                    TextSection(header: 'Caveats', body: state.cask.caveats),
                     TextSection(
                       header: 'Auto updates',
-                      body: cask.autoUpdates.toString(),
+                      body: state.cask.autoUpdates.toString(),
                     ),
                     TextSection(
                       header: 'Needs macOS',
-                      body: cask.dependsOnMacOS,
+                      body: state.cask.dependsOnMacOS,
                     ),
                     ChipsSection(
                       header: 'Formula dependencies',
-                      list: cask.dependsOnFormulae,
+                      list: state.cask.dependsOnFormulae,
                       onChipTap: (name) => Navigator.of(context).pushNamed(
                         FormulaScreen.routeWith(name),
                       ),
                     ),
                     ChipsSection(
                       header: 'Cask dependencies',
-                      list: cask.dependsOnCasks,
-                      clickableIf: casksState.casks.isCaskPresent,
+                      list: state.cask.dependsOnCasks,
+                      clickableIf: (token) => !token.contains('/'),
                       onChipTap: (token) => Navigator.of(context).pushNamed(
                         CaskScreen.routeWith(token),
                       ),
                     ),
                     ChipsSection(
                       header: 'Formula conflicts',
-                      list: cask.conflictsWithFormulae,
+                      list: state.cask.conflictsWithFormulae,
                       onChipTap: (name) => Navigator.of(context).pushNamed(
                         FormulaScreen.routeWith(name),
                       ),
                     ),
                     ChipsSection(
                       header: 'Cask conflicts',
-                      list: cask.conflictsWithCasks,
-                      clickableIf: casksState.casks.isCaskPresent,
+                      list: state.cask.conflictsWithCasks,
+                      clickableIf: (token) => !token.contains('/'),
                       onChipTap: (token) => Navigator.of(context).pushNamed(
                         CaskScreen.routeWith(token),
                       ),
                     ),
                   ],
                 );
-              } else if (formulaeState is FormulaeErrorState ||
-                  casksState is CasksErrorState) {
-                final error = formulaeState is FormulaeErrorState
-                    ? formulaeState.error
-                    : (casksState as CasksErrorState).error;
+              } else if (state is CaskErrorState) {
                 return FailureText(
-                  error: error,
+                  error: state.error,
                 );
-              } else if (formulaeState is FormulaeLoadingState ||
-                  casksState is CasksLoadingState) {
-                return LoadingIcon();
-              } else {
-                return Container();
               }
+              return LoadingIcon();
             },
           ),
         ),
