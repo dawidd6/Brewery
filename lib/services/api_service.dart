@@ -28,6 +28,26 @@ class ApiService {
     );
   }
 
+  Future<Formula> fetchFormula(String name) async {
+    final endpoint = '/formula/$name.json';
+    final uri = Uri.parse(baseURL + endpoint);
+    final response = await get(uri).timeout(_timeout);
+    if (response.statusCode != 200) {
+      throw Exception('Failed to fetch formula');
+    }
+    return Formula.fromJson(jsonDecode(response.body));
+  }
+
+  Future<Cask> fetchCask(String token) async {
+    final endpoint = '/cask/$token.json';
+    final uri = Uri.parse(baseURL + endpoint);
+    final response = await get(uri).timeout(_timeout);
+    if (response.statusCode != 200) {
+      throw Exception('Failed to fetch cask');
+    }
+    return Cask.fromJson(jsonDecode(response.body));
+  }
+
   Future<List<Formula>> fetchFormulae() async {
     final endpoint = '/formula.json';
     final uri = Uri.parse(baseURL + endpoint);
