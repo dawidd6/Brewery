@@ -8,6 +8,7 @@ import 'package:http/http.dart';
 
 class ApiService {
   static const baseURL = 'https://formulae.brew.sh/api';
+  final _timeout = Duration(seconds: 30);
 
   static List<Formula> parseFormulae(String body) {
     List<dynamic> json = jsonDecode(body);
@@ -30,7 +31,7 @@ class ApiService {
   Future<List<Formula>> fetchFormulae() async {
     final endpoint = '/formula.json';
     final uri = Uri.parse(baseURL + endpoint);
-    final response = await get(uri);
+    final response = await get(uri).timeout(_timeout);
     if (response.statusCode != 200) {
       throw Exception('Failed to fetch formulae');
     }
@@ -40,7 +41,7 @@ class ApiService {
   Future<List<Cask>> fetchCasks() async {
     final endpoint = '/cask.json';
     final uri = Uri.parse(baseURL + endpoint);
-    final response = await get(uri);
+    final response = await get(uri).timeout(_timeout);
     if (response.statusCode != 200) {
       throw Exception('Failed to fetch casks');
     }

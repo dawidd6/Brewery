@@ -8,6 +8,8 @@ import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CacheService {
+  final _expire = Duration(minutes: 10);
+
   static String serializeFormulae(List<Formula> formulae) {
     return jsonEncode(formulae);
   }
@@ -30,7 +32,7 @@ class CacheService {
     final file = await _file(fileName);
     final mod = file.lastModifiedSync();
     final diff = DateTime.now().difference(mod);
-    if (diff > Duration(minutes: 10)) {
+    if (diff > _expire) {
       if (!old) {
         throw Exception('Cache too old');
       }
