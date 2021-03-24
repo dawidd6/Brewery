@@ -31,14 +31,17 @@ class App extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
+            lazy: false,
             create: (context) => SettingsTestCubit(),
           ),
           BlocProvider(
+            lazy: false,
             create: (context) => FormulaeBloc(
               repository: RepositoryProvider.of<ApiRepository>(context),
             ),
           ),
           BlocProvider(
+            lazy: false,
             create: (context) => CasksBloc(
               repository: RepositoryProvider.of<ApiRepository>(context),
             ),
