@@ -82,6 +82,18 @@ class CaskScreen extends StatelessWidget {
                         CaskScreen.routeWith(token),
                       ),
                     ),
+                    TextSection(
+                      header: 'Installs in 30 days',
+                      body: state.cask.installs30d.toString(),
+                    ),
+                    TextSection(
+                      header: 'Installs in 90 days',
+                      body: state.cask.installs90d.toString(),
+                    ),
+                    TextSection(
+                      header: 'Installs in 365 days',
+                      body: state.cask.installs365d.toString(),
+                    ),
                   ],
                 );
               } else if (state is CaskErrorState) {
