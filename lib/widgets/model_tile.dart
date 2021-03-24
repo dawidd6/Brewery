@@ -77,7 +77,7 @@ class _ModelTileState extends State<ModelTile>
         leading: widget.leading.isEmpty
             ? null
             : Padding(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(5.0),
                 child: Text(
                   widget.leading,
                   style: BreweryTheme.listTileLeading,
