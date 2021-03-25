@@ -17,10 +17,72 @@ import 'package:brewery/services/cache_service_web.dart';
 import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keybinder/keybinder.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class App extends StatelessWidget {
+  final _nav = GlobalKey<NavigatorState>();
+
+  App() {
+    Keybinder.bind(
+      Keybinding.from([
+        LogicalKeyboardKey.escape,
+      ]),
+      () => _nav.currentState?.maybePop(),
+    );
+  }
+
+  Route<dynamic>? _routes(RouteSettings settings) {
+    if (settings.name == HomeScreen.route) {
+      return MaterialPageRoute(
+        builder: (context) => HomeScreen(),
+        settings: settings,
+      );
+    } else if (settings.name == SettingsScreen.route) {
+      return MaterialPageRoute(
+        builder: (context) => SettingsScreen(),
+        settings: settings,
+      );
+    } else if (settings.name == FormulaeCasksScreen.route) {
+      return MaterialPageRoute(
+        builder: (context) => FormulaeCasksScreen(),
+        settings: settings,
+      );
+    } else if (settings.name == FormulaeScreen.route) {
+      return MaterialPageRoute(
+        builder: (context) => FormulaeScreen(),
+        settings: settings,
+      );
+    } else if (settings.name == CasksScreen.route) {
+      return MaterialPageRoute(
+        builder: (context) => CasksScreen(),
+        settings: settings,
+      );
+    } else if (settings.name!.startsWith(FormulaScreen.route)) {
+      final uri = Uri.parse(settings.name!);
+      if (uri.pathSegments.length == 2) {
+        return MaterialPageRoute(
+          builder: (context) => FormulaScreen(
+            name: uri.pathSegments.last,
+          ),
+          settings: settings,
+        );
+      }
+    } else if (settings.name!.startsWith(CaskScreen.route)) {
+      final uri = Uri.parse(settings.name!);
+      if (uri.pathSegments.length == 2) {
+        return MaterialPageRoute(
+          builder: (context) => CaskScreen(
+            token: uri.pathSegments.last,
+          ),
+          settings: settings,
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
@@ -63,54 +125,8 @@ class App extends StatelessWidget {
               title: 'Brewery',
               theme: BreweryTheme.data,
               initialRoute: '/',
-              onGenerateRoute: (settings) {
-                if (settings.name == HomeScreen.route) {
-                  return MaterialPageRoute(
-                    builder: (context) => HomeScreen(),
-                    settings: settings,
-                  );
-                } else if (settings.name == SettingsScreen.route) {
-                  return MaterialPageRoute(
-                    builder: (context) => SettingsScreen(),
-                    settings: settings,
-                  );
-                } else if (settings.name == FormulaeCasksScreen.route) {
-                  return MaterialPageRoute(
-                    builder: (context) => FormulaeCasksScreen(),
-                    settings: settings,
-                  );
-                } else if (settings.name == FormulaeScreen.route) {
-                  return MaterialPageRoute(
-                    builder: (context) => FormulaeScreen(),
-                    settings: settings,
-                  );
-                } else if (settings.name == CasksScreen.route) {
-                  return MaterialPageRoute(
-                    builder: (context) => CasksScreen(),
-                    settings: settings,
-                  );
-                } else if (settings.name!.startsWith(FormulaScreen.route)) {
-                  final uri = Uri.parse(settings.name!);
-                  if (uri.pathSegments.length == 2) {
-                    return MaterialPageRoute(
-                      builder: (context) => FormulaScreen(
-                        name: uri.pathSegments.last,
-                      ),
-                      settings: settings,
-                    );
-                  }
-                } else if (settings.name!.startsWith(CaskScreen.route)) {
-                  final uri = Uri.parse(settings.name!);
-                  if (uri.pathSegments.length == 2) {
-                    return MaterialPageRoute(
-                      builder: (context) => CaskScreen(
-                        token: uri.pathSegments.last,
-                      ),
-                      settings: settings,
-                    );
-                  }
-                }
-              },
+              onGenerateRoute: _routes,
+              navigatorKey: _nav,
             ),
           ),
         ),
