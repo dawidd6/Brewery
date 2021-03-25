@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 class RegexpFilter extends StatefulWidget {
   final void Function()? onTap;
+  final void Function(String)? onSubmitted;
   final void Function(String) onChanged;
+  final Iterable<String> Function(TextEditingValue) optionsBuilder;
   final String title;
   final bool focus;
 
@@ -11,7 +13,9 @@ class RegexpFilter extends StatefulWidget {
     Key? key,
     required this.title,
     required this.onChanged,
+    required this.optionsBuilder,
     this.onTap,
+    this.onSubmitted,
     this.focus = false,
   });
 
@@ -20,49 +24,70 @@ class RegexpFilter extends StatefulWidget {
 }
 
 class _RegexpFilterState extends State<RegexpFilter> {
-  final _controller = TextEditingController();
-
-  void onClear() {
-    _controller.clear();
-    widget.onChanged('');
-    setState(() {});
-  }
-
-  void onInput(String input) {
-    widget.onChanged(input);
-    setState(() {});
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      autofocus: widget.focus,
-      controller: _controller,
-      onChanged: onInput,
-      onTap: widget.onTap,
-      style: BreweryTheme.searchBarText,
-      decoration: InputDecoration(
-        labelText: widget.title,
-        prefixIcon: Icon(
-          Icons.search,
-          size: 24.0,
-          color: Theme.of(context).inputDecorationTheme.labelStyle!.color,
+    return RawAutocomplete<String>(
+      onSelected: widget.onChanged,
+      optionsBuilder: widget.optionsBuilder,
+      optionsViewBuilder: (context, onSelected, options) => Align(
+        alignment: Alignment.topLeft,
+        child: Material(
+          elevation: 4.0,
+          borderRadius: BorderRadius.circular(10.0),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: 200,
+            ),
+            child: ListView.builder(
+              shrinkWrap: true,
+              padding: EdgeInsets.all(8.0),
+              itemCount: options.length,
+              itemBuilder: (BuildContext context, int index) => ListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                title: Text(
+                  options.elementAt(index),
+                  style: BreweryTheme.inputCompletions,
+                ),
+                onTap: () => onSelected(options.elementAt(index)),
+              ),
+            ),
+          ),
         ),
-        suffixIcon: Visibility(
-          visible: _controller.text.isNotEmpty,
-          child: IconButton(
-            onPressed: onClear,
-            hoverColor: Colors.transparent,
-            icon: Icon(
-              Icons.clear,
-              size: 24.0,
-              color: Theme.of(context).inputDecorationTheme.labelStyle!.color,
+      ),
+      fieldViewBuilder: (context, controller, node, onSubmit) => TextField(
+        autofocus: widget.focus,
+        focusNode: node,
+        controller: controller,
+        onChanged: (input) {
+          widget.onChanged(input);
+          setState(() {});
+        },
+        onSubmitted: widget.onSubmitted,
+        onTap: widget.onTap,
+        style: BreweryTheme.searchBarText,
+        decoration: InputDecoration(
+          labelText: widget.title,
+          prefixIcon: Icon(
+            Icons.search,
+            size: 24.0,
+            color: Theme.of(context).inputDecorationTheme.labelStyle!.color,
+          ),
+          suffixIcon: Visibility(
+            visible: controller.text.isNotEmpty,
+            child: IconButton(
+              onPressed: () {
+                controller.clear();
+                widget.onChanged('');
+                setState(() {});
+              },
+              hoverColor: Colors.transparent,
+              icon: Icon(
+                Icons.clear,
+                size: 24.0,
+                color: Theme.of(context).inputDecorationTheme.labelStyle!.color,
+              ),
             ),
           ),
         ),
