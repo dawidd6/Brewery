@@ -61,10 +61,6 @@ class BreweryTheme {
           hintStyle: TextStyle(
             color: BreweryColors.brown,
           ),
-          counterStyle: TextStyle(
-            fontSize: 13.0,
-            color: BreweryColors.goldDark,
-          ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(100.0),
             borderSide: BorderSide(
@@ -173,4 +169,8 @@ class BreweryTheme {
       );
 
   static TextStyle get nothingFound => failureText;
+
+  static TextStyle get inputCompletions => TextStyle(
+        color: BreweryColors.goldLight,
+      );
 }
