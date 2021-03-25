@@ -240,6 +240,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  keybinder:
+    dependency: "direct main"
+    description:
+      name: keybinder
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   keyboard_dismisser:
     dependency: "direct main"
     description:
@@ -254,6 +261,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  list_utilities:
+    dependency: transitive
+    description:
+      name: list_utilities
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   logging:
     dependency: transitive
     description:
