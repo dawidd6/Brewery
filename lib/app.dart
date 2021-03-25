@@ -35,13 +35,11 @@ class App extends StatelessWidget {
             create: (context) => SettingsTestCubit(),
           ),
           BlocProvider(
-            lazy: false,
             create: (context) => FormulaeBloc(
               repository: RepositoryProvider.of<ApiRepository>(context),
             ),
           ),
           BlocProvider(
-            lazy: false,
             create: (context) => CasksBloc(
               repository: RepositoryProvider.of<ApiRepository>(context),
             ),
