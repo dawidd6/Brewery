@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FormulaScreen extends StatelessWidget {
-  static const route = '/state.formula';
+  static const route = '/formula';
   final String name;
 
   static String routeWith(String name) => '$route/$name';
