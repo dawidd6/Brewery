@@ -154,8 +154,10 @@ void main() {
     final repository = MockApiRepository();
     when(() => repository.getCachedFormulae()).thenThrow('');
     when(() => repository.getCachedCasks()).thenThrow('');
-    when(() => repository.getFormulae()).thenThrow('e');
-    when(() => repository.getCasks()).thenThrow('e');
+    when(() => repository.getFormulae()).thenThrow('');
+    when(() => repository.getCasks()).thenThrow('');
+    when(() => repository.getOldCachedFormulae()).thenThrow('e');
+    when(() => repository.getOldCachedCasks()).thenThrow('e');
 
     blocTest(
       'formulae loading error',
