@@ -5,13 +5,13 @@ A cross-platform frontend to [Homebrew formulae API](https://formulae.brew.sh).
 
 ## Screenshots
 
-![](screenshots/flutter_01.png)
-![](screenshots/flutter_02.png)
-![](screenshots/flutter_03.png)
-![](screenshots/flutter_04.png)
-![](screenshots/flutter_05.png)
-![](screenshots/flutter_06.png)
-![](screenshots/flutter_07.png)
+<img src="screenshots/flutter_01.png" width=400>
+<img src="screenshots/flutter_02.png" width=400>
+<img src="screenshots/flutter_03.png" width=400>
+<img src="screenshots/flutter_04.png" width=400>
+<img src="screenshots/flutter_05.png" width=400>
+<img src="screenshots/flutter_06.png" width=400>
+<img src="screenshots/flutter_07.png" width=400>
 
 ## Platforms
 
