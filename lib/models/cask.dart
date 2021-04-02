@@ -93,13 +93,3 @@ class Cask {
     };
   }
 }
-
-extension CaskListExtension on List<Cask> {
-  Cask findCaskByToken(String token) {
-    return firstWhere((cask) => cask.token == token);
-  }
-
-  bool isCaskPresent(String token) {
-    return any((cask) => cask.token == token);
-  }
-}
