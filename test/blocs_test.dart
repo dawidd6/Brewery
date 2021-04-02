@@ -21,7 +21,8 @@ void main() {
 
     blocTest(
       'empty cached formulae results loading loaded',
-      build: () => FormulaeBloc(repository: repository),
+      build: () =>
+          FormulaeBloc(repository: repository)..add(FormulaeLoadEvent()),
       expect: () => [
         FormulaeLoadingState(),
         FormulaeLoadedState(formulae: [], cached: true),
@@ -30,7 +31,7 @@ void main() {
 
     blocTest(
       'empty cached casks results loading loaded',
-      build: () => CasksBloc(repository: repository),
+      build: () => CasksBloc(repository: repository)..add(CasksLoadEvent()),
       expect: () => [
         CasksLoadingState(),
         CasksLoadedState(casks: [], cached: true),
@@ -47,7 +48,8 @@ void main() {
 
     blocTest(
       'empty formulae results loading loaded',
-      build: () => FormulaeBloc(repository: repository),
+      build: () =>
+          FormulaeBloc(repository: repository)..add(FormulaeLoadEvent()),
       expect: () => [
         FormulaeLoadingState(),
         FormulaeLoadedState(formulae: []),
@@ -56,7 +58,7 @@ void main() {
 
     blocTest(
       'empty casks results loading loaded',
-      build: () => CasksBloc(repository: repository),
+      build: () => CasksBloc(repository: repository)..add(CasksLoadEvent()),
       expect: () => [
         CasksLoadingState(),
         CasksLoadedState(casks: []),
@@ -78,7 +80,8 @@ void main() {
 
     blocTest(
       'old cached formulae results loading loaded',
-      build: () => FormulaeBloc(repository: repository),
+      build: () =>
+          FormulaeBloc(repository: repository)..add(FormulaeLoadEvent()),
       expect: () => [
         FormulaeLoadingState(),
         FormulaeLoadedState(formulae: [formula], cached: true, old: true),
@@ -87,7 +90,7 @@ void main() {
 
     blocTest(
       'old cached casks results loading loaded',
-      build: () => CasksBloc(repository: repository),
+      build: () => CasksBloc(repository: repository)..add(CasksLoadEvent()),
       expect: () => [
         CasksLoadingState(),
         CasksLoadedState(casks: [cask], cached: true, old: true),
@@ -105,7 +108,8 @@ void main() {
 
     blocTest(
       'cached formulae results loading loaded',
-      build: () => FormulaeBloc(repository: repository),
+      build: () =>
+          FormulaeBloc(repository: repository)..add(FormulaeLoadEvent()),
       expect: () => [
         FormulaeLoadingState(),
         FormulaeLoadedState(formulae: [formula], cached: true),
@@ -114,7 +118,7 @@ void main() {
 
     blocTest(
       'cached casks results loading loaded',
-      build: () => CasksBloc(repository: repository),
+      build: () => CasksBloc(repository: repository)..add(CasksLoadEvent()),
       expect: () => [
         CasksLoadingState(),
         CasksLoadedState(casks: [cask], cached: true),
@@ -133,7 +137,8 @@ void main() {
 
     blocTest(
       'formulae results loading loaded',
-      build: () => FormulaeBloc(repository: repository),
+      build: () =>
+          FormulaeBloc(repository: repository)..add(FormulaeLoadEvent()),
       expect: () => [
         FormulaeLoadingState(),
         FormulaeLoadedState(formulae: [formula]),
@@ -142,7 +147,7 @@ void main() {
 
     blocTest(
       'casks results loading loaded',
-      build: () => CasksBloc(repository: repository),
+      build: () => CasksBloc(repository: repository)..add(CasksLoadEvent()),
       expect: () => [
         CasksLoadingState(),
         CasksLoadedState(casks: [cask]),
@@ -161,7 +166,8 @@ void main() {
 
     blocTest(
       'formulae loading error',
-      build: () => FormulaeBloc(repository: repository),
+      build: () =>
+          FormulaeBloc(repository: repository)..add(FormulaeLoadEvent()),
       expect: () => [
         FormulaeLoadingState(),
         FormulaeErrorState('e'),
@@ -170,7 +176,7 @@ void main() {
 
     blocTest(
       'casks loading error',
-      build: () => CasksBloc(repository: repository),
+      build: () => CasksBloc(repository: repository)..add(CasksLoadEvent()),
       expect: () => [
         CasksLoadingState(),
         CasksErrorState('e'),
