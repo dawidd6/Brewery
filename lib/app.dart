@@ -168,6 +168,7 @@ class App extends StatelessWidget {
               theme: BreweryTheme.data,
               onGenerateRoute: _routes,
               navigatorKey: _nav,
+              debugShowCheckedModeBanner: false,
             ),
           ),
         ),
