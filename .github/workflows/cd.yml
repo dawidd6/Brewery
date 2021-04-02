@@ -1,27 +1,44 @@
 name: CD
 
 on:
-  workflow_run:
-    workflows:
-      - CI
-    branches:
-      - master
-    types:
-      - completed
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   cd:
     runs-on: ubuntu-latest
-    if: ${{github.event.workflow_run.conclusion == 'success'}}
     steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
+      - name: Get tag name
+        id: tag
+        uses: dawidd6/action-get-tag@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
         with:
           channel: stable
-      - run: flutter pub get
-      - run: flutter build web --release --web-renderer canvaskit
-      - uses: crazy-max/ghaction-github-pages@v2
+      - name: Get dependencies
+        run: flutter pub get
+      - name: Build APK
+        run: flutter build apk
+      - name: Build web
+        run: flutter build web --release --web-renderer canvaskit
+      - name: Deploy web
+        uses: crazy-max/ghaction-github-pages@v2
         with:
           build_dir: build/web
         env:
           GITHUB_TOKEN: ${{github.token}}
+      - name: Create release with assets
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{github.token}}
+          tag: ${{github.ref}}
+          file: build/app/outputs/apk/release/app-release.apk
+          asset_name: Brewery_${{steps.tag.outputs.tag}}.apk
+          overwrite: true
