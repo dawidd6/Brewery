@@ -104,9 +104,3 @@ class Formula {
     };
   }
 }
-
-extension FormulaListExtension on List<Formula> {
-  Formula findFormulaByName(String name) {
-    return firstWhere((formula) => formula.name == name);
-  }
-}
