@@ -16,6 +16,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       yield SettingsLoadedState(
         enableCompletions:
             preferences.getBool(SettingsEnableCompletionsEvent.key) ?? true,
+        completionsHistory:
+            preferences.getInt(SettingsCompletionsHistoryEvent.key) ?? 5,
       );
     } else if (event is SettingsEnableCompletionsEvent) {
       await preferences.setBool(
@@ -24,6 +26,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       );
       yield (state as SettingsLoadedState).copyWith(
         enableCompletions: event.enabled,
+      );
+    } else if (event is SettingsCompletionsHistoryEvent) {
+      await preferences.setInt(
+        SettingsCompletionsHistoryEvent.key,
+        event.history,
+      );
+      yield (state as SettingsLoadedState).copyWith(
+        completionsHistory: event.history,
       );
     }
   }

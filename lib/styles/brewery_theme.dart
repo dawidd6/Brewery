@@ -90,6 +90,12 @@ class BreweryTheme {
         dividerTheme: DividerThemeData(
           color: BreweryColors.brownDark,
         ),
+        sliderTheme: SliderThemeData.fromPrimaryColors(
+          primaryColor: BreweryColors.goldDark,
+          primaryColorDark: BreweryColors.goldDark,
+          primaryColorLight: BreweryColors.goldDark,
+          valueIndicatorTextStyle: listTileSubtitle,
+        ),
         chipTheme: ChipThemeData.fromDefaults(
           primaryColor: BreweryColors.goldLight,
           secondaryColor: BreweryColors.goldDark,

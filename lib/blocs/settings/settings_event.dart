@@ -17,3 +17,14 @@ class SettingsEnableCompletionsEvent extends SettingsEvent {
   @override
   List<Object?> get props => [enabled];
 }
+
+class SettingsCompletionsHistoryEvent extends SettingsEvent {
+  static const key = 'history_completions';
+
+  final int history;
+
+  SettingsCompletionsHistoryEvent({required this.history});
+
+  @override
+  List<Object?> get props => [history];
+}

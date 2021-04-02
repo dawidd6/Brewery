@@ -16,24 +16,38 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Settings'),
       ),
-      body: BlocBuilder<SettingsBloc, SettingsState>(builder: (context, state) {
-        if (state is SettingsLoadedState) {
-          return ListView(
-            children: [
-              SettingTile(
-                title: 'Enable search completions',
-                subtitle:
-                    'Show a box below search bar with previously entered queries',
-                toggled: state.enableCompletions,
-                onChanged: (toggled) => bloc.add(
-                  SettingsEnableCompletionsEvent(enabled: toggled),
+      body: BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (context, state) {
+          if (state is SettingsLoadedState) {
+            return ListView(
+              itemExtent: 80.0,
+              children: [
+                SettingTile(
+                  title: 'Enable search completions',
+                  subtitle:
+                      'Show a box below search bar with previously entered queries',
+                  toggled: state.enableCompletions,
+                  onSwitchChanged: (toggled) => bloc.add(
+                    SettingsEnableCompletionsEvent(enabled: toggled),
+                  ),
                 ),
-              ),
-            ],
-          );
-        }
-        return Container();
-      }),
+                SettingTile.slider(
+                  title: 'Search completion history',
+                  subtitle: 'How much queries should be remembered',
+                  value: state.completionsHistory.toDouble(),
+                  min: 0,
+                  max: 10,
+                  onSliderChanged: (value) => bloc.add(
+                    SettingsCompletionsHistoryEvent(history: value.toInt()),
+                  ),
+                  enabled: state.enableCompletions,
+                ),
+              ],
+            );
+          }
+          return Container();
+        },
+      ),
     );
   }
 }

@@ -1,35 +1,106 @@
 import 'package:brewery/styles/brewery_theme.dart';
 import 'package:flutter/material.dart';
 
-class SettingTile extends StatelessWidget {
+class SettingTile<T> extends StatelessWidget {
   final String title;
   final String subtitle;
-  final bool toggled;
-  final void Function(bool) onChanged;
+  final double? value;
+  final double? min;
+  final double? max;
+  final bool? toggled;
+  final bool enabled;
+  final void Function(bool)? onSwitchChanged;
+  final void Function(double)? onSliderChanged;
 
   SettingTile({
     Key? key,
     required this.title,
     required this.subtitle,
     required this.toggled,
-    required this.onChanged,
-  }) : super(key: key);
+    required this.onSwitchChanged,
+    this.enabled = true,
+  })  : value = null,
+        min = null,
+        max = null,
+        onSliderChanged = null,
+        super(key: key);
+
+  SettingTile.slider({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.value,
+    required this.min,
+    required this.max,
+    required this.onSliderChanged,
+    this.enabled = true,
+  })  : toggled = null,
+        onSwitchChanged = null,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SwitchListTile(
-      value: toggled,
-      onChanged: onChanged,
-      title: Padding(
-        padding: EdgeInsets.only(bottom: 10.0),
-        child: Text(
-          title,
-          style: BreweryTheme.listTileTitle,
+    if (onSliderChanged != null) {
+      return Opacity(
+        opacity: enabled ? 1.0 : 0.4,
+        child: ListTile(
+          title: Padding(
+            padding: EdgeInsets.only(bottom: 10.0),
+            child: Text(
+              title,
+              style: BreweryTheme.listTileTitle,
+              overflow: TextOverflow.fade,
+              softWrap: false,
+              maxLines: 1,
+            ),
+          ),
+          subtitle: Text(
+            subtitle,
+            style: BreweryTheme.listTileSubtitle,
+            overflow: TextOverflow.fade,
+            maxLines: 2,
+          ),
+          trailing: FittedBox(
+            child: Row(
+              children: [
+                Slider(
+                  value: value!,
+                  min: min!,
+                  max: max!,
+                  onChanged: enabled ? onSliderChanged : null,
+                ),
+                Text(
+                  value!.toInt().toString(),
+                  style: BreweryTheme.listTileSubtitle,
+                )
+              ],
+            ),
+          ),
         ),
-      ),
-      subtitle: Text(
-        subtitle,
-        style: BreweryTheme.listTileSubtitle,
+      );
+    }
+
+    return Opacity(
+      opacity: enabled ? 1.0 : 0.4,
+      child: SwitchListTile(
+        value: toggled!,
+        onChanged: enabled ? onSwitchChanged : null,
+        title: Padding(
+          padding: EdgeInsets.only(bottom: 10.0),
+          child: Text(
+            title,
+            style: BreweryTheme.listTileTitle,
+            overflow: TextOverflow.fade,
+            softWrap: false,
+            maxLines: 1,
+          ),
+        ),
+        subtitle: Text(
+          subtitle,
+          style: BreweryTheme.listTileSubtitle,
+          overflow: TextOverflow.fade,
+          maxLines: 2,
+        ),
       ),
     );
   }

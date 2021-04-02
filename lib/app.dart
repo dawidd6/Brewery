@@ -148,12 +148,27 @@ class App extends StatelessWidget {
             create: (context) => SettingsBloc()..add(SettingsLoadEvent()),
           ),
         ],
-        child: KeyboardDismisser(
-          child: MaterialApp(
-            title: 'Brewery',
-            theme: BreweryTheme.data,
-            onGenerateRoute: _routes,
-            navigatorKey: _nav,
+        child: BlocListener<SettingsBloc, SettingsState>(
+          listener: (context, state) {
+            final completionsBloc = BlocProvider.of<CompletionsBloc>(context);
+            if (state is SettingsLoadedState) {
+              if (state.enableCompletions) {
+                completionsBloc.add(CompletionsEnableEvent());
+              } else {
+                completionsBloc.add(CompletionsDisableEvent());
+              }
+              completionsBloc.add(
+                CompletionsHistoryEvent(history: state.completionsHistory),
+              );
+            }
+          },
+          child: KeyboardDismisser(
+            child: MaterialApp(
+              title: 'Brewery',
+              theme: BreweryTheme.data,
+              onGenerateRoute: _routes,
+              navigatorKey: _nav,
+            ),
           ),
         ),
       ),
