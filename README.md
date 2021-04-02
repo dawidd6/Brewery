@@ -3,6 +3,16 @@
 
 A cross-platform frontend to [Homebrew formulae API](https://formulae.brew.sh).
 
+## Features
+
+[x] Works on many platforms
+[x] Supports formulae and casks
+[ ] Supports analytics
+[x] Regexp filtering of formulae and casks list
+[x] Filter results highlighting
+
+... and more!
+
 ## Screenshots
 
 <img src="screenshots/flutter_01.png" width=400>
