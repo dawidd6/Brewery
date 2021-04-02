@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 class RegexpFilter extends StatefulWidget {
   final void Function()? onTap;
   final void Function(String)? onSubmitted;
-  final void Function(String) onChanged;
-  final Iterable<String> Function(TextEditingValue) optionsBuilder;
+  final void Function(String)? onChanged;
+  final Iterable<String> Function(TextEditingValue)? optionsBuilder;
   final String title;
   final bool focus;
 
   RegexpFilter({
     Key? key,
     required this.title,
-    required this.onChanged,
-    required this.optionsBuilder,
+    this.onChanged,
+    this.optionsBuilder,
     this.onTap,
     this.onSubmitted,
     this.focus = false,
@@ -28,7 +28,7 @@ class _RegexpFilterState extends State<RegexpFilter> {
   Widget build(BuildContext context) {
     return RawAutocomplete<String>(
       onSelected: widget.onChanged,
-      optionsBuilder: widget.optionsBuilder,
+      optionsBuilder: widget.optionsBuilder ?? (_) => [],
       optionsViewBuilder: (context, onSelected, options) => Align(
         alignment: Alignment.topLeft,
         child: Material(
@@ -61,7 +61,9 @@ class _RegexpFilterState extends State<RegexpFilter> {
         focusNode: node,
         controller: controller,
         onChanged: (input) {
-          widget.onChanged(input);
+          if (widget.onChanged != null) {
+            widget.onChanged!(input);
+          }
           setState(() {});
         },
         onSubmitted: widget.onSubmitted,
@@ -79,7 +81,9 @@ class _RegexpFilterState extends State<RegexpFilter> {
             child: IconButton(
               onPressed: () {
                 controller.clear();
-                widget.onChanged('');
+                if (widget.onChanged != null) {
+                  widget.onChanged!('');
+                }
                 setState(() {});
               },
               hoverColor: Colors.transparent,

@@ -1,4 +1,5 @@
 import 'package:brewery/blocs/casks/casks_bloc.dart';
+import 'package:brewery/blocs/completions/completions_bloc.dart';
 import 'package:brewery/blocs/filtered_casks/filtered_casks_bloc.dart';
 import 'package:brewery/models/cask.dart';
 import 'package:brewery/screens/cask_screen.dart';
@@ -12,40 +13,31 @@ import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CasksScreen extends StatefulWidget {
+class CasksScreen extends StatelessWidget {
   static const route = '/casks';
 
   CasksScreen({Key? key});
 
   @override
-  _CasksScreenState createState() => _CasksScreenState();
-}
-
-class _CasksScreenState extends State<CasksScreen> {
-  late final FilteredCasksBloc filteredBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    filteredBloc = BlocProvider.of<FilteredCasksBloc>(context);
-  }
-
-  @override
-  void dispose() {
-    filteredBloc.add(FilteredCasksFilterEvent(filter: ''));
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final filteredBloc = BlocProvider.of<FilteredCasksBloc>(context);
+    final completionsBloc = BlocProvider.of<CompletionsBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: MaterialHero(
           tag: 'search',
-          child: RegexpFilter(
-            title: 'Search casks',
-            onChanged: (filter) => filteredBloc.add(
-              FilteredCasksFilterEvent(filter: filter),
+          child: BlocBuilder<CompletionsBloc, CompletionsState>(
+            builder: (context, state) => RegexpFilter(
+              title: 'Search casks',
+              onChanged: (filter) => filteredBloc.add(
+                FilteredCasksFilterEvent(filter: filter),
+              ),
+              onSubmitted: (input) => completionsBloc.add(
+                CompletionsAddEvent(input: input),
+              ),
+              optionsBuilder: (value) =>
+                  completionsBloc.completions(value.text),
             ),
           ),
         ),
@@ -93,7 +85,6 @@ class _CasksScreenState extends State<CasksScreen> {
                     tileSubtitleBuilder: (cask) =>
                         cask.description.isEmpty ? cask.name : cask.description,
                     tileTrailingBuilder: (cask) => cask.version,
-                    tileLeadingBuilder: (cask) => '',
                   );
                 },
               );

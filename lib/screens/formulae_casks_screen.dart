@@ -1,4 +1,5 @@
 import 'package:brewery/blocs/casks/casks_bloc.dart';
+import 'package:brewery/blocs/completions/completions_bloc.dart';
 import 'package:brewery/blocs/filtered_casks/filtered_casks_bloc.dart';
 import 'package:brewery/blocs/filtered_formulae/filtered_formulae_bloc.dart';
 import 'package:brewery/blocs/formulae/formulae_bloc.dart';
@@ -16,50 +17,39 @@ import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FormulaeCasksScreen extends StatefulWidget {
+class FormulaeCasksScreen extends StatelessWidget {
   static const route = '/formulae-casks';
 
   FormulaeCasksScreen({Key? key});
 
   @override
-  _FormulaeCasksScreenState createState() => _FormulaeCasksScreenState();
-}
-
-class _FormulaeCasksScreenState extends State<FormulaeCasksScreen> {
-  late final FilteredFormulaeBloc filteredFormulaeBloc;
-  late final FilteredCasksBloc filteredCasksBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    filteredFormulaeBloc = BlocProvider.of<FilteredFormulaeBloc>(context);
-    filteredCasksBloc = BlocProvider.of<FilteredCasksBloc>(context);
-  }
-
-  @override
-  void dispose() {
-    filteredFormulaeBloc.add(FilteredFormulaeFilterEvent(filter: ''));
-    filteredCasksBloc.add(FilteredCasksFilterEvent(filter: ''));
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final filteredFormulaeBloc = BlocProvider.of<FilteredFormulaeBloc>(context);
+    final filteredCasksBloc = BlocProvider.of<FilteredCasksBloc>(context);
+    final completionsBloc = BlocProvider.of<CompletionsBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: MaterialHero(
           tag: 'search',
-          child: RegexpFilter(
-            title: 'Search formulae and casks',
-            focus: true,
-            onChanged: (filter) {
-              filteredFormulaeBloc.add(
-                FilteredFormulaeFilterEvent(filter: filter),
-              );
-              filteredCasksBloc.add(
-                FilteredCasksFilterEvent(filter: filter),
-              );
-            },
+          child: BlocBuilder<CompletionsBloc, CompletionsState>(
+            builder: (context, state) => RegexpFilter(
+              title: 'Search formulae and casks',
+              focus: true,
+              onChanged: (filter) {
+                filteredFormulaeBloc.add(
+                  FilteredFormulaeFilterEvent(filter: filter),
+                );
+                filteredCasksBloc.add(
+                  FilteredCasksFilterEvent(filter: filter),
+                );
+              },
+              onSubmitted: (input) => completionsBloc.add(
+                CompletionsAddEvent(input: input),
+              ),
+              optionsBuilder: (value) =>
+                  completionsBloc.completions(value.text),
+            ),
           ),
         ),
         actions: [

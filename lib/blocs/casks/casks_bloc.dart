@@ -9,9 +9,7 @@ part 'casks_state.dart';
 class CasksBloc extends Bloc<CasksEvent, CasksState> {
   final ApiRepository repository;
 
-  CasksBloc({required this.repository}) : super(CasksLoadingState()) {
-    add(CasksLoadEvent());
-  }
+  CasksBloc({required this.repository}) : super(CasksLoadingState());
 
   @override
   Stream<CasksState> mapEventToState(CasksEvent event) async* {

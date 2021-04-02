@@ -1,3 +1,4 @@
+import 'package:brewery/blocs/completions/completions_bloc.dart';
 import 'package:brewery/blocs/filtered_formulae/filtered_formulae_bloc.dart';
 import 'package:brewery/blocs/formulae/formulae_bloc.dart';
 import 'package:brewery/models/formula.dart';
@@ -12,40 +13,31 @@ import 'package:brewery/widgets/regexp_filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FormulaeScreen extends StatefulWidget {
+class FormulaeScreen extends StatelessWidget {
   static const route = '/formulae';
 
   FormulaeScreen({Key? key});
 
   @override
-  _FormulaeScreenState createState() => _FormulaeScreenState();
-}
-
-class _FormulaeScreenState extends State<FormulaeScreen> {
-  late final FilteredFormulaeBloc filteredBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    filteredBloc = BlocProvider.of<FilteredFormulaeBloc>(context);
-  }
-
-  @override
-  void dispose() {
-    filteredBloc.add(FilteredFormulaeFilterEvent(filter: ''));
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final filteredBloc = BlocProvider.of<FilteredFormulaeBloc>(context);
+    final completionsBloc = BlocProvider.of<CompletionsBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: MaterialHero(
           tag: 'search',
-          child: RegexpFilter(
-            title: 'Search formulae',
-            onChanged: (filter) => filteredBloc.add(
-              FilteredFormulaeFilterEvent(filter: filter),
+          child: BlocBuilder<CompletionsBloc, CompletionsState>(
+            builder: (context, state) => RegexpFilter(
+              title: 'Search formulae',
+              onChanged: (filter) => filteredBloc.add(
+                FilteredFormulaeFilterEvent(filter: filter),
+              ),
+              onSubmitted: (input) => completionsBloc.add(
+                CompletionsAddEvent(input: input),
+              ),
+              optionsBuilder: (value) =>
+                  completionsBloc.completions(value.text),
             ),
           ),
         ),
@@ -93,7 +85,6 @@ class _FormulaeScreenState extends State<FormulaeScreen> {
                     tileTitleBuilder: (formula) => formula.name,
                     tileSubtitleBuilder: (formula) => formula.description,
                     tileTrailingBuilder: (formula) => formula.version,
-                    tileLeadingBuilder: (formula) => '',
                   );
                 },
               );

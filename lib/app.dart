@@ -1,6 +1,9 @@
+import 'package:brewery/blocs/cask/cask_bloc.dart';
 import 'package:brewery/blocs/casks/casks_bloc.dart';
+import 'package:brewery/blocs/completions/completions_bloc.dart';
 import 'package:brewery/blocs/filtered_casks/filtered_casks_bloc.dart';
 import 'package:brewery/blocs/filtered_formulae/filtered_formulae_bloc.dart';
+import 'package:brewery/blocs/formula/formula_bloc.dart';
 import 'package:brewery/blocs/formulae/formulae_bloc.dart';
 import 'package:brewery/blocs/settings/settings_cubit.dart';
 import 'package:brewery/repositories/api_repository.dart';
@@ -47,25 +50,55 @@ class App extends StatelessWidget {
       );
     } else if (settings.name == FormulaeCasksScreen.route) {
       return MaterialPageRoute(
-        builder: (context) => FormulaeCasksScreen(),
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => FilteredFormulaeBloc(
+                bloc: BlocProvider.of<FormulaeBloc>(context),
+              ),
+            ),
+            BlocProvider(
+              create: (context) => FilteredCasksBloc(
+                bloc: BlocProvider.of<CasksBloc>(context),
+              ),
+            ),
+          ],
+          child: FormulaeCasksScreen(),
+        ),
         settings: settings,
       );
     } else if (settings.name == FormulaeScreen.route) {
       return MaterialPageRoute(
-        builder: (context) => FormulaeScreen(),
+        builder: (context) => BlocProvider(
+          create: (context) => FilteredFormulaeBloc(
+            bloc: BlocProvider.of<FormulaeBloc>(context),
+          ),
+          child: FormulaeScreen(),
+        ),
         settings: settings,
       );
     } else if (settings.name == CasksScreen.route) {
       return MaterialPageRoute(
-        builder: (context) => CasksScreen(),
+        builder: (context) => BlocProvider(
+          create: (context) => FilteredCasksBloc(
+            bloc: BlocProvider.of<CasksBloc>(context),
+          ),
+          child: CasksScreen(),
+        ),
         settings: settings,
       );
     } else if (settings.name!.startsWith(FormulaScreen.route)) {
       final uri = Uri.parse(settings.name!);
       if (uri.pathSegments.length == 2) {
+        final name = uri.pathSegments.last;
         return MaterialPageRoute(
-          builder: (context) => FormulaScreen(
-            name: uri.pathSegments.last,
+          builder: (context) => BlocProvider(
+            create: (context) => FormulaBloc(
+              repository: RepositoryProvider.of<ApiRepository>(context),
+            )..add(FormulaLoadEvent(name: name)),
+            child: FormulaScreen(
+              name: name,
+            ),
           ),
           settings: settings,
         );
@@ -73,9 +106,15 @@ class App extends StatelessWidget {
     } else if (settings.name!.startsWith(CaskScreen.route)) {
       final uri = Uri.parse(settings.name!);
       if (uri.pathSegments.length == 2) {
+        final token = uri.pathSegments.last;
         return MaterialPageRoute(
-          builder: (context) => CaskScreen(
-            token: uri.pathSegments.last,
+          builder: (context) => BlocProvider(
+            create: (context) => CaskBloc(
+              repository: RepositoryProvider.of<ApiRepository>(context),
+            )..add(CaskLoadEvent(token: token)),
+            child: CaskScreen(
+              token: token,
+            ),
           ),
           settings: settings,
         );
@@ -93,41 +132,28 @@ class App extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            lazy: false,
             create: (context) => SettingsTestCubit(),
           ),
           BlocProvider(
             create: (context) => FormulaeBloc(
               repository: RepositoryProvider.of<ApiRepository>(context),
-            ),
+            )..add(FormulaeLoadEvent()),
           ),
           BlocProvider(
             create: (context) => CasksBloc(
               repository: RepositoryProvider.of<ApiRepository>(context),
-            ),
+            )..add(CasksLoadEvent()),
+          ),
+          BlocProvider(
+            create: (context) => CompletionsBloc()..add(CompletionsLoadEvent()),
           ),
         ],
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => FilteredFormulaeBloc(
-                bloc: BlocProvider.of<FormulaeBloc>(context),
-              ),
-            ),
-            BlocProvider(
-              create: (context) => FilteredCasksBloc(
-                bloc: BlocProvider.of<CasksBloc>(context),
-              ),
-            ),
-          ],
-          child: KeyboardDismisser(
-            child: MaterialApp(
-              title: 'Brewery',
-              theme: BreweryTheme.data,
-              initialRoute: '/',
-              onGenerateRoute: _routes,
-              navigatorKey: _nav,
-            ),
+        child: KeyboardDismisser(
+          child: MaterialApp(
+            title: 'Brewery',
+            theme: BreweryTheme.data,
+            onGenerateRoute: _routes,
+            navigatorKey: _nav,
           ),
         ),
       ),

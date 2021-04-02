@@ -47,7 +47,6 @@ class HomeScreen extends StatelessWidget {
                   tag: 'search',
                   child: RegexpFilter(
                     title: 'Search formulae and casks',
-                    onChanged: (filter) {},
                     onTap: () => Navigator.of(context).pushNamed(
                       FormulaeCasksScreen.route,
                     ),

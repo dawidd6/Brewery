@@ -9,9 +9,7 @@ part 'formulae_state.dart';
 class FormulaeBloc extends Bloc<FormulaeEvent, FormulaeState> {
   final ApiRepository repository;
 
-  FormulaeBloc({required this.repository}) : super(FormulaeLoadingState()) {
-    add(FormulaeLoadEvent());
-  }
+  FormulaeBloc({required this.repository}) : super(FormulaeLoadingState());
 
   @override
   Stream<FormulaeState> mapEventToState(FormulaeEvent event) async* {
