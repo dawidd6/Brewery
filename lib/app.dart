@@ -5,7 +5,7 @@ import 'package:brewery/blocs/filtered_casks/filtered_casks_bloc.dart';
 import 'package:brewery/blocs/filtered_formulae/filtered_formulae_bloc.dart';
 import 'package:brewery/blocs/formula/formula_bloc.dart';
 import 'package:brewery/blocs/formulae/formulae_bloc.dart';
-import 'package:brewery/blocs/settings/settings_cubit.dart';
+import 'package:brewery/blocs/settings/settings_bloc.dart';
 import 'package:brewery/repositories/api_repository.dart';
 import 'package:brewery/screens/cask_screen.dart';
 import 'package:brewery/screens/casks_screen.dart';
@@ -132,9 +132,6 @@ class App extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => SettingsTestCubit(),
-          ),
-          BlocProvider(
             create: (context) => FormulaeBloc(
               repository: RepositoryProvider.of<ApiRepository>(context),
             )..add(FormulaeLoadEvent()),
@@ -146,6 +143,9 @@ class App extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => CompletionsBloc()..add(CompletionsLoadEvent()),
+          ),
+          BlocProvider(
+            create: (context) => SettingsBloc()..add(SettingsLoadEvent()),
           ),
         ],
         child: KeyboardDismisser(
