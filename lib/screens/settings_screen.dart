@@ -1,4 +1,5 @@
 import 'package:brewery/blocs/settings/settings_bloc.dart';
+import 'package:brewery/widgets/setting_section.dart';
 import 'package:brewery/widgets/setting_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,30 +20,34 @@ class SettingsScreen extends StatelessWidget {
       body: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
           if (state is SettingsLoadedState) {
-            return ListView(
-              itemExtent: 80.0,
-              children: [
-                SettingTile(
-                  title: 'Enable search completions',
-                  subtitle:
-                      'Show a box below search bar with previously entered queries',
-                  toggled: state.enableCompletions,
-                  onSwitchChanged: (toggled) => bloc.add(
-                    SettingsEnableCompletionsEvent(enabled: toggled),
-                  ),
+            return SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  children: [
+                    SettingSection(header: 'Completions'),
+                    SettingTile(
+                      title: 'Show box',
+                      subtitle:
+                          'Show a box below search bar with previously entered queries',
+                      toggled: state.enableCompletions,
+                      onSwitchChanged: (toggled) => bloc.add(
+                        SettingsEnableCompletionsEvent(enabled: toggled),
+                      ),
+                    ),
+                    SettingTile.slider(
+                      title: 'History size',
+                      subtitle: 'How much queries should be remembered',
+                      value: state.completionsHistory.toDouble(),
+                      min: 0,
+                      max: 8,
+                      onSliderChanged: (value) => bloc.add(
+                        SettingsCompletionsHistoryEvent(history: value.toInt()),
+                      ),
+                      enabled: state.enableCompletions,
+                    ),
+                  ],
                 ),
-                SettingTile.slider(
-                  title: 'Search completion history',
-                  subtitle: 'How much queries should be remembered',
-                  value: state.completionsHistory.toDouble(),
-                  min: 0,
-                  max: 10,
-                  onSliderChanged: (value) => bloc.add(
-                    SettingsCompletionsHistoryEvent(history: value.toInt()),
-                  ),
-                  enabled: state.enableCompletions,
-                ),
-              ],
+              ),
             );
           }
           return Container();

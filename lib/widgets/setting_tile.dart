@@ -1,4 +1,5 @@
 import 'package:brewery/styles/brewery_theme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SettingTile<T> extends StatelessWidget {
@@ -44,21 +45,17 @@ class SettingTile<T> extends StatelessWidget {
       return Opacity(
         opacity: enabled ? 1.0 : 0.4,
         child: ListTile(
+          contentPadding: EdgeInsets.all(20.0),
           title: Padding(
             padding: EdgeInsets.only(bottom: 10.0),
             child: Text(
               title,
-              style: BreweryTheme.listTileTitle,
-              overflow: TextOverflow.fade,
-              softWrap: false,
-              maxLines: 1,
+              style: BreweryTheme.settingTileTitle,
             ),
           ),
           subtitle: Text(
             subtitle,
-            style: BreweryTheme.listTileSubtitle,
-            overflow: TextOverflow.fade,
-            maxLines: 2,
+            style: BreweryTheme.settingTileSubtitle,
           ),
           trailing: FittedBox(
             child: Row(
@@ -67,11 +64,13 @@ class SettingTile<T> extends StatelessWidget {
                   value: value!,
                   min: min!,
                   max: max!,
+                  divisions: (max! - min!).toInt(),
+                  label: value!.toInt().toString(),
                   onChanged: enabled ? onSliderChanged : null,
                 ),
                 Text(
                   value!.toInt().toString(),
-                  style: BreweryTheme.listTileSubtitle,
+                  style: BreweryTheme.settingTileSubtitle,
                 )
               ],
             ),
@@ -83,23 +82,19 @@ class SettingTile<T> extends StatelessWidget {
     return Opacity(
       opacity: enabled ? 1.0 : 0.4,
       child: SwitchListTile(
+        contentPadding: EdgeInsets.all(20.0),
         value: toggled!,
         onChanged: enabled ? onSwitchChanged : null,
         title: Padding(
           padding: EdgeInsets.only(bottom: 10.0),
           child: Text(
             title,
-            style: BreweryTheme.listTileTitle,
-            overflow: TextOverflow.fade,
-            softWrap: false,
-            maxLines: 1,
+            style: BreweryTheme.settingTileTitle,
           ),
         ),
         subtitle: Text(
           subtitle,
-          style: BreweryTheme.listTileSubtitle,
-          overflow: TextOverflow.fade,
-          maxLines: 2,
+          style: BreweryTheme.settingTileSubtitle,
         ),
       ),
     );

@@ -179,4 +179,18 @@ class BreweryTheme {
   static TextStyle get inputCompletions => TextStyle(
         color: BreweryColors.goldLight,
       );
+
+  static TextStyle get settingCategory => TextStyle(
+        color: BreweryColors.goldDark,
+        fontSize: 15.0,
+        fontWeight: FontWeight.w500,
+      );
+
+  static TextStyle get settingTileTitle => listTileTitle.copyWith(
+        color: BreweryColors.goldLight,
+      );
+
+  static TextStyle get settingTileSubtitle => listTileSubtitle.copyWith(
+        color: BreweryColors.goldLight,
+      );
 }
