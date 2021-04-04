@@ -16,7 +16,9 @@ class FilteredCasksBloc extends Bloc<FilteredCasksEvent, FilteredCasksState> {
   FilteredCasksBloc({required this.bloc})
       : super(FilteredCasksState(
           filter: RegExp(''),
-          casks: [],
+          casks: bloc.state is CasksLoadedState
+              ? (bloc.state as CasksLoadedState).casks
+              : [],
         )) {
     _subscription = bloc.stream.listen((state) {
       if (state is CasksLoadedState) {
