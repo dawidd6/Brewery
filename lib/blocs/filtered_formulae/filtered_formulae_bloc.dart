@@ -17,9 +17,7 @@ class FilteredFormulaeBloc
   FilteredFormulaeBloc({required this.bloc})
       : super(FilteredFormulaeState(
           filter: RegExp(''),
-          formulae: bloc.state is FormulaeLoadedState
-              ? (bloc.state as FormulaeLoadedState).formulae
-              : [],
+          formulae: [],
         )) {
     _subscription = bloc.stream.listen((state) {
       if (state is FormulaeLoadedState) {
