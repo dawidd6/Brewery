@@ -35,13 +35,14 @@ class FilteredCasksBloc extends Bloc<FilteredCasksEvent, FilteredCasksState> {
   Stream<FilteredCasksState> mapEventToState(FilteredCasksEvent event) async* {
     if (event is FilteredCasksFilterEvent) {
       final filter = RegExp(event.filter, caseSensitive: false);
+      final blocState = bloc.state;
 
-      if (bloc.state is CasksLoadedState) {
+      if (blocState is CasksLoadedState) {
         yield FilteredCasksState(
           filter: filter,
           casks: _filterCasks(
             filter,
-            (bloc.state as CasksLoadedState).casks,
+            blocState.casks,
           ),
         );
       } else {

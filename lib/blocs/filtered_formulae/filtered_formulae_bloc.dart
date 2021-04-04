@@ -37,13 +37,14 @@ class FilteredFormulaeBloc
       FilteredFormulaeEvent event) async* {
     if (event is FilteredFormulaeFilterEvent) {
       final filter = RegExp(event.filter, caseSensitive: false);
+      final blocState = bloc.state;
 
-      if (bloc.state is FormulaeLoadedState) {
+      if (blocState is FormulaeLoadedState) {
         yield FilteredFormulaeState(
           filter: filter,
           formulae: _filterFormulae(
             filter,
-            (bloc.state as FormulaeLoadedState).formulae,
+            blocState.formulae,
           ),
         );
       } else {
