@@ -3,6 +3,9 @@
 
 A cross-platform frontend to [Homebrew formulae API](https://formulae.brew.sh).
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/dawidd6/brewery/CI)
+![style](https://img.shields.io/badge/style-pedantic-blue)
+
 ## Features
 
 - [x] Works on many platforms
