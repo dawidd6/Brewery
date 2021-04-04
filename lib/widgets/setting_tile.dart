@@ -41,22 +41,29 @@ class SettingTile<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleWidget = Padding(
+      padding: EdgeInsets.only(bottom: 10.0),
+      child: Text(
+        title,
+        style: BreweryTheme.settingTileTitle,
+      ),
+    );
+    final subtitleWidget = Text(
+      subtitle,
+      style: BreweryTheme.settingTileSubtitle,
+    );
+    final opacity = enabled ? 1.0 : 0.4;
+    final padding = EdgeInsets.all(20.0);
+    final duration = Duration(milliseconds: 500);
+
     if (onSliderChanged != null) {
-      return Opacity(
-        opacity: enabled ? 1.0 : 0.4,
+      return AnimatedOpacity(
+        opacity: opacity,
+        duration: duration,
         child: ListTile(
-          contentPadding: EdgeInsets.all(20.0),
-          title: Padding(
-            padding: EdgeInsets.only(bottom: 10.0),
-            child: Text(
-              title,
-              style: BreweryTheme.settingTileTitle,
-            ),
-          ),
-          subtitle: Text(
-            subtitle,
-            style: BreweryTheme.settingTileSubtitle,
-          ),
+          contentPadding: padding,
+          title: titleWidget,
+          subtitle: subtitleWidget,
           trailing: FittedBox(
             child: Row(
               children: [
@@ -79,23 +86,15 @@ class SettingTile<T> extends StatelessWidget {
       );
     }
 
-    return Opacity(
-      opacity: enabled ? 1.0 : 0.4,
+    return AnimatedOpacity(
+      opacity: opacity,
+      duration: duration,
       child: SwitchListTile(
-        contentPadding: EdgeInsets.all(20.0),
+        contentPadding: padding,
         value: toggled!,
         onChanged: enabled ? onSwitchChanged : null,
-        title: Padding(
-          padding: EdgeInsets.only(bottom: 10.0),
-          child: Text(
-            title,
-            style: BreweryTheme.settingTileTitle,
-          ),
-        ),
-        subtitle: Text(
-          subtitle,
-          style: BreweryTheme.settingTileSubtitle,
-        ),
+        title: titleWidget,
+        subtitle: subtitleWidget,
       ),
     );
   }
